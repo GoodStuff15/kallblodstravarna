@@ -1,6 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
 using restortlibrary.Data;
+using restortlibrary.Models;
+using restortlibrary.Repositories;
 
 namespace resortapi
 {
@@ -19,6 +21,9 @@ namespace resortapi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IRepository<Customer>, CustomerRepo>();
+            
 
             var app = builder.Build();
 

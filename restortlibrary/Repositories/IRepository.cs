@@ -12,17 +12,17 @@ namespace restortlibrary.Repositories
         public void Create(TEntity entity);
 
         // Read
-        public TEntity GetAsync(int id);
+        public TEntity Get(int id);
 
         // Update
-        public void UpdateAsync(TEntity entity);
+        public void Update(TEntity entity);
 
         // Delete
-        public void DeleteAsync(TEntity entity);
+        public void Delete(TEntity entity);
 
 
         // Read All 
-        public ICollection<TEntity> GetAllAsync();
+        public ICollection<TEntity> GetAll();
 
         
     }

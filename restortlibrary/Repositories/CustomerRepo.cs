@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace restortlibrary.Repositories
 {
-    public class CustomerRepo : AbstractRepo<Customer>
+    public class CustomerRepo : AbstractRepo<Customer>, IRepository<Customer>
     {
         public CustomerRepo(ResortContext context) : base(context) 
         {
