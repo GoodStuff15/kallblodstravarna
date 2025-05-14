@@ -1,4 +1,5 @@
-﻿using restortlibrary.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using restortlibrary.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace restortlibrary.Repositories
 {
-    public class AbstractRepo<TEntity> where TEntity : class
+    public class AbstractRepo<TEntity> : IRepository<TEntity> where TEntity : class 
     {
         protected ResortContext _context;
 
@@ -17,35 +18,38 @@ namespace restortlibrary.Repositories
         }
 
         // Create
-        public void Create(TEntity entity)
+        public async Task CreateAsync(TEntity entity)
         {
-            _context.Set<TEntity>().Add(entity);
+            await _context.Set<TEntity>().AddAsync(entity);
         }
 
         // Read
-        public TEntity Get(int id)
+        public async Task<TEntity> GetAsync(int id)
         {
-            var entity = _context.Set<TEntity>().FindAsync(id);
+            var entity = await _context.Set<TEntity>().FindAsync(id);
 
-            return entity.Result;
+            return entity;
         }
 
         // Update
-        public void Update(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
             _context.Set<TEntity>().Update(entity);
+            await _context.SaveChangesAsync();
         }
 
         // Delete
-        public void Delete(TEntity entity)
+        public async Task DeleteAsync(TEntity entity)
         {
             _context.Set<TEntity>().Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         // Read All
-        public ICollection<TEntity> GetAll()
+        public async Task<ICollection<TEntity>> GetAllAsync()
         {
-            return  _context.Set<TEntity>().ToList();
+            return await _context.Set<TEntity>().ToListAsync();
+
         }
 
     }

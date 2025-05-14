@@ -9,20 +9,20 @@ namespace restortlibrary.Repositories
     public interface IRepository<TEntity>
     {
         // Create
-        public void Create(TEntity entity);
+        public Task CreateAsync(TEntity entity);
 
         // Read
-        public TEntity GetAsync(int id);
+        public Task<TEntity> GetAsync(int id);
 
         // Update
-        public void UpdateAsync(TEntity entity);
+        public Task UpdateAsync(TEntity entity);
 
         // Delete
-        public void DeleteAsync(TEntity entity);
+        public Task DeleteAsync(TEntity entity);
 
 
         // Read All 
-        public ICollection<TEntity> GetAllAsync();
+        public Task<ICollection<TEntity>> GetAllAsync();
 
         
     }
