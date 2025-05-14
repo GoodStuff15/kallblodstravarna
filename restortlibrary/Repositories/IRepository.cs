@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace restortlibrary.Repositories
 {
-    public interface IRepository<T>
+    public interface IRepository<TEntity>
     {
         // Create
-        public Task<T> CreateAsync(T t);
+        public void Create(TEntity entity);
 
         // Read
-        public Task<T> GetAsync(int id);
+        public TEntity GetAsync(int id);
 
         // Update
-        public Task<T> UpdateAsync(T t);
+        public void UpdateAsync(TEntity entity);
 
         // Delete
-        public Task DeleteAsync(int id);
+        public void DeleteAsync(TEntity entity);
 
 
         // Read All 
-        public ICollection<T> GetAllAsync();
+        public ICollection<TEntity> GetAllAsync();
 
         
     }
