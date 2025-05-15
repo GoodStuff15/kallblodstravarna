@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using restortlibrary.Data;
+using Scalar.AspNetCore;
 
 namespace resortapi
 {
@@ -16,17 +17,16 @@ namespace resortapi
             builder.Services.AddDbContext<ResortContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("resortapi")));
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+            builder.Services.AddOpenApi();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.MapOpenApi();
+                app.MapScalarApiReference();
             }
 
             app.UseHttpsRedirection();
