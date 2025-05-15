@@ -1,4 +1,4 @@
-@resortapi_HostAddress = http://localhost:5054
+@resortapi_HostAddress = http://localhost:5161
 
 GET {{resortapi_HostAddress}}/weatherforecast/
 Accept: application/json
