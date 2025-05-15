@@ -16,7 +16,7 @@ namespace resortapi
             builder.Services.AddControllers();
             builder.Services.AddDbContext<ResortContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly("resortapi")));
+                b => b.MigrationsAssembly("restortlibrary")));
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
