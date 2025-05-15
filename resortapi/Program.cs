@@ -1,5 +1,7 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using restortlibrary.Data;
 using restortlibrary.Services;
 using Scalar.AspNetCore;
@@ -21,6 +23,22 @@ namespace resortapi
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("restortlibrary")));
 
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = builder.Configuration["AppSettings:Issuer"],
+                        ValidateAudience = true,
+                        ValidAudience = builder.Configuration["AppSettings:Audience"],
+                        ValidateLifetime = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            System.Text.Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"]!)),
+                        ValidateIssuerSigningKey = true
+                    };
+                });
+
             builder.Services.AddScoped<IAuthService, AuthService>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -37,7 +55,6 @@ namespace resortapi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
