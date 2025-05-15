@@ -1,0 +1,5 @@
+﻿Testfallnamn												Beskrivning								Förväntat resultat
+CreateCustomer_ValidInputs_ShouldReturnCustomer				Skapa kund med giltiga data				Kundobjekt skapas med rätt värden
+CreateCustomer_EmptyFirstName_ShouldThrowException			Försök skapa kund utan förnamn			ArgumentException kastas
+CreateAccomodation_MaxOccupancyZero_ShouldThrow				Skapa boende med maxOccupancy = 0		ArgumentException med rätt meddelande
+CreateAccomodation_ValidInputs_ShouldReturnAccomodation		Skapa boende med giltiga data			Boendeobjekt skapas med rätt värden
