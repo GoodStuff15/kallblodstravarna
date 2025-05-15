@@ -12,6 +12,11 @@ namespace restortlibrary.Services
 {
     public class AuthService(ResortContext context, IConfiguration configuration) : IAuthService
     {
+        public async Task<User?> GetUserByIdAsync(int id)
+        {
+            return await context.Users.FindAsync(id);
+        }
+
         public async Task<TokenResponseDto?> LoginAsync(UserDto request)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Username.ToLower() == request.Username.ToLower());
@@ -48,6 +53,7 @@ namespace restortlibrary.Services
 
             user.Username = request.Username;
             user.PasswordHash = hashedPassword;
+            user.Role = request.Role;
 
             context.Users.Add(user);
             await context.SaveChangesAsync();
@@ -129,5 +135,30 @@ namespace restortlibrary.Services
 
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
+
+        public async Task ClearRefreshTokenAsync(User user)
+        {
+            user.RefreshToken = null;
+            user.RefreshTokenExpiryTime = null;
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            return await context.Users.FirstOrDefaultAsync(u => u.Username.ToLower() == username.ToLower());
+        }
+
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            var user = await context.Users.FindAsync(userId);
+
+            if (user == null)
+                return false;
+
+            context.Users.Remove(user);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
     }
 }
