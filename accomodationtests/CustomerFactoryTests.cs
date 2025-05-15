@@ -23,6 +23,24 @@ public class CustomerFactoryTests
         Assert.AreEqual("0700000000", customer.Phone);
         Assert.AreEqual("Cash", customer.PaymentMethod);
     }
+    [TestMethod]
+    [DataRow(null, "Johan", "Hansson", "hasse@hotmail.com", "0700000000", "Cash")]
+    [DataRow("Premium", "", "Hansson", "hasse@hotmail.com", "0700000000", "Cash")]
+    [DataRow("Premium", "Johan", "", "hasse@hotmail.com", "0700000000", "Cash")]
+    [DataRow("Premium", "Johan", "Hansson", "", "0700000000", "Cash")]
+    [DataRow("Premium", "Johan", "Hansson", "hasse@hotmail.com", null, "Cash")]
+    [DataRow("Premium", "Johan", "Hansson", "hasse@hotmail.com", "0700000000", "")]
+    public void CreateCustomer_InvalidInput_Throws(
+        string type,
+        string firstName,
+        string lastName,
+        string email,
+        string phone,
+        string paymentMethod)
+    {
+        Assert.ThrowsException<ArgumentException>(() =>
+        _factory.CreateCustomer(type, firstName, lastName, email, phone, paymentMethod));
+    }
     
     
 }
