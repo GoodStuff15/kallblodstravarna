@@ -16,6 +16,7 @@ public class CustomerFactoryTests
         var customer = _factory.CreateCustomer("Premium", "Johan", "Hansson", "hasse@hotmail.com", "0700000000", "Cash");
 
         Assert.IsNotNull(customer);
+        Assert.AreEqual("Premium", customer.Type);
         Assert.AreEqual("Johan", customer.FirstName);
         Assert.AreEqual("Hansson", customer.LastName);
         Assert.AreEqual("hasse@hotmail.com", customer.Email);
