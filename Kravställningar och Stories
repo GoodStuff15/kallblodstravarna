@@ -1,0 +1,43 @@
+
+**Kravställningar för systemet**
+
+1. Hantering av kundinformation och bokningar
+    - CRUD-operationer för kunder och bokningar
+    - Filtrering och sortering av data
+    - Vecko- och månadsvis bokningsöversikt
+    - Möjlighet att avboka/omboka
+    - Validering av bokningsdatum och tider
+2. Användarvänlighet och funktionalitet
+    - Sökfunktion för lediga tider
+    - Enkel registrering av ny kund
+    - Bekräftelse via e-post (valfri)
+    - Visning av bokningshistorik
+3. Säkerhet och autentisering (extrauppgift)
+    - JWT-baserad autentisering
+    - Rollbaserad auktorisering (Admin/User)
+    - Säker hantering av kundinformation
+4. Loggning och övervakning (extrauppgift)
+    - Spårning av ändringar i bokningar
+    - Loggning av systemhändelser
+
+
+
+--------------
+Gnägg!
+Här kommer lite user stories från er kund:
+ 
+Som gäst vill jag:
+Kunna se tillgängliga rum för önskade datum
+Kunna välja antal vuxna och barn i sällskapet
+Kunna lägga till frukost till min bokning
+Kunna avboka min reservation
+Som hotellägare vill jag:
+Kunna se alla aktuella bokningar för att ha översikt över beläggningen
+Som receptionist vill jag:
+Kunna söka lediga rum baserat på datum och antal gäster
+Kunna registrera nya bokningar med gästuppgifter
+Kunna modifiera eller avboka existerande bokningar
+Allmänna systemkrav:
+Kontrollera att rum inte överbokas för samma datum
+Beräkna totalpris baserat på rumstyp, antal nätter, antal gäster och tillval
+ 

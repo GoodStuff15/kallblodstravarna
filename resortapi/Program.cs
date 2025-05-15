@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using restortlibrary.Data;
 using restortlibrary.Models;
 using restortlibrary.Repositories;
+using Scalar.AspNetCore;
 
 namespace resortapi
 {
@@ -18,6 +19,8 @@ namespace resortapi
             builder.Services.AddDbContext<ResortContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("resortapi")));
+            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+            builder.Services.AddOpenApi();
 
             // Adding services for repo dependency injection
             builder.Services.AddScoped<IRepository<Customer>, CustomerRepo>();
@@ -35,8 +38,8 @@ namespace resortapi
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.MapOpenApi();
+                app.MapScalarApiReference();
             }
 
             app.UseHttpsRedirection();
