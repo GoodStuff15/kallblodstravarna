@@ -19,6 +19,7 @@ namespace restortlibrary.Models
         public Accomodation Accomodation { get; set; }
         public ICollection<Guest> Guests { get; set; } = new List<Guest>();
         public ICollection<PriceChanges> PriceChanges { get; set; } = new List<PriceChanges>();
+        public ICollection<AdditionalOption> AdditionalOptions { get; set; } = new List<AdditionalOption>();
 
     }
 }
