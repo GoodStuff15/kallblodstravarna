@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using resortdtos;
 using restortlibrary.Data;
@@ -37,7 +36,6 @@ namespace restortlibrary.Services
             }
 
             var user = new User();
-
             var hashedPassword = new PasswordHasher<User>()
                 .HashPassword(user, request.Password);
 
@@ -67,7 +65,7 @@ namespace restortlibrary.Services
                 issuer: configuration.GetValue<string>("AppSettings:Issuer"),
                 audience: configuration.GetValue<string>("AppSettings:Audience"),
                 claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                expires: DateTime.Now.AddDays(1), 
                 signingCredentials: creds
                 );
 

@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using restortlibrary.Data;
+using restortlibrary.Services;
 using Scalar.AspNetCore;
 
 namespace resortapi
@@ -19,6 +20,9 @@ namespace resortapi
             builder.Services.AddDbContext<ResortContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("restortlibrary")));
+
+            builder.Services.AddScoped<IAuthService, AuthService>();
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
             var app = builder.Build();
