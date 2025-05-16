@@ -1,15 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using resortdtos;
 using restortlibrary.Models;
 using restortlibrary.Services;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace resortapi.Controllers
 {
@@ -36,7 +29,7 @@ namespace resortapi.Controllers
             var result = await authService.LoginAsync(request);
 
             if (result is null)
-            { 
+            {
                 return BadRequest("Invalid username and/or password");
             }
 
@@ -58,14 +51,53 @@ namespace resortapi.Controllers
         [HttpGet]
         public IActionResult AuthenticatedOnlyEndpoint()
         {
-            return Ok("You are authenticated!");
+            var username = User.Identity?.Name;
+
+            return Ok($"{username} is authenticated!");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("admin-only")]
         public IActionResult AdminOnlyEndpoint()
         {
-            return Ok("You are an admin!");
+            var username = User.Identity?.Name;
+
+            return Ok($"{username} is an admin!");
         }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            var username = User.Identity?.Name;
+            var user = await authService.GetUserByUsernameAsync(username!);
+
+            if (user == null)
+                return NotFound();
+
+            await authService.ClearRefreshTokenAsync(user);
+
+            return Ok($"{username} logged out successfully.");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var userToDelete = await authService.GetUserByIdAsync(id);
+
+            if (userToDelete is null)
+                return NotFound("User not found.");
+
+            var success = await authService.DeleteUserAsync(id);
+
+            if (!success)
+                return StatusCode(500, "Failed to delete user.");
+
+            return Ok($"User '{userToDelete.Username}' was deleted by admin '{User.Identity?.Name}'.");
+        }
+
+
+
     }
 }
