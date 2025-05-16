@@ -12,8 +12,12 @@ namespace restortlibrary.Factories
     {
         public Accomodation CreateAccomodation(string? name, int maxOccupancy, AccomodationType accomodationType)
         {
+            if(string.IsNullOrWhiteSpace(name)) 
+                throw new ArgumentException("Namn måste anges.");
             if (maxOccupancy <= 0)
                 throw new ArgumentException("Antalet gäster måste vara fler än 0.");
+            if (accomodationType == null)
+                throw new ArgumentException("Boendetyp måste anges.");
 
             return new Accomodation
             {
