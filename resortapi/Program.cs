@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using restortlibrary.Data;
-using restortlibrary.Services;
+using resortapi.Services;
 using Scalar.AspNetCore;
 
 namespace resortapi

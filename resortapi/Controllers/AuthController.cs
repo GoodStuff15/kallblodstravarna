@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using resortdtos;
 using restortlibrary.Models;
-using restortlibrary.Services;
+using resortapi.Services;
 
 namespace resortapi.Controllers
 {

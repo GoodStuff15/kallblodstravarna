@@ -1,7 +1,7 @@
 ﻿using resortdtos;
 using restortlibrary.Models;
 
-namespace restortlibrary.Services
+namespace resortapi.Services
 {
     public interface IAuthService
     {
