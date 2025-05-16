@@ -41,11 +41,17 @@ public class CustomerFactoryTests
     [DataTestMethod]
     [DataRow(null, "Johan", "Hansson", "hasse@hotmail.com", "0707112233", "Cash")]
     [DataRow("", "Johan", "Hansson", "hasse@hotmail.com", "0707112233", "Cash")]
+    [DataRow(" ", "Johan", "Hansson", "hasse@hotmail.com", "0707112233", "Cash")]
     [DataRow("Premium", "", "Hansson", "hasse@hotmail.com", "0707112233", "Cash")]
+    [DataRow("Premium", " ", "Hansson", "hasse@hotmail.com", "0707112233", "Cash")]
     [DataRow("Premium", "Johan", null, "hasse@hotmail.com", "0707112233", "Cash")]
+    [DataRow("Premium", "Johan", " ", "hasse@hotmail.com", "0707112233", "Cash")]
     [DataRow("Premium", "Johan", "Hansson", "", "0707112233", "Cash")]
+    [DataRow("Premium", "Johan", "Hansson", " ", "0707112233", "Cash")]
     [DataRow("Premium", "Johan", "Hansson", "hasse@hotmail.com", null, "Cash")]
+    [DataRow("Premium", "Johan", "Hansson", "hasse@hotmail.com", " ", "Cash")]
     [DataRow("Premium", "Johan", "Hansson", "hasse@hotmail.com", "0707112233", "")]
+    [DataRow("Premium", "Johan", "Hansson", "hasse@hotmail.com", "0707112233", " ")]
     public void CreateCustomer_InvalidInputs_ShouldThrowException(string type, string firstName, string lastName, string email, string phone, string paymentMethod)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
