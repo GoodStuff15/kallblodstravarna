@@ -1,4 +1,5 @@
-﻿using System;
+﻿using restortlibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace restortlibrary.Factories.IFactories
 {
     public interface IBookingFactory
     {
+        Booking CreateBooking(DateTime checkIn, DateTime checkOut, Customer customer, Accomodation accomodation);
     }
 }
