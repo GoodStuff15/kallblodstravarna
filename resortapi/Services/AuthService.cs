@@ -198,5 +198,9 @@ namespace resortapi.Services
             return true;
         }
 
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return await context.Users.ToListAsync();
+        }
     }
 }

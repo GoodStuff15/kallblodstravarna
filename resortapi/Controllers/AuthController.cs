@@ -97,6 +97,13 @@ namespace resortapi.Controllers
             return Ok($"User '{userToDelete.Username}' was deleted by admin '{User.Identity?.Name}'.");
         }
 
+        [HttpGet("GetAllUsers")]
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        {
+            var users = await authService.GetAllUsersAsync();
+            return Ok(users);
+        }
+
 
 
     }

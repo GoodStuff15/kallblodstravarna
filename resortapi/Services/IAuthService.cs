@@ -12,5 +12,6 @@ namespace resortapi.Services
         Task<User?> GetUserByUsernameAsync(string username);
         Task ClearRefreshTokenAsync(User user);
         Task<bool> DeleteUserAsync(int userId);
+        Task<IEnumerable<User>> GetAllUsersAsync();
     }
 }
