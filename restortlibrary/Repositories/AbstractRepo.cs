@@ -12,7 +12,7 @@ namespace restortlibrary.Repositories
     {
         protected ResortContext _context;
 
-        protected AbstractRepo(ResortContext context)
+        public AbstractRepo(ResortContext context)
         {
             _context = context;
         }
@@ -48,6 +48,7 @@ namespace restortlibrary.Repositories
         // Read All
         public async Task<ICollection<TEntity>> GetAllAsync()
         {
+
             return await _context.Set<TEntity>().ToListAsync();
 
         }

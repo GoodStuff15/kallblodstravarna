@@ -19,19 +19,19 @@ namespace resortapi
             builder.Services.AddDbContext<ResortContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("resortapi")));
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
             // Adding services for repo dependency injection
-            builder.Services.AddScoped<IRepository<Customer>, CustomerRepo>();
+            builder.Services.AddScoped<IRepository<Customer>,CustomerRepo>();
             builder.Services.AddScoped<IRepository<Booking>, BookingRepo>();
-            builder.Services.AddScoped<IRepository<Accomodation>, AccomodationRepo>();
-            builder.Services.AddScoped<IRepository<AccomodationType>, AccomodationTypeRepo>();
-            builder.Services.AddScoped<IRepository<PriceChanges>, PriceChangesRepo>();
+            //builder.Services.AddKeyedTransient<IRepository<Accomodation>, AccomodationRepo>("Accomodation");
+            //builder.Services.AddKeyedTransient<IRepository<AccomodationType>, AccomodationTypeRepo>("AccomodationType");
+            //builder.Services.AddKeyedTransient<IRepository<PriceChanges>, PriceChangesRepo>("PriceChanges");
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            //builder.Services.AddEndpointsApiExplorer();
 
             var app = builder.Build();
 

@@ -10,7 +10,7 @@ namespace restortlibrary.Repositories
 {
     public class PriceChangesRepo : AbstractRepo<PriceChanges>
     {
-        protected PriceChangesRepo(ResortContext context) : base(context)
+        public PriceChangesRepo(ResortContext context) : base(context)
         {
             _context = context;
         }

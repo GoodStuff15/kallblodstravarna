@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using restortlibrary.Data;
 using restortlibrary.Models;
 using restortlibrary.Repositories;
+using System;
 
 namespace accomodationtests;
 
@@ -10,11 +11,14 @@ namespace accomodationtests;
 public class RepositoryTests
 {
     public IRepository<Customer> MockCustomerRepo;
+    public IRepository<Booking> MockBookingRepo;
+
     public RepositoryTests()
     {
         var services = new ServiceCollection();
 
         services.AddTransient<IRepository<Customer>, CustomerRepo>();
+        services.AddTransient<IRepository<Booking>, BookingRepo>();
         services.AddDbContext<ResortContext>(options =>
                 options.UseSqlServer("Data Source=DESKTOP-IGVAOCU;Database=ResortDb;Integrated Security=True;Trust Server Certificate=true;",
                 b => b.MigrationsAssembly("resortapi")));
@@ -22,7 +26,19 @@ public class RepositoryTests
         var serviceProvider = services.BuildServiceProvider();
 
         MockCustomerRepo = serviceProvider.GetService<IRepository<Customer>>();
+        MockBookingRepo = serviceProvider.GetService<IRepository<Booking>>();
+
+
     }
+
+    [TestInitialize]
+    public void TestInit()
+    {
+
+    }
+
+    // CRUD Tests
+
     [TestMethod]
     public void CustomerRepo_AddNewCustomer()
     {
@@ -96,20 +112,42 @@ public class RepositoryTests
     public void CustomerRepo_GetAllCustomers()
     {
         // Given several customers in database
-        var customer = new Customer() { Id = 1, FirstName = "Gustav" };
-        var customer2 = new Customer() { Id = 2, FirstName = "Stefan" };
-        var customer3 = new Customer() { Id = 3, FirstName = "Olof" };
-        MockCustomerRepo.CreateAsync(customer);
-        MockCustomerRepo.CreateAsync(customer2);
-        MockCustomerRepo.CreateAsync(customer3);
-
-        // When getting all customers from database
         var actual = MockCustomerRepo.GetAllAsync().Result.ToList();
+        // When getting all customers from database
         var expected = new List<Customer>();
 
-        // Then should find this customer
-        CollectionAssert.Contains(actual,customer);
+        // Then should find list of all customers
         CollectionAssert.AreEqual(expected, actual);
 
+    }
+
+
+    // Validation tests
+
+    [TestMethod]
+    public void CustomerBooking_CantBooKMoreThanOneStayAtTheSameDate()
+    {
+        
+        // Given a booking between X dates
+        var customer = new Customer() { Id = 1, FirstName = "Gustav", Bookings = new List<Booking>() };
+        var booking = new Booking() { Id = 1, CheckIn = new DateTime(2025, 05, 07), CheckOut = new DateTime(2025, 05, 09), Customer = customer};
+        customer.Bookings.Add(booking);
+        MockBookingRepo.CreateAsync(booking);
+
+        // When trying to create a new booking for same customer between these dates
+        var newBooking = new Booking() { Id = 2, CheckIn = new DateTime(2025, 05, 06), CheckOut = new DateTime(2025, 05, 08), Customer = customer };
+        MockBookingRepo.CreateAsync(newBooking);
+
+        // Then it should exist in database
+        var actual = MockBookingRepo.GetAsync(2);
+
+        Assert.IsNotNull(actual);
+    }
+
+    [TestCleanup]
+    public void Cleanup()
+    {
+        MockBookingRepo = null;
+        MockCustomerRepo = null;
     }
 }

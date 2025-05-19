@@ -10,7 +10,7 @@ namespace restortlibrary.Repositories
 {
     public class AccomodationRepo : AbstractRepo<Accomodation>
     {
-        protected AccomodationRepo(ResortContext context) : base(context)
+        public AccomodationRepo(ResortContext context) : base(context)
         {
             _context = context;
         }
