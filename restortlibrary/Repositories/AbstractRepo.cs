@@ -18,7 +18,7 @@ namespace restortlibrary.Repositories
         }
 
         // Create
-        public async Task CreateAsync(TEntity entity)
+        public  async Task CreateAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
         }
@@ -49,8 +49,11 @@ namespace restortlibrary.Repositories
         public async Task<ICollection<TEntity>> GetAllAsync()
         {
 
-            return await _context.Set<TEntity>().ToListAsync();
+            var all = from t in _context.Set<TEntity>()
+                      select t;
+                     
 
+            return await all.ToListAsync();
         }
 
     }
