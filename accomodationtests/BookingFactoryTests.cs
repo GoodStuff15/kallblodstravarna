@@ -39,7 +39,7 @@ public class BookingFactoryTests
 
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _factory.CreateBooking(checkIn, checkOut, customer, accomodation));
-        Assert.AreEqual("Utcheckning måste vara efter incheckning", ex.Message);
+        Assert.AreEqual("Utcheckning måste vara efter incheckning.", ex.Message);
     }
     [TestMethod]
     public void CreateBooking_NullCustomer_ShouldThrow()
@@ -56,12 +56,13 @@ public class BookingFactoryTests
     public void CreateBooking_NullAccomodation_ShouldThrow()
     {
         var customer = new Customer();
+        Accomodation accomodation = null;
         var checkIn = new DateTime(2025, 7, 1);
         var checkOut = new DateTime(2025, 7, 5);
 
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateBooking(checkIn, checkOut, customer, null));
-        Assert.AreEqual("Typ av boende måste anges", ex.Message);
+        _factory.CreateBooking(checkIn, checkOut, customer, accomodation));
+        Assert.AreEqual("Boende måste anges.", ex.Message);
     }
     [TestMethod]
     public void CreateBooking_CheckInSameAsCheckOut_ShouldThrow()
@@ -73,5 +74,32 @@ public class BookingFactoryTests
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _factory.CreateBooking(checkInOut, checkInOut, customer, accomodation));
         Assert.AreEqual("Utcheckning måste vara efter incheckning.", ex.Message);
+    }
+    [TestMethod]
+    public void CreateBooking_CheckInPastDate_ShouldSucced()
+    {
+        var customer = new Customer();
+        var accomodation = new Accomodation();
+        var checkIn = DateTime.Now.AddDays(-1);
+        var checkOut = DateTime.Now.AddDays(2);
+
+        var booking = _factory.CreateBooking(checkIn,checkOut, customer, accomodation);
+
+        Assert.IsNotNull(booking);
+        Assert.AreEqual(checkIn, booking.CheckIn);
+        Assert.AreEqual(checkOut, booking.CheckOut);
+    }
+    [TestMethod]
+    public void CreateBooking_CheckOutRealyLate_ShouldSucceed()
+    {
+        var customer = new Customer();
+        var accomodation = new Accomodation();
+        var checkIn = DateTime.Today;
+        var checkOut = DateTime.Today.AddYears(1);
+
+        var booking = _factory.CreateBooking(checkIn, checkOut, customer, accomodation);
+
+        Assert.IsNotNull(booking);
+        Assert.AreEqual(checkOut, booking.CheckOut);
     }
 }
