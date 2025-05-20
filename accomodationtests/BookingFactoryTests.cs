@@ -63,4 +63,15 @@ public class BookingFactoryTests
         _factory.CreateBooking(checkIn, checkOut, customer, null));
         Assert.AreEqual("Typ av boende måste anges", ex.Message);
     }
+    [TestMethod]
+    public void CreateBooking_CheckInSameAsCheckOut_ShouldThrow()
+    {
+        var customer = new Customer();
+        var accomodation = new Accomodation();
+        var checkInOut = new DateTime(2025, 7, 1);
+
+        var ex = Assert.ThrowsException<ArgumentException>(() =>
+        _factory.CreateBooking(checkInOut, checkInOut, customer, accomodation));
+        Assert.AreEqual("Utcheckning måste vara efter incheckning.", ex.Message);
+    }
 }
