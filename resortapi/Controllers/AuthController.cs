@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using resortdtos;
 using restortlibrary.Models;
-using restortlibrary.Services;
+using resortapi.Services;
 
 namespace resortapi.Controllers
 {
@@ -95,6 +95,13 @@ namespace resortapi.Controllers
                 return StatusCode(500, "Failed to delete user.");
 
             return Ok($"User '{userToDelete.Username}' was deleted by admin '{User.Identity?.Name}'.");
+        }
+
+        [HttpGet("GetAllUsers")]
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        {
+            var users = await authService.GetAllUsersAsync();
+            return Ok(users);
         }
 
 
