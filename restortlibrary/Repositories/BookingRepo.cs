@@ -23,7 +23,6 @@ namespace restortlibrary.Repositories
 
             if(currentCustomerBookings.Any())
             {
-
                 var notAvailable = from c in currentCustomerBookings
                                    where c.Active == true
                                    select new { CheckIn = c.CheckIn, CheckOut = c.CheckOut };
@@ -39,10 +38,11 @@ namespace restortlibrary.Repositories
                         await _context.Set<Booking>().AddAsync(booking);
                     }
                 }
-            }
-
-            
-                              
+            }                
         }
     }
 }
+
+
+// Controller => Translator (tolkar och skapar objekt i en factory) => Repository => databasen
+// Och sen eventuellt tillbaka. 

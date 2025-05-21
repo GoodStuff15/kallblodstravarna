@@ -9,6 +9,8 @@ using restortlibrary.Factories;
 using restortlibrary.Factories.IFactories;
 using resortapi.Services;
 using Scalar.AspNetCore;
+using restortlibrary.Converters;
+using restortlibrary.Models.DTOs;
 
 namespace resortapi
 {
@@ -52,6 +54,12 @@ namespace resortapi
             // Adding services for repo dependency injection
             builder.Services.AddScoped<IRepository<Customer>,CustomerRepo>();
             builder.Services.AddScoped<IRepository<Booking>, BookingRepo>();
+
+            // Adding services for DTO conversion
+            builder.Services.AddTransient<IConverter<Customer, CreateCustomerRequestDTO>, CustomerConverter>();
+
+            // Adding services for Factories
+            builder.Services.AddScoped<ICustomerFactory, CustomerFactory>();
 
             var app = builder.Build();
 
