@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using restortlibrary.Data;
+using restortlibrary.Models;
+using restortlibrary.Repositories;
 using restortlibrary.Factories;
 using restortlibrary.Factories.IFactories;
 using resortapi.Services;
@@ -25,7 +27,7 @@ namespace resortapi
 
             builder.Services.AddDbContext<ResortContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly("restortlibrary")));
+                b => b.MigrationsAssembly("resortapi")));
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -46,6 +48,10 @@ namespace resortapi
             builder.Services.AddScoped<IAuthService, AuthService>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+            // Adding services for repo dependency injection
+            builder.Services.AddScoped<IRepository<Customer>,CustomerRepo>();
+            builder.Services.AddScoped<IRepository<Booking>, BookingRepo>();
 
             var app = builder.Build();
 
