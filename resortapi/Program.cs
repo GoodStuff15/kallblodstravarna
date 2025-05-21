@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using restortlibrary.Data;
+using restortlibrary.Factories;
+using restortlibrary.Factories.IFactories;
 using resortapi.Services;
 using Scalar.AspNetCore;
 
@@ -11,7 +13,9 @@ namespace resortapi
     public class Program
     {
         public static void Main(string[] args)
+
         {
+           
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
