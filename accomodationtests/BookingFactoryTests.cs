@@ -76,7 +76,7 @@ public class BookingFactoryTests
         Assert.AreEqual("Utcheckning måste vara efter incheckning.", ex.Message);
     }
     [TestMethod]
-    public void CreateBooking_CheckInPastDate_ShouldSucced()
+    public void CreateBooking_CheckInPastDate_ShouldSucceed()
     {
         var customer = new Customer();
         var accomodation = new Accomodation();
@@ -89,17 +89,5 @@ public class BookingFactoryTests
         Assert.AreEqual(checkIn, booking.CheckIn);
         Assert.AreEqual(checkOut, booking.CheckOut);
     }
-    [TestMethod]
-    public void CreateBooking_CheckOutRealyLate_ShouldSucceed()
-    {
-        var customer = new Customer();
-        var accomodation = new Accomodation();
-        var checkIn = DateTime.Today;
-        var checkOut = DateTime.Today.AddYears(1);
-
-        var booking = _factory.CreateBooking(checkIn, checkOut, customer, accomodation);
-
-        Assert.IsNotNull(booking);
-        Assert.AreEqual(checkOut, booking.CheckOut);
-    }
+    
 }

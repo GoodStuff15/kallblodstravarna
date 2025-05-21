@@ -15,6 +15,22 @@ public class AccomodationFactoryTests
         _factory = new AccomodationFactory();
     }
     [TestMethod]
+    public void CreateAccomodation_ValidInputs_ShouldReturnAccomodation()
+    {
+        var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
+
+        var accomodation = _factory.CreateAccomodation("Strandvilla 1", 8, type);
+
+        Assert.IsNotNull(accomodation);
+        Assert.AreEqual("Strandvilla 1", accomodation.Name);
+        Assert.AreEqual(8, accomodation.MaxOccupancy);
+        Assert.AreEqual(type, accomodation.AccomodationType);
+        Assert.IsNotNull(accomodation.Bookings);
+        Assert.AreEqual(0, accomodation.Bookings.Count);
+        Assert.IsNotNull(accomodation.Accessibilities);
+        Assert.AreEqual(0, accomodation.Accessibilities.Count);
+    }
+    [TestMethod]
     
     public void CreateAccomodation_MaxOccupancyZero_ShouldThrow()
     {
@@ -56,22 +72,7 @@ public class AccomodationFactoryTests
         );
         Assert.AreEqual("Boendetyp måste anges.", ex.Message);
     }
-    [TestMethod]
-    public void CreateAccomodation_ValidInputs_ShouldReturnAccomodation()
-    {
-        var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
-
-        var accomodation = _factory.CreateAccomodation("Strandvilla 1", 8, type);
-
-        Assert.IsNotNull(accomodation);
-        Assert.AreEqual("Strandvilla 1", accomodation.Name);
-        Assert.AreEqual(8, accomodation.MaxOccupancy);
-        Assert.AreEqual(type, accomodation.AccomodationType);
-        Assert.IsNotNull(accomodation.Bookings);
-        Assert.AreEqual(0, accomodation.Bookings.Count);
-        Assert.IsNotNull(accomodation.Accessibilities);
-        Assert.AreEqual(0, accomodation.Accessibilities.Count);
-    }
+    
     
     
 }
