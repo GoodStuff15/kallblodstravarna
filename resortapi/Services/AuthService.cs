@@ -44,7 +44,7 @@ namespace resortapi.Services
         {
             if (string.IsNullOrWhiteSpace(request.Role))
             {
-                throw new ArgumentException("Role is required.");
+                request.Role = "User";
             }
 
             if (!ValidateUserDto(request))
