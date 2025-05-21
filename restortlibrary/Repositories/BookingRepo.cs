@@ -21,21 +21,23 @@ namespace restortlibrary.Repositories
                                           where b.Customer.Id == booking.Customer.Id
                                           select b;
 
-            var notAvailable = from c in currentCustomerBookings
-                               where c.Active == true
-                               select new { c.CheckIn, c.CheckOut };
-
-            foreach (var dateRange in notAvailable) 
+            if(currentCustomerBookings.Any())
             {
-                var start = dateRange.CheckIn.Ticks;
-                var end = dateRange.CheckOut.Ticks;
-                if (booking.CheckIn.Ticks < end && start < booking.CheckOut.Ticks) 
+
+                var notAvailable = from c in currentCustomerBookings
+                                   where c.Active == true
+                                   select new { CheckIn = c.CheckIn, CheckOut = c.CheckOut };
+
+                foreach (var dateRange in notAvailable) 
                 {
-                    throw new Exception("Customer currently has a booking with conflicting dates");
-                }
-                else
-                {
-                    await _context.Set<Booking>().AddAsync(booking);
+                    if (booking.CheckIn < dateRange.CheckOut && dateRange.CheckIn < booking.CheckOut) 
+                    {
+                        throw new Exception("Customer currently has a booking with conflicting dates");
+                    }
+                    else
+                    {
+                        await _context.Set<Booking>().AddAsync(booking);
+                    }
                 }
             }
 

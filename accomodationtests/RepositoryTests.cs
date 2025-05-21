@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Mono.Cecil.Cil;
@@ -46,9 +47,25 @@ public class RepositoryTests
             Type = "Vanlig",
             PaymentMethod = "Cash",
             Bookings = new List<Booking>() };
+
+        var booking = new Booking()
+        {
+            Id = 1,
+            CheckIn = new DateTime(2025, 5, 25),
+            CheckOut = new DateTime(2025, 5, 27),
+            Customer = customer,
+            Active = true,
+            TimeOfBooking = new DateTime(2025, 5, 10),
+            CancelationDate = new DateTime(2025, 5, 18),
+            Cost = 1000,
+            AmountPaid = 1000,
+            Accomodation = new Accomodation()
+
+        };
         _context.Set<Customer>().Add(customer);
         _context.Set<Customer>().Add(customer2);
         _context.Set<Customer>().Add(customer3);
+        _context.Set<Booking>().Add(booking);
         _context.SaveChanges();
     }
 
