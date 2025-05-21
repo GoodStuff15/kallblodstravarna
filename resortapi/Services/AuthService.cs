@@ -71,7 +71,6 @@ namespace resortapi.Services
             return RegisterResult.Success(user);
         }
 
-
         public async Task<TokenResponseDto?> RefreshTokensAsync(TokenRefreshDto request)
         {
             var user = await ValidateRefreshTokenAsync(request.UserId, request.RefreshToken);
