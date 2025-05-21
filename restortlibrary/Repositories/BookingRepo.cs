@@ -73,7 +73,7 @@ namespace restortlibrary.Repositories
 
             if(booking.CancelationDate < DateTime.Now)
             {
-                throw new Exception("Database error: Cannot cancel booking, Last cancellation date has expired");
+                throw new Exception("Database error: Cannot cancel booking, Last cancellation date has passed");
             }
 
             booking.Active = false;
@@ -88,6 +88,13 @@ namespace restortlibrary.Repositories
                          .Include(a => a.Accomodation)
                          .Include(o => o.AdditionalOptions)
                          .Include(c => c.Customer)
+                         .ToListAsync();
+        }
+
+        public async Task<ICollection<Booking>> GetActiveBookingsAsync()
+        {
+            return await _context.Set<Booking>()
+                         .Where(b => b.Active == true)
                          .ToListAsync();
         }
     }
