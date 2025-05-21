@@ -59,13 +59,48 @@ public class RepositoryTests
             CancelationDate = new DateTime(2025, 5, 18),
             Cost = 1000,
             AmountPaid = 1000,
-            Accomodation = new Accomodation()
+            Accomodation = new Accomodation() { Id = 1}
 
         };
+        var booking2 = new Booking()
+        {
+            Id = 2,
+            CheckIn = new DateTime(2025, 5, 12),
+            CheckOut = new DateTime(2025, 5, 15),
+            Customer = customer2,
+            Active = true,
+            TimeOfBooking = new DateTime(2025, 5, 5),
+            CancelationDate = new DateTime(2025, 5, 5),
+            Cost = 1000,
+            AmountPaid = 0,
+            Accomodation = new Accomodation() { Id = 2 }
+
+        };
+        var booking3 = new Booking()
+        {
+            Id = 3,
+            CheckIn = new DateTime(2025, 5, 14),
+            CheckOut = new DateTime(2025, 5, 26),
+            Customer = customer3,
+            Active = true,
+            TimeOfBooking = new DateTime(2025, 5, 10),
+            CancelationDate = new DateTime(2025, 5, 18),
+            Cost = 1000,
+            AmountPaid = 1000,
+            Accomodation = new Accomodation() { Id = 3 }
+
+
+        };
+
+        var accomodation = new Accomodation() { Id = 4 };
+
         _context.Set<Customer>().Add(customer);
         _context.Set<Customer>().Add(customer2);
         _context.Set<Customer>().Add(customer3);
         _context.Set<Booking>().Add(booking);
+        _context.Set<Booking>().Add(booking2);
+        _context.Set<Booking>().Add(booking3);
+        _context.Set<Accomodation>().Add(accomodation);
         _context.SaveChanges();
     }
 
@@ -192,6 +227,21 @@ public class RepositoryTests
 
     }
 
+    [TestMethod]
+    public void Accomodations_SeeAllAvailableInDateRange()
+    {
+
+        var start = new DateTime(2025, 5, 10);
+        var end = new DateTime(2025, 5, 15);
+
+        var availableRooms = _context.Set<Booking>()
+                            .Where(b => b.CheckIn < end && start < b.CheckOut)
+                            .Select(a => a.Accomodation)
+                            .ToList();
+        
+
+        Assert.AreEqual(2, availableRooms.Count);
+    }
     [TestCleanup]
     public void Cleanup()
     {
