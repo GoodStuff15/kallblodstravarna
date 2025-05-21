@@ -1,8 +1,13 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using restortlibrary.Data;
 using restortlibrary.Models;
 using restortlibrary.Repositories;
+using restortlibrary.Factories;
+using restortlibrary.Factories.IFactories;
+using resortapi.Services;
 using Scalar.AspNetCore;
 
 namespace resortapi
@@ -10,28 +15,43 @@ namespace resortapi
     public class Program
     {
         public static void Main(string[] args)
+
         {
+           
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddOpenApi();
+
             builder.Services.AddDbContext<ResortContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("resortapi")));
 
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = builder.Configuration["AppSettings:Issuer"],
+                        ValidateAudience = true,
+                        ValidAudience = builder.Configuration["AppSettings:Audience"],
+                        ValidateLifetime = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            System.Text.Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"]!)),
+                        ValidateIssuerSigningKey = true
+                    };
+                });
+
+            builder.Services.AddScoped<IAuthService, AuthService>();
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
 
             // Adding services for repo dependency injection
             builder.Services.AddScoped<IRepository<Customer>,CustomerRepo>();
             builder.Services.AddScoped<IRepository<Booking>, BookingRepo>();
-            //builder.Services.AddKeyedTransient<IRepository<Accomodation>, AccomodationRepo>("Accomodation");
-            //builder.Services.AddKeyedTransient<IRepository<AccomodationType>, AccomodationTypeRepo>("AccomodationType");
-            //builder.Services.AddKeyedTransient<IRepository<PriceChanges>, PriceChangesRepo>("PriceChanges");
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            //builder.Services.AddEndpointsApiExplorer();
 
             var app = builder.Build();
 
@@ -45,7 +65,6 @@ namespace resortapi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

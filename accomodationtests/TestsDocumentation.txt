@@ -1,0 +1,25 @@
+﻿Klass/Testfallnamn											Rad:			Beskrivning								Förväntat resultat
+-CustomerFactoryTests-
+CreateCustomer_ValidData_ReturnsCustomer					17				Skapa kund med giltig data				Kundobjekt skapas med rätt värden
+CreateCustomer_InvalidInputs_ShouldThrowException			55				Skapa kund med null, tomma eller		ArgumentException kastas
+																			whitespace i något av fälten
+
+-AccomodationFactoryTests-
+CreateAccomodation_ValidInputs_ShouldReturnAccomodation		18				Skapa boende med giltig data			Boendeobjekt skapas med rätt värden
+CreateAccomodation_MaxOccupancyZero_ShouldThrow				35				Skapa boende med maxOccupancy = 0		ArgumentException kastas med meddelande
+CreateAccomodation_InvalidName_ShouldThrow					48				Skapa boende med null, tom eller		ArgumentException kastas med meddelande
+																			whitespace-namn.
+CreateAccomodation_InvalidOccupancy_ShouldThrow				59				Skapa boende med negativt eller			ArgumentException kastas med meddelande
+																			0 gäster.		
+CreateAccomodation_NullAccomodationType_ShouldThrow			68				Skapa boende utan boendetyp				ArgumentException kastas med meddelande
+
+-BookingFactoryTests-
+CreateBooking_ValidInputs_ShouldReturnBooking				17				Skapa bokning med giltig data			Bokningsobjekt skapas med rätt värden																			
+CreateBooking_CheckOutBeforeCheckIn_ShouldThrow				33				Skapa bokning där utcheckning			ArgumentException kastas med meddelande
+																			sker före incheckning.
+CreateBooking_NullCustomer_ShouldThrow						45				Skapa bokning utan kund					ArgumentException kastas med meddelande
+CreateBooking_NullAccomodation_ShouldThrow					56				Skapa bokning utan boende				ArgumentException kastas med meddelande																			
+CreateBooking_CheckInSameAsCheckOut_ShouldThrow				68				Skapa bokning med samma datum			ArgumentException kastas med meddelande
+																			för in- och utcheckning.
+CreateBooking_CheckInPastDate_ShouldSucceed					79				Skapa boende utan att ange				ArgumentException kastas med meddelande
+																			boendetyp.

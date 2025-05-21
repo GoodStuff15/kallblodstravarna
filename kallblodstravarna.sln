@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "resortapi", "resortapi\reso
 		{D392F0B8-F8F8-4BBF-BB61-031ED04298AD} = {D392F0B8-F8F8-4BBF-BB61-031ED04298AD}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "authtests", "authtests\authtests.csproj", "{A507C942-094C-4464-BF57-DE07246D69BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{7ED88696-05CA-42E5-93E5-9C474C5DD741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ED88696-05CA-42E5-93E5-9C474C5DD741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ED88696-05CA-42E5-93E5-9C474C5DD741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A507C942-094C-4464-BF57-DE07246D69BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A507C942-094C-4464-BF57-DE07246D69BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A507C942-094C-4464-BF57-DE07246D69BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A507C942-094C-4464-BF57-DE07246D69BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
