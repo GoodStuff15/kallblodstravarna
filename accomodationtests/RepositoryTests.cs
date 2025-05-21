@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Client;
 using Mono.Cecil.Cil;
 using restortlibrary.Data;
 using restortlibrary.Models;
@@ -260,9 +261,38 @@ public class RepositoryTests
         Assert.IsNull(booking);
     }
     [TestMethod]
+    public void CustomerBooking_CalculatingPrice()
+    {
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 17), CheckOut = new DateTime(2025, 5, 21), Active = true, CancelationDate = new DateTime(2025, 5, 10)};
+        booking.Accomodation = _context.Set<Accomodation>().Find(2);
+        booking.Accomodation.AccomodationType = _context.Set<AccomodationType>().Find(2);
+        booking.Cost = booking.Accomodation.AccomodationType.BasePrice;
+        decimal extra = booking.AdditionalOptions
+                        .Select(x => x.Price)
+                        .Sum();
+
+        var daysOfStay = new TimeSpan(booking.CheckOut.Ticks - booking.CheckIn.Ticks);
+
+        var deezNuts = daysOfStay.TotalDays;
+
+        var actual = booking.Cost * (decimal)deezNuts;
+        Assert.AreEqual(4000, actual);
+
+    }
+
+    [TestMethod]
     public void CustomerBooking_CancellingABooking_HasToBeBeforeCancellationDate()
     {
+        // Given a booking with a cancellationdate that has passed
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 17), CheckOut = new DateTime(2025, 5, 21), Active = true, CancelationDate = new DateTime(2025, 5, 10) };
 
+        // When checking if cancellation is avaialble at this date
+        if(booking.CancelationDate > DateTime.Now)
+        {
+            booking.Active = false;
+        }
+        // Then booking should remain active
+        Assert.IsTrue(booking.Active);
     }
 
     [TestCleanup]

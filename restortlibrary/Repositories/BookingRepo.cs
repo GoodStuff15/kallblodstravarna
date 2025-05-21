@@ -1,4 +1,5 @@
-﻿using Microsoft.Identity.Client;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using restortlibrary.Data;
 using restortlibrary.Models;
@@ -65,6 +66,32 @@ namespace restortlibrary.Repositories
             
             await _context.SaveChangesAsync();
         }
+
+        public async Task CancelAsync(Booking booking)
+        {
+            //Checking if booking cancellation date has expired
+
+            if(booking.CancelationDate < DateTime.Now)
+            {
+                throw new Exception("Database error: Cannot cancel booking, Last cancellation date has expired");
+            }
+
+            booking.Active = false;
+            _context.Set<Booking>().Update(booking);
+            await _context.SaveChangesAsync();
+        }
+    
+        public override async Task<ICollection<Booking>> GetAllWithIncludesAsync()
+        {
+            return await _context.Set<Booking>()
+                         .Include(g => g.Guests)
+                         .Include(a => a.Accomodation)
+                         .Include(o => o.AdditionalOptions)
+                         .Include(c => c.Customer)
+                         .ToListAsync();
+        }
     }
+
+    
 }
 
