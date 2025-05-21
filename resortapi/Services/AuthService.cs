@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 
-namespace restortlibrary.Services
+namespace resortapi.Services
 {
     public class AuthService(ResortContext context, IConfiguration configuration) : IAuthService
     {
@@ -42,6 +42,16 @@ namespace restortlibrary.Services
 
         public async Task<User?> RegisterAsync(UserDto request)
         {
+            if (string.IsNullOrWhiteSpace(request.Role))
+            {
+                throw new ArgumentException("Role is required.");
+            }
+
+            if (!ValidateUserDto(request))
+            {
+                return null;
+            }
+
             if (await context.Users.AnyAsync(u => u.Username.ToLower() == request.Username.ToLower()))
             {
                 return null;
@@ -160,5 +170,37 @@ namespace restortlibrary.Services
             return true;
         }
 
+        private bool ValidateUserDto(UserDto request)
+        {
+            // Användarnamn: 3-15 tecken, bara bokstäver, siffror och underscore
+            if (string.IsNullOrWhiteSpace(request.Username) || request.Username.Length < 3 || request.Username.Length > 15)
+                return false;
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(request.Username, @"^[a-zA-Z0-9_]+$"))
+                return false;
+
+            // Lösenord: Minst 8 tecken, minst en stor bokstav, en liten bokstav, en siffra och ett specialtecken
+            if (string.IsNullOrWhiteSpace(request.Password) || request.Password.Length < 8)
+                return false;
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(request.Password, @"[A-Z]"))
+                return false;
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(request.Password, @"[a-z]"))
+                return false;
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(request.Password, @"[0-9]"))
+                return false;
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(request.Password, @"[\W_]"))
+                return false;
+
+            return true;
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return await context.Users.ToListAsync();
+        }
     }
 }

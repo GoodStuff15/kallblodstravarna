@@ -1,7 +1,7 @@
 ﻿using resortdtos;
 using restortlibrary.Models;
 
-namespace restortlibrary.Services
+namespace resortapi.Services
 {
     public interface IAuthService
     {
@@ -12,5 +12,6 @@ namespace restortlibrary.Services
         Task<User?> GetUserByUsernameAsync(string username);
         Task ClearRefreshTokenAsync(User user);
         Task<bool> DeleteUserAsync(int userId);
+        Task<IEnumerable<User>> GetAllUsersAsync();
     }
 }

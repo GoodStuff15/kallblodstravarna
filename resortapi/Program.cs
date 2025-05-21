@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using restortlibrary.Data;
 using restortlibrary.Factories;
 using restortlibrary.Factories.IFactories;
-using restortlibrary.Services;
+using resortapi.Services;
 using Scalar.AspNetCore;
 
 namespace resortapi
