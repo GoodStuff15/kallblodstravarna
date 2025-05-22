@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Client;
 using Mono.Cecil.Cil;
 using restortlibrary.Data;
 using restortlibrary.Models;
@@ -62,6 +64,13 @@ public class RepositoryTests
             Accomodation = new Accomodation()
 
         };
+
+        var accomodationType = new AccomodationType() { Id = 2, Name = "Rum", BasePrice = 1000 };
+
+       
+        _context.Set<AccomodationType>().Add(accomodationType);
+        var accomodation = new Accomodation() { Id = 2, Name = "Gamerrummet", MaxOccupancy = 4};
+        _context.Set<Accomodation>().Add(accomodation);
         _context.Set<Customer>().Add(customer);
         _context.Set<Customer>().Add(customer2);
         _context.Set<Customer>().Add(customer3);
@@ -189,7 +198,101 @@ public class RepositoryTests
 
         // Then should not work
         Assert.IsNull (newBooking);
+    }
 
+    [TestMethod]
+    public void CustomerBooking_CantBookDatesInThePast()
+    {
+        // If trying to add booking with dates in the past
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 22), CheckOut = new DateTime(2025, 5, 20), Active = true};
+
+        // When checking if dates are in the past
+        if(booking.CheckIn < DateTime.Now || booking.CheckOut < DateTime.Now)
+        {
+            booking = null;
+        }
+
+        // Then booking should not be created
+        Assert.IsNull(booking);
+    }
+
+    [TestMethod]
+    public void CustomerBooking_CantPutCheckOutOnSameOrEarlierDayThanCheckIn()
+    {
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 22), CheckOut = new DateTime(2025, 5, 21), Active = true};
+
+        if(booking.CheckOut <= booking.CheckIn)
+        {
+            booking = null;
+        }
+        Assert.IsNull(booking);
+    }
+
+    [TestMethod]
+    public void CustomerBooking_NumberOfGuests_IsBiggerThanZero()
+    {
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 22), CheckOut = new DateTime(2025, 5, 21), Active = true };
+        booking.Guests.Add(new Guest());
+        if(booking.Guests.Count == 0)
+        {
+            booking = null;
+        }
+        Assert.IsNull(booking);
+    }
+    [TestMethod]
+    public void CustomerBooking_NumberOfGuests_CantBeBiggerThanAccomodationSize()
+    {
+        // When given a booking with number of guests bigger than accomodation capacity
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 22), CheckOut = new DateTime(2025, 5, 21), Active = true };
+        booking.Accomodation = new Accomodation() { MaxOccupancy = 4 };
+        booking.Guests.Add(new Guest());
+        booking.Guests.Add(new Guest());
+        booking.Guests.Add(new Guest());
+        booking.Guests.Add(new Guest());
+        booking.Guests.Add(new Guest());
+
+        // when comparing max occupancy to guest count
+        if (booking.Accomodation.MaxOccupancy < booking.Guests.Count)
+        {
+            booking = null;
+        }
+
+        // Booking should fail
+        Assert.IsNull(booking);
+    }
+    [TestMethod]
+    public void CustomerBooking_CalculatingPrice()
+    {
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 17), CheckOut = new DateTime(2025, 5, 21), Active = true, CancelationDate = new DateTime(2025, 5, 10)};
+        booking.Accomodation = _context.Set<Accomodation>().Find(2);
+        booking.Accomodation.AccomodationType = _context.Set<AccomodationType>().Find(2);
+        booking.Cost = booking.Accomodation.AccomodationType.BasePrice;
+        decimal extra = booking.AdditionalOptions
+                        .Select(x => x.Price)
+                        .Sum();
+
+        var daysOfStay = new TimeSpan(booking.CheckOut.Ticks - booking.CheckIn.Ticks);
+
+        var deezNuts = daysOfStay.TotalDays;
+
+        var actual = booking.Cost * (decimal)deezNuts;
+        Assert.AreEqual(4000, actual);
+
+    }
+
+    [TestMethod]
+    public void CustomerBooking_CancellingABooking_HasToBeBeforeCancellationDate()
+    {
+        // Given a booking with a cancellationdate that has passed
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 17), CheckOut = new DateTime(2025, 5, 21), Active = true, CancelationDate = new DateTime(2025, 5, 10) };
+
+        // When checking if cancellation is avaialble at this date
+        if(booking.CancelationDate > DateTime.Now)
+        {
+            booking.Active = false;
+        }
+        // Then booking should remain active
+        Assert.IsTrue(booking.Active);
     }
 
     [TestCleanup]
