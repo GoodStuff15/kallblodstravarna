@@ -12,5 +12,6 @@ namespace restortlibrary.Models
         [Required]
         public decimal Price { get; set; }
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
     }
 }

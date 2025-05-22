@@ -10,5 +10,6 @@ namespace restortlibrary.Models
         public string Name { get; set; }
         public string Description { get; set; } = string.Empty;
         public ICollection<Accomodation> Accomodations { get; set; } = new List<Accomodation>();
+
     }
 }
