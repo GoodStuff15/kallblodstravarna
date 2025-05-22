@@ -5,15 +5,15 @@ public static class ResortContextSeed
 {
     public static void Seed(ModelBuilder modelBuilder)
     {
-        //SeedAccessibilities(modelBuilder);
-        //SeedAccomodationTypes(modelBuilder);
-        //SeedAccomodations(modelBuilder);
-        //SeedAdditionalOptions(modelBuilder);
-        //SeedCustomers(modelBuilder);
-        //SeedBookings(modelBuilder);
-        //SeedGuests(modelBuilder);
-        //SeedPriceChanges(modelBuilder);
-        //SeedUsers(modelBuilder);
+        SeedAccessibilities(modelBuilder);
+        SeedAccomodationTypes(modelBuilder);
+        SeedAccomodations(modelBuilder);
+        SeedAdditionalOptions(modelBuilder);
+        SeedCustomers(modelBuilder);
+        SeedBookings(modelBuilder);
+        SeedGuests(modelBuilder);
+        SeedPriceChanges(modelBuilder);
+        SeedUsers(modelBuilder);
     }
 
     private static void SeedAccessibilities(ModelBuilder modelBuilder)

@@ -22,7 +22,24 @@ namespace restortlibrary.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //ResortContextSeed.Seed(modelBuilder);
+
+            modelBuilder.Entity<AccomodationType>()
+                .Property(a => a.BasePrice)
+                .HasPrecision(10, 2);
+
+            modelBuilder.Entity<AdditionalOption>()
+                .Property(o => o.Price)
+                .HasPrecision(10, 2);
+
+            modelBuilder.Entity<Booking>()
+                .Property(b => b.AmountPaid)
+                .HasPrecision(10, 2);
+
+            modelBuilder.Entity<Booking>()
+                .Property(b => b.Cost)
+                .HasPrecision(10, 2);
+
+            ResortContextSeed.Seed(modelBuilder);
         }
 
     }
