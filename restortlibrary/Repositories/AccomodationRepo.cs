@@ -40,5 +40,10 @@ namespace restortlibrary.Repositories
             return await availableRooms.ToListAsync();
 
         }
+
+        public override Task<ICollection<Accomodation>> GetAllWithIncludesAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
