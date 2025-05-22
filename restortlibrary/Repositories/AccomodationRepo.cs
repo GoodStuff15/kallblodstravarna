@@ -1,4 +1,5 @@
-﻿using restortlibrary.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using restortlibrary.Data;
 using restortlibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,29 @@ namespace restortlibrary.Repositories
             _context = context;
         }
 
-        public override Task<ICollection<Accomodation>> GetAllWithIncludesAsync()
+
+        public async Task<ICollection<Accomodation>> GetAvailableAsync(DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            var availableRooms = _context.Set<Booking>()
+                    .Where(b => b.CheckIn < end && start < b.CheckOut)
+                    .Select(a => a.Accomodation);
+
+            return await availableRooms.ToListAsync();
+        }
+
+        public async Task<ICollection<Accomodation>> GetAvailableByGuestNo(DateTime start, DateTime end, int noOfGuests)
+        {
+            var availableRooms = _context.Set<Accomodation>()
+                        .Where(a => a.MaxOccupancy >= noOfGuests)
+                        .Include(a => a.Bookings)
+                        .SelectMany(
+                            acc => acc.Bookings
+                           .Where(date => !(start < date.CheckOut && date.CheckIn < end))
+                           .Select(a => acc));
+                        
+
+            return await availableRooms.ToListAsync();
+
         }
     }
 }
