@@ -30,6 +30,13 @@ public class RepositoryTests
     [TestInitialize]
     public void TestInit()
     {
+        builder = new DbContextOptionsBuilder<ResortContext>();
+        builder.UseInMemoryDatabase("ResortContext");
+        options = builder.Options;
+        _context = new ResortContext(options);
+
+
+
         var customer = new Customer() { Id = 1, FirstName = "Gustav", LastName = "Eriksson", 
                                         Email = "vd@swedbonk.se", Phone = "070000000", Type="VIP", 
                                         PaymentMethod = "Gold card", Bookings = new List<Booking>() };
@@ -59,7 +66,7 @@ public class RepositoryTests
             CancelationDate = new DateTime(2025, 5, 18),
             Cost = 1000,
             AmountPaid = 1000,
-            Accomodation = new Accomodation() { Id = 1}
+            Accomodation = new Accomodation() { Id = 1, MaxOccupancy = 2 }
 
         };
         var booking2 = new Booking()
@@ -73,7 +80,7 @@ public class RepositoryTests
             CancelationDate = new DateTime(2025, 5, 5),
             Cost = 1000,
             AmountPaid = 0,
-            Accomodation = new Accomodation() { Id = 2 }
+            Accomodation = new Accomodation() { Id = 2, MaxOccupancy = 4 }
 
         };
         var booking3 = new Booking()
@@ -87,12 +94,13 @@ public class RepositoryTests
             CancelationDate = new DateTime(2025, 5, 18),
             Cost = 1000,
             AmountPaid = 1000,
-            Accomodation = new Accomodation() { Id = 3 }
+            Accomodation = new Accomodation() { Id = 3, MaxOccupancy = 4}
 
 
         };
 
-        var accomodation = new Accomodation() { Id = 4 };
+        var accomodation = new Accomodation() { Id = 4, MaxOccupancy = 2 };
+        
 
         _context.Set<Customer>().Add(customer);
         _context.Set<Customer>().Add(customer2);
@@ -242,6 +250,30 @@ public class RepositoryTests
 
         Assert.AreEqual(2, availableRooms.Count);
     }
+
+    [TestMethod]
+    public void Accomodations_SeeAllAvailableByDateAndCapacity()
+    {
+        var start = new DateTime(2025, 5, 1);
+        var end = new DateTime(2025, 5, 13);
+
+        var noOfGuests = 3;
+
+        var availableRooms = _context.Set<Accomodation>()
+                             .Where(a => a.MaxOccupancy >= noOfGuests)
+                             .Include(a => a.Bookings)
+                             .SelectMany(
+                                 acc => acc.Bookings
+                                .Where(date => !(start < date.CheckOut && date.CheckIn < end))
+                                .Select(a => acc))
+                             .ToList();
+                              
+
+
+        Assert.AreEqual(1, availableRooms.Count);
+    
+    }
+
     [TestCleanup]
     public void Cleanup()
     {
