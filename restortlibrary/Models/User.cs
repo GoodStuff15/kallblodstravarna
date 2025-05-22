@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace restortlibrary.Models
+﻿namespace restortlibrary.Models
 {
     public class User
     {

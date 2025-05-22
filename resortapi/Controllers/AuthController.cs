@@ -13,15 +13,16 @@ namespace resortapi.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto request)
         {
-            var user = await authService.RegisterAsync(request);
+            var result = await authService.RegisterAsync(request);
 
-            if (user is null)
+            if (result.User == null)
             {
-                return BadRequest("Username already exists");
+                return BadRequest(result.Error);
             }
 
-            return Ok(user);
+            return Ok(result.User);
         }
+
 
         [HttpPost("login")]
         public async Task<ActionResult<TokenResponseDto>> Login(UserDto request)

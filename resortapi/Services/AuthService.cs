@@ -40,21 +40,21 @@ namespace resortapi.Services
             return await CreateTokenResponse(user);
         }
 
-        public async Task<User?> RegisterAsync(UserDto request)
+        public async Task<RegisterResult> RegisterAsync(UserDto request)
         {
             if (string.IsNullOrWhiteSpace(request.Role))
             {
-                throw new ArgumentException("Role is required.");
+                request.Role = "User";
             }
 
             if (!ValidateUserDto(request))
             {
-                return null;
+                return RegisterResult.Fail("Invalid username or password format");
             }
 
             if (await context.Users.AnyAsync(u => u.Username.ToLower() == request.Username.ToLower()))
             {
-                return null;
+                return RegisterResult.Fail("Username already exists");
             }
 
             var user = new User();
@@ -68,7 +68,7 @@ namespace resortapi.Services
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
-            return user;
+            return RegisterResult.Success(user);
         }
 
         public async Task<TokenResponseDto?> RefreshTokensAsync(TokenRefreshDto request)
