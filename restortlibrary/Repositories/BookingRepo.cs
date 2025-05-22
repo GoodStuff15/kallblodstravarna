@@ -71,7 +71,7 @@ namespace restortlibrary.Repositories
         {
             //Checking if booking cancellation date has expired
 
-            if(booking.CancelationDate < DateTime.Now)
+            if(booking.CancellationDate < DateTime.Now)
             {
                 throw new Exception("Database error: Cannot cancel booking, Last cancellation date has passed");
             }
