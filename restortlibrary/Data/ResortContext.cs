@@ -21,8 +21,8 @@ namespace restortlibrary.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            ResortContextSeed.Seed(modelBuilder);
         }
-
 
     }
 }

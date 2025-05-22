@@ -10,9 +10,9 @@ namespace restortlibrary.Models
         public int MaxOccupancy { get; set; }
         
         [Required]
+        public int AccomodationTypeId { get; set; }
         public AccomodationType AccomodationType { get; set; }
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-
         public ICollection<Accessibility> Accessibilities { get; set; } = new List<Accessibility>();
     }
 }
