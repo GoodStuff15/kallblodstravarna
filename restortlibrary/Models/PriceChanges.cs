@@ -10,5 +10,6 @@ namespace restortlibrary.Models
         public float PriceChange { get; set; }
         public string Type { get; set; } = string.Empty;
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
     }
 }

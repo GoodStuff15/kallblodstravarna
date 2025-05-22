@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace restortlibrary.Models
+﻿namespace restortlibrary.Models
 {
     public class User
     {
@@ -10,5 +8,6 @@ namespace restortlibrary.Models
         public string Role { get; set; } = "User";
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
+
     }
 }

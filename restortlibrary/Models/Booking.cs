@@ -12,10 +12,12 @@ namespace restortlibrary.Models
         public DateTime CheckOut { get; set; }
         public DateTime TimeOfBooking { get; set; }
         public bool Active { get; set; }
-        public DateTime CancelationDate { get; set; }
+        public DateTime? CancellationDate { get; set; }
         public decimal Cost { get; set; }
         public decimal AmountPaid { get; set; }
+        public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+        public int AccomodationId { get; set; }
         public Accomodation Accomodation { get; set; }
         public ICollection<Guest> Guests { get; set; } = new List<Guest>();
         public ICollection<PriceChanges> PriceChanges { get; set; } = new List<PriceChanges>();

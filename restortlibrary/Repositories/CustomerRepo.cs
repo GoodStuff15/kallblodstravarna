@@ -14,5 +14,10 @@ namespace restortlibrary.Repositories
         {
             _context = context;
         }
+
+        public override Task<ICollection<Customer>> GetAllWithIncludesAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
