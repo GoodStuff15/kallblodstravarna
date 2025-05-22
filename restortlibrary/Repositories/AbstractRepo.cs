@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace restortlibrary.Repositories
 {
-    public class AbstractRepo<TEntity> : IRepository<TEntity> where TEntity : class 
+    public abstract class AbstractRepo<TEntity> : IRepository<TEntity> where TEntity : class 
     {
         protected ResortContext _context;
 
@@ -55,6 +55,10 @@ namespace restortlibrary.Repositories
 
             return await all.ToListAsync();
         }
+
+        // Read all with includes
+
+        public abstract Task<ICollection<TEntity>> GetAllWithIncludesAsync();
 
     }
 }

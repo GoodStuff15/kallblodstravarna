@@ -25,6 +25,8 @@ namespace restortlibrary.Repositories
         // Read All 
         public Task<ICollection<TEntity>> GetAllAsync();
 
-        
+        // Read All With Includes
+        public  Task<ICollection<TEntity>> GetAllWithIncludesAsync();
+
     }
 }

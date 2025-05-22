@@ -16,6 +16,7 @@ namespace restortlibrary.Repositories
             _context = context;
         }
 
+
         public async Task<ICollection<Accomodation>> GetAvailableAsync(DateTime start, DateTime end)
         {
             var availableRooms = _context.Set<Booking>()
@@ -37,6 +38,7 @@ namespace restortlibrary.Repositories
                         
 
             return await availableRooms.ToListAsync();
+
         }
     }
 }
