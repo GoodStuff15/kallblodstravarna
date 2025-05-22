@@ -15,7 +15,7 @@ namespace restortlibrary.Factories
             if(string.IsNullOrWhiteSpace(name)) 
                 throw new ArgumentException("Namn måste anges.");
             if (basePrice <= 0)
-                throw new ArgumentOutOfRangeException(nameof(basePrice),"Pris måste anges.");
+                throw new ArgumentOutOfRangeException(nameof(basePrice),"Pris måste vara högre än 0.");
 
             return new AccomodationType
             {
