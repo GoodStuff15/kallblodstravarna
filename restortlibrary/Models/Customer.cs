@@ -20,7 +20,6 @@ namespace restortlibrary.Models
         public string Phone { get; set; }
         [Required]
         public string PaymentMethod { get; set; }
-
         public ICollection<Booking> Bookings { get; set; }
 
     }

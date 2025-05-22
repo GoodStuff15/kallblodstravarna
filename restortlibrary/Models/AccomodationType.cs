@@ -12,5 +12,6 @@ namespace restortlibrary.Models
         [Required]
         public decimal BasePrice { get; set; }
         public ICollection<Accomodation> Accomodations { get; set; } = new List<Accomodation>();
+
     }
 }

@@ -8,6 +8,7 @@ namespace restortlibrary.Data
         public ResortContext(DbContextOptions<ResortContext> options) : base(options)
         {
         }
+
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Accessibility> Accessibilities { get; set; }
         public DbSet<Accomodation> Accommodations { get; set; }
@@ -21,7 +22,7 @@ namespace restortlibrary.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            ResortContextSeed.Seed(modelBuilder);
+            //ResortContextSeed.Seed(modelBuilder);
         }
 
     }
