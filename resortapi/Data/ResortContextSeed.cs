@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using restortlibrary.Models;
+using resortlibrary.Models;
 
 public static class ResortContextSeed
 {
@@ -112,8 +112,8 @@ public static class ResortContextSeed
     private static void SeedUsers(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, Username = "admin", PasswordHash = "<hashed_pwd>", Role = "Admin", RefreshToken = null, RefreshTokenExpiryTime = null },
-            new User { Id = 2, Username = "reception", PasswordHash = "<hashed_pwd>", Role = "User", RefreshToken = null, RefreshTokenExpiryTime = null }
+            new User { Id = 1, Username = "admin", PasswordHash = "Adminadmin123#", Role = "Admin", RefreshToken = null, RefreshTokenExpiryTime = null },
+            new User { Id = 2, Username = "reception", PasswordHash = "Reception123#", Role = "User", RefreshToken = null, RefreshTokenExpiryTime = null }
         );
     }
 }

@@ -18,16 +18,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="MSTest" Version="3.8.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
+    <PackageReference Include="MSTest" Version="3.9.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\resortapi\resortapi.csproj" />
+    <ProjectReference Include="..\resortdtos\resortdtos.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\restortlibrary\restortlibrary.csproj" />
+    <ProjectReference Include="..\restortlibrary\resortlibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

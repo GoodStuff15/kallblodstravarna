@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "restortlibrary", "restortlibrary\restortlibrary.csproj", "{1F18B73A-B244-4989-B887-DBA245C064E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "resortlibrary", "restortlibrary\resortlibrary.csproj", "{1F18B73A-B244-4989-B887-DBA245C064E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "accomodationtests", "accomodationtests\accomodationtests.csproj", "{CC114384-E0C8-4AAC-95BF-73FA2E7E8AB1}"
 EndProject
