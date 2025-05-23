@@ -39,11 +39,11 @@ public class AccomodationTypeFactoryTests
     public void CreateAccomodationType_InvalidPrice_ShouldThrow(double basePriceInput)
     {
         decimal basePrice = (decimal)basePriceInput;
-        var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateAccomodationType("Bungalow", basePrice));
-        Assert.AreEqual("Pris måste vara högre än 0.", ex.Message);
-        //var ex = Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+        //var ex = Assert.ThrowsException<ArgumentException>(() =>
         //_factory.CreateAccomodationType("Bungalow", basePrice));
-        //Assert.AreEqual("basePrice", ex.ParamName);
+        //Assert.AreEqual("Pris måste vara högre än 0.", ex.Message);
+        var ex = Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+        _factory.CreateAccomodationType("Bungalow", basePrice));
+        Assert.AreEqual("basePrice", ex.ParamName);
     }
 }

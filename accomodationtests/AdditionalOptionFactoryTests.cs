@@ -37,13 +37,13 @@ public class AdditionalOptionFactoryTests
     }
 
     [DataTestMethod]//Check convert to double
-    [DataRow(null)]
     [DataRow(-0.1)]
     [DataRow(-99.99)]
-    public void CreateAdditionalOption_InvalidPrice_ShouldThrow(decimal price)
+    public void CreateAdditionalOption_InvalidPrice_ShouldThrow(double inputPrice)
     {
+        decimal price = (decimal)inputPrice;
         var ex = Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-        _factory.CreateAdditionalOption("Frukost", "Beskrivning", (decimal)price));
+        _factory.CreateAdditionalOption("Frukost", "Beskrivning", price));
         Assert.AreEqual("price", ex.ParamName);
     }
 }
