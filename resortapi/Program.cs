@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using restortlibrary.Data;
-using restortlibrary.Models;
-using restortlibrary.Repositories;
-using restortlibrary.Factories;
-using restortlibrary.Factories.IFactories;
+using resortapi.Data;
+using resortlibrary.Models;
+using resortapi.Repositories;
+using resortlibrary.Factories;
+using resortlibrary.Factories.IFactories;
 using resortapi.Services;
 using Scalar.AspNetCore;
-using restortlibrary.Converters;
-using restortlibrary.Models.DTOs;
+using resortapi.Converters;
+using resortdtos;
 
 namespace resortapi
 {

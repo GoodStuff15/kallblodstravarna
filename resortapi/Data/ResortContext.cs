@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using restortlibrary.Models;
+using resortlibrary.Models;
 
-namespace restortlibrary.Data
+namespace resortapi.Data
 {
     public class ResortContext : DbContext
     {

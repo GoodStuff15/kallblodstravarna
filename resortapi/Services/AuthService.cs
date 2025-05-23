@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using resortdtos;
-using restortlibrary.Data;
-using restortlibrary.Models;
+using resortapi.Data;
+using resortlibrary.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;

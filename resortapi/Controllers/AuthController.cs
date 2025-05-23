@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using resortdtos;
-using restortlibrary.Models;
+using resortlibrary.Models;
 using resortapi.Services;
 
 namespace resortapi.Controllers

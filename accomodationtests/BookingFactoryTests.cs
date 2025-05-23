@@ -1,6 +1,6 @@
-using restortlibrary.Factories;
-using restortlibrary.Factories.IFactories;
-using restortlibrary.Models;
+using resortlibrary.Factories;
+using resortlibrary.Factories.IFactories;
+using resortlibrary.Models;
 
 namespace accomodationtests;
 
