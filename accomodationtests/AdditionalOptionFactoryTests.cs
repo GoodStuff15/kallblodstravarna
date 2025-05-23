@@ -29,14 +29,14 @@ public class AdditionalOptionFactoryTests
     [DataRow(null)]
     [DataRow("")]
     [DataRow(" ")]
-    public void CreateAdditionalOption_InvalidName_ShouldThrow()
+    public void CreateAdditionalOption_InvalidName_ShouldThrow(string name)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _factory.CreateAdditionalOption(name, "Beskrivning", 50m));
         Assert.AreEqual("Namn måste anges.", ex.Message);
     }
 
-    [DataTestMethod]
+    [DataTestMethod]//Check convert to double
     [DataRow(null)]
     [DataRow(-0.1)]
     [DataRow(-99.99)]
