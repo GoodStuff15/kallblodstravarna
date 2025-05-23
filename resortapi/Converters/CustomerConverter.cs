@@ -1,13 +1,8 @@
-﻿using restortlibrary.Factories.IFactories;
-using restortlibrary.Models;
-using restortlibrary.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using resortdtos;
+using resortlibrary.Factories.IFactories;
+using resortlibrary.Models;
 
-namespace restortlibrary.Converters
+namespace resortapi.Converters
 {
     public class CustomerConverter : IConverter<Customer, CreateCustomerRequestDTO>
     {

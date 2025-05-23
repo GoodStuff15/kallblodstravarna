@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace restortlibrary.Models
+namespace resortlibrary.Models
 {
     public class User
     {

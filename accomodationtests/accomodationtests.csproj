@@ -24,10 +24,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\resortapi\resortapi.csproj" />
+    <ProjectReference Include="..\resortdtos\resortdtos.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\restortlibrary\restortlibrary.csproj" />
+    <ProjectReference Include="..\restortlibrary\resortlibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

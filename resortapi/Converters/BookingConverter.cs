@@ -1,14 +1,7 @@
 ﻿using resortdtos;
-using restortlibrary.Factories;
-using restortlibrary.Models;
-using restortlibrary.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using resortlibrary.Models;
 
-namespace restortlibrary.Converters
+namespace resortapi.Converters
 {
     public class BookingConverter : IConverter<Booking, BookingDto>
     {

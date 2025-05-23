@@ -1,12 +1,7 @@
-﻿using restortlibrary.Factories.IFactories;
-using restortlibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using resortlibrary.Factories.IFactories;
+using resortlibrary.Models;
 
-namespace restortlibrary.Factories
+namespace resortlibrary.Factories
 {
     public class CustomerFactory : ICustomerFactory
     {

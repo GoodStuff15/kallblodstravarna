@@ -1,12 +1,7 @@
 ﻿using resortdtos;
-using restortlibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using resortlibrary.Models;
 
-namespace restortlibrary.Converters
+namespace resortapi.Converters
 {
     public class AccessibilityConverter : IConverter<Accessibility, AccessibilityDto>
     {

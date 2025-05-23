@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using restortlibrary.Data;
-using restortlibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using resortapi.Data;
+using resortlibrary.Models;
 
-namespace restortlibrary.Repositories
+namespace resortapi.Repositories
 {
     public class AccomodationRepo : AbstractRepo<Accomodation>
     {

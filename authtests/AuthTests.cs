@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using resortapi.Data;
 using resortapi.Services;
 using resortdtos;
-using restortlibrary.Data;
-using restortlibrary.Models;
+using resortlibrary.Models;
 
 namespace authtests;
 

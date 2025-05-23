@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using restortlibrary.Models;
-using restortlibrary.Repositories;
+using resortlibrary.Models;
+using resortapi.Repositories;
 
 namespace resortapi.Controllers
 {

@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using restortlibrary.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using resortapi.Data;
 
-namespace restortlibrary.Repositories
+namespace resortapi.Repositories
 {
     public abstract class AbstractRepo<TEntity> : IRepository<TEntity> where TEntity : class 
     {
