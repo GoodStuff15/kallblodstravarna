@@ -475,7 +475,7 @@ namespace resortapi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("PasswordHash")
@@ -506,7 +506,6 @@ namespace resortapi.Migrations
                         new
                         {
                             Id = 1,
-                            CustomerId = 0,
                             PasswordHash = "Adminadmin123#",
                             Role = "Admin",
                             Username = "admin"
@@ -514,7 +513,6 @@ namespace resortapi.Migrations
                         new
                         {
                             Id = 2,
-                            CustomerId = 0,
                             PasswordHash = "Reception123#",
                             Role = "User",
                             Username = "reception"
@@ -611,9 +609,7 @@ namespace resortapi.Migrations
                 {
                     b.HasOne("resortlibrary.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.Navigation("Customer");
                 });
