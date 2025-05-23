@@ -65,7 +65,7 @@ public class RepositoryTests
             Customer = customer,
             Active = true,
             TimeOfBooking = new DateTime(2025, 5, 10),
-            CancelationDate = new DateTime(2025, 5, 18),
+            CancellationDate = new DateTime(2025, 5, 18),
             Cost = 1000,
             AmountPaid = 1000,
             Accomodation = new Accomodation() { Id = 1, MaxOccupancy = 2 }
@@ -79,7 +79,7 @@ public class RepositoryTests
             Customer = customer2,
             Active = true,
             TimeOfBooking = new DateTime(2025, 5, 5),
-            CancelationDate = new DateTime(2025, 5, 5),
+            CancellationDate = new DateTime(2025, 5, 5),
             Cost = 1000,
             AmountPaid = 0,
             Accomodation = new Accomodation() { Id = 2, MaxOccupancy = 4 }
@@ -93,7 +93,7 @@ public class RepositoryTests
             Customer = customer3,
             Active = true,
             TimeOfBooking = new DateTime(2025, 5, 10),
-            CancelationDate = new DateTime(2025, 5, 18),
+            CancellationDate = new DateTime(2025, 5, 18),
             Cost = 1000,
             AmountPaid = 1000,
             Accomodation = new Accomodation() { Id = 3, MaxOccupancy = 4}
@@ -304,7 +304,7 @@ public class RepositoryTests
     [TestMethod]
     public void CustomerBooking_CalculatingPrice()
     {
-        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 17), CheckOut = new DateTime(2025, 5, 21), Active = true, CancelationDate = new DateTime(2025, 5, 10)};
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 17), CheckOut = new DateTime(2025, 5, 21), Active = true, CancellationDate = new DateTime(2025, 5, 10)};
         booking.Accomodation = _context.Set<Accomodation>().Find(2);
         booking.Accomodation.AccomodationType = _context.Set<AccomodationType>().Find(2);
         booking.Cost = booking.Accomodation.AccomodationType.BasePrice;
@@ -325,10 +325,10 @@ public class RepositoryTests
     public void CustomerBooking_CancellingABooking_HasToBeBeforeCancellationDate()
     {
         // Given a booking with a cancellationdate that has passed
-        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 17), CheckOut = new DateTime(2025, 5, 21), Active = true, CancelationDate = new DateTime(2025, 5, 10) };
+        var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 17), CheckOut = new DateTime(2025, 5, 21), Active = true, CancellationDate = new DateTime(2025, 5, 10) };
 
         // When checking if cancellation is avaialble at this date
-        if(booking.CancelationDate > DateTime.Now)
+        if(booking.CancellationDate > DateTime.Now)
         {
             booking.Active = false;
         }
