@@ -19,7 +19,7 @@ namespace resortapi
         public static void Main(string[] args)
 
         {
-           
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -46,13 +46,21 @@ namespace resortapi
                     };
                 });
 
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                });
+
+
             builder.Services.AddScoped<IAuthService, AuthService>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
             // Adding services for repo dependency injection
-            builder.Services.AddScoped<IRepository<Customer>,CustomerRepo>();
+            builder.Services.AddScoped<IRepository<Customer>, CustomerRepo>();
             builder.Services.AddScoped<IRepository<Booking>, BookingRepo>();
+            builder.Services.AddScoped<AccomodationRepo>();
 
             // Adding services for DTO conversion
             builder.Services.AddTransient<IConverter<Customer, CreateCustomerRequestDTO>, CustomerConverter>();

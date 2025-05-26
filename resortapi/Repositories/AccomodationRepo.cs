@@ -33,7 +33,6 @@ namespace resortapi.Repositories
                         
 
             return await availableRooms.ToListAsync();
-
         }
 
         public override Task<ICollection<Accomodation>> GetAllWithIncludesAsync()
