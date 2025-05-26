@@ -1,4 +1,4 @@
-using restortlibrary.Factories;
+using resortlibrary.Factories;
 
 namespace accomodationtests;
 

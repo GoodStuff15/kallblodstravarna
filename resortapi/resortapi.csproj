@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\resortdtos\resortdtos.csproj" />
-    <ProjectReference Include="..\restortlibrary\resortlibrary.csproj" />
+    <ProjectReference Include="..\resortlibrary\resortlibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,7 @@
-﻿using restortlibrary.Factories.IFactories;
-using resortlibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using resortlibrary.Models;
+using resortlibrary.Factories.IFactories;
 
-namespace restortlibrary.Factories
+namespace resortlibrary.Factories
 {
     public class AccomodationTypeFactory : IAccomodationTypeFactory
     {

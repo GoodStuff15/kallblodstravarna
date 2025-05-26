@@ -26,7 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\resortapi\resortapi.csproj" />
     <ProjectReference Include="..\resortdtos\resortdtos.csproj" />
-    <ProjectReference Include="..\restortlibrary\resortlibrary.csproj" />
+    <ProjectReference Include="..\resortlibrary\resortlibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

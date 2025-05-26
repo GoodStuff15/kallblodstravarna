@@ -1,5 +1,5 @@
-using restortlibrary.Factories;
-using restortlibrary.Factories.IFactories;
+using resortlibrary.Factories;
+using resortlibrary.Factories.IFactories;
 
 namespace accomodationtests;
 
