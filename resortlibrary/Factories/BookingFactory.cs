@@ -13,8 +13,6 @@ namespace resortlibrary.Factories
                 throw new ArgumentException("Kund måste anges.");
             if (accomodation == null)
                 throw new ArgumentException("Boende måste anges.");
-            if (checkIn < DateTime.Now.Date)
-                throw new ArgumentException("Incheckning kan inte vara i då-tid.");
 
             return new Booking
             {

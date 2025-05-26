@@ -1,15 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using Microsoft.IdentityModel.Tokens;
-using restortlibrary.Data;
-using restortlibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using resortapi.Data;
+using resortlibrary.Models;
 
-namespace restortlibrary.Repositories
+namespace resortapi.Repositories
 {
     public class BookingRepo : AbstractRepo<Booking>
     {
@@ -50,10 +43,10 @@ namespace restortlibrary.Repositories
 
             // Checking that number of guests are bigger than zero
 
-            if(newBooking.Guests.IsNullOrEmpty())
-            {
-                throw new Exception("Database error: No guests present in booking");
-            }
+            //if(newBooking.Guests.IsNullOrEmpty())
+            //{
+            //    throw new Exception("Database error: No guests present in booking");
+            //}
 
             // Checking that number of guests are not bigger than accomodation max occupancy
 

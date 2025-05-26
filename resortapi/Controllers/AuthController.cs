@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using resortdtos;
-using restortlibrary.Models;
+using resortlibrary.Models;
 using resortapi.Services;
 
 namespace resortapi.Controllers
@@ -98,14 +98,13 @@ namespace resortapi.Controllers
             return Ok($"User '{userToDelete.Username}' was deleted by admin '{User.Identity?.Name}'.");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAllUsers")]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
             var users = await authService.GetAllUsersAsync();
             return Ok(users);
         }
-
-
 
     }
 }

@@ -1,5 +1,5 @@
 ﻿using resortdtos;
-using restortlibrary.Models;
+using resortlibrary.Models;
 
 namespace resortapi.Services
 {

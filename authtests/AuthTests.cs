@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using resortapi.Data;
 using resortapi.Services;
 using resortdtos;
-using restortlibrary.Data;
-using restortlibrary.Models;
+using resortlibrary.Models;
 
 namespace authtests;
 
@@ -48,7 +48,7 @@ public class AuthTests
     [DataRow("user2", "Password2@", "")]
     public async Task RegisterNewUser_EmptyRole_ShouldDefaultToUser(string username, string password, string role)
     {
-        // Given
+        // Given a user DTO with empty role
         var userDto = new UserDto
         {
             Username = username,
@@ -56,10 +56,10 @@ public class AuthTests
             Role = role
         };
 
-        // When
+        // When registering the user
         var result = await _authService.RegisterAsync(userDto);
 
-        // Then
+        // Then the user should be created with default role "User"
         Assert.IsNotNull(result.User);
         Assert.IsNull(result.Error);
         Assert.AreEqual("User", result.User.Role);
@@ -71,7 +71,7 @@ public class AuthTests
     [DataRow("user5", "TestPass3#", "Receptionist")]
     public async Task RegisterNewUser_ValidData_ShouldCreateUser(string username, string password, string role)
     {
-        // Given
+        // Given a user DTO with valid data
         var userDto = new UserDto
         {
             Username = username,
@@ -79,10 +79,10 @@ public class AuthTests
             Role = role
         };
 
-        // When
+        // When registering the user
         var result = await _authService.RegisterAsync(userDto);
 
-        // Then
+        // Then the user should be created successfully
         Assert.IsNotNull(result);
         Assert.IsNull(result.Error);
         Assert.IsNotNull(result.User);
@@ -93,7 +93,7 @@ public class AuthTests
     [TestMethod]
     public async Task RegisterNewUser_DuplicateUsername_ShouldFail()
     {
-        // Given
+        // Given a user DTO
         var existingUser = new User
         {
             Username = "existinguser",
@@ -101,9 +101,11 @@ public class AuthTests
             Role = "User"
         };
 
+        // Then adding the existing user to the in-memory database
         _context.Users.Add(existingUser);
         await _context.SaveChangesAsync();
 
+        // Then creating a new user DTO with the same username
         var userDto = new UserDto
         {
             Username = "existinguser",
@@ -111,10 +113,10 @@ public class AuthTests
             Role = "User"
         };
 
-        // When
+        // When registering the new user
         var result = await _authService.RegisterAsync(userDto);
 
-        // Then
+        // Then the registration should fail
         Assert.IsNull(result.User);
         Assert.AreEqual("Username already exists", result.Error);
     }
@@ -132,18 +134,18 @@ public class AuthTests
     [DataRow("user_123", "PassWord1!", true)]                       // Giltigt användarnamn med underscore
     public void ValidateUserDto_ShouldReturnExpected(string username, string password, bool expectedIsValid)
     {
-        // Given
+        // Given a user DTO with various usernames and passwords
         var userDto = new UserDto
         {
             Username = username,
             Password = password
         };
 
-        // When
+        // When validating the user DTO
         var method = typeof(AuthService).GetMethod("ValidateUserDto", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         var isValid = (bool)method.Invoke(_authService, new object[] { userDto });
 
-        // Then
+        // Then the validation result should match the expected outcome
         Assert.AreEqual(expectedIsValid, isValid);
     }
 }
