@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using resortlibrary.Models;
 using resortapi.Repositories;
+using resortdtos;
+using resortapi.Converters;
 
 namespace resortapi.Controllers
 {
@@ -10,36 +12,58 @@ namespace resortapi.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IRepository<Booking> _repo;
+        private readonly BookingConverter _converter;
         public BookingController(IRepository<Booking> repo)
         {
             _repo = repo;
+            _converter = new BookingConverter();
         }
 
         [HttpPost("{newBooking}", Name = "Add New Booking")]
-        public async Task<ActionResult> AddBooking(Booking booking)
+        public async Task<ActionResult> AddBooking(BookingDto booking)
         {
+            var newBooking = _converter.FromDTOtoObject(booking);
+
             if (booking == null)
             {
                 return BadRequest("Adding booking failed (Booking does not exist)");
             }
 
-            await _repo.CreateAsync(booking);
+            await _repo.CreateAsync(newBooking);
 
-            return Ok($"Booking {booking.Id} added to Database successfully");
+            return Ok($"Booking {newBooking.Id} added to Database successfully"); // Id wont exist?
         }
 
 
-        [HttpGet(Name = "Get all bookings")]
-        public async Task<ActionResult<ICollection<Booking>>> GetAllBookings()
+        [HttpGet(Name = "Get overview of all bookings")]
+        public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetAllBookings()
         {
             var bookings = await _repo.GetAllAsync();
 
-            if(!bookings.Any())
+            if (!bookings.Any())
             {
                 return NoContent();
             }
 
-            return Ok(bookings);
+            var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
+
+            return Ok(dtos);
+        }
+
+        [HttpGet(Name = "Get all bookings with details included")]
+        public async Task<ActionResult<ICollection<BookingDto>>> GetAllBookingsWithGuestInfo()
+        {
+            var bookings = await _repo.GetAllWithIncludesAsync();
+
+            if (!bookings.Any())
+            {
+                return NoContent();
+            }
+
+            var dtos = _converter.FromObjecttoDTO_Collection(bookings);
+
+            return Ok(dtos);
+
         }
 
         [HttpPut("{cancelById}", Name = "Cancel booking")]

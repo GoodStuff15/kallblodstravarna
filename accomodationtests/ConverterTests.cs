@@ -121,17 +121,26 @@ public class ConverterTests
     [TestMethod]
     public void BookingConverter_FromObjectCollection_ToDTOCollection()
     {
+        var guests = new List<Guest>()
+        {
+            new Guest() { Id = 1, Age = 25, FirstName = "Gustav", LastName = "Eriksson"},
+            new Guest() { Id = 2, Age = 33, FirstName = "Sven", LastName = "Svensson"},
+            new Guest() { Id = 3, Age = 100, FirstName = "Kenta", LastName = "Olofsson"},
+            new Guest() { Id = 4, Age = 99, FirstName = "Olof", LastName = "Kentaborg"},
+
+        };
         var bookingList = new List<Booking>()
         {
-            new Booking() { Id = 1, AccomodationId = 1, CheckIn = new DateTime(2025, 6, 1), CheckOut = new DateTime(2025, 6, 2) },
-            new Booking() { Id = 2, AccomodationId = 2, CheckIn = new DateTime(2025, 7, 1), CheckOut = new DateTime(2025, 7, 5) }
+            new Booking() { Id = 1, AccomodationId = 1, CheckIn = new DateTime(2025, 6, 1), CheckOut = new DateTime(2025, 6, 2), Guests = guests},
+            new Booking() { Id = 2, AccomodationId = 2, CheckIn = new DateTime(2025, 7, 1), CheckOut = new DateTime(2025, 7, 5), Guests = guests}
         };
 
         var dtoList = new List<BookingDto>();
         var guestList = new List<GuestDto>();
-
+        var conv = new BookingConverter();
+        var testList = conv.FromObjecttoDTO_Collection(bookingList).ToList();
         
-        foreach(var b  in bookingList)
+        foreach(var b in bookingList)
         {
             foreach(var g in b.Guests)
             {
@@ -160,6 +169,23 @@ public class ConverterTests
         }
         var expected = bookingList.Count;
         Assert.AreEqual(expected, dtoList.Count);
+        //CollectionAssert.AreEqual(bookingList[1].Guests.ToList(), testList[1].Guests.ToList());
+        Assert.AreEqual(bookingList[1].Guests.ToList()[1].FirstName, testList[1].Guests.ToList()[1].FirstName);
+
+    }
+
+    [TestMethod]
+    public void BookingConverter_GetBookingsIncludingGuests()
+    {
+        //var bookCon = new BookingConverter();
+
+        //var bookingList = new List<Booking>()
+        //{
+        //    new Booking() { Id = 1, AccomodationId = 1, CheckIn = new DateTime(2025, 6, 1), CheckOut = new DateTime(2025, 6, 2) },
+        //    new Booking() { Id = 2, AccomodationId = 2, CheckIn = new DateTime(2025, 7, 1), CheckOut = new DateTime(2025, 7, 5) }
+        //};
+
+
 
     }
 }
