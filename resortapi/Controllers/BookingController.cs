@@ -34,6 +34,11 @@ namespace resortapi.Controllers
         {
             var bookings = await _repo.GetAllAsync();
 
+            if(!bookings.Any())
+            {
+                return NoContent();
+            }
+
             return Ok(bookings);
         }
 
@@ -41,6 +46,11 @@ namespace resortapi.Controllers
         public async Task<ActionResult> CancelBooking(int cancelById)
         {
             var cancelThis = _repo.GetAsync(cancelById).Result;
+
+            if(cancelThis == null)
+            {
+                return BadRequest($"Booking with {cancelById} cannot be found!");
+            }
             cancelThis.Active = true;
             await _repo.UpdateAsync(cancelThis);
 
@@ -50,7 +60,12 @@ namespace resortapi.Controllers
         [HttpDelete("{deleteById}", Name = "Delete booking from database")]
         public async Task<ActionResult> RemoveBookingFromDb(int deleteById)
         {
-            await _repo.DeleteAsync(_repo.GetAsync(deleteById).Result);
+            var removeThis = _repo.GetAsync(deleteById).Result;
+            if (removeThis == null)
+            {
+                return BadRequest($"Booking with {deleteById} cannot be found!");
+            }
+            await _repo.DeleteAsync(removeThis);
 
             return Ok("Booking removed from database");
 
