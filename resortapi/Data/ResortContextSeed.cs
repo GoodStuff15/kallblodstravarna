@@ -14,6 +14,7 @@ public static class ResortContextSeed
         SeedGuests(modelBuilder);
         SeedPriceChanges(modelBuilder);
         SeedUsers(modelBuilder);
+        SeedAccomodationAccessibilityRelations(modelBuilder);
     }
 
     private static void SeedAccessibilities(ModelBuilder modelBuilder)
@@ -116,4 +117,23 @@ public static class ResortContextSeed
             new User { Id = 2, Username = "reception", PasswordHash = "Reception123#", Role = "User", RefreshToken = null, RefreshTokenExpiryTime = null }
         );
     }
+
+    public static void SeedAccomodationAccessibilityRelations(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Accomodation>()
+            .HasMany(a => a.Accessibilities)
+            .WithMany(ac => ac.Accomodations)
+            .UsingEntity<Dictionary<string, object>>(
+                "AccomodationAccessibility",
+                j => j.HasOne<Accessibility>().WithMany().HasForeignKey("AccessibilityId"),
+                j => j.HasOne<Accomodation>().WithMany().HasForeignKey("AccomodationId"))
+            .HasData(
+                new { AccomodationId = 1, AccessibilityId = 1 },
+                new { AccomodationId = 2, AccessibilityId = 2 },
+                new { AccomodationId = 3, AccessibilityId = 1 },
+                new { AccomodationId = 3, AccessibilityId = 2 }
+            );
+    }
+
+
 }

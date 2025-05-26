@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace resortapi.Migrations
 {
     /// <inheritdoc />
-    public partial class InnitialCreate : Migration
+    public partial class innit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace resortapi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -96,6 +96,7 @@ namespace resortapi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MaxOccupancy = table.Column<int>(type: "int", nullable: false),
                     AccomodationTypeId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -134,24 +135,24 @@ namespace resortapi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AccessibilityAccomodation",
+                name: "AccomodationAccessibility",
                 columns: table => new
                 {
-                    AccessibilitiesId = table.Column<int>(type: "int", nullable: false),
-                    AccomodationsId = table.Column<int>(type: "int", nullable: false)
+                    AccessibilityId = table.Column<int>(type: "int", nullable: false),
+                    AccomodationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccessibilityAccomodation", x => new { x.AccessibilitiesId, x.AccomodationsId });
+                    table.PrimaryKey("PK_AccomodationAccessibility", x => new { x.AccessibilityId, x.AccomodationId });
                     table.ForeignKey(
-                        name: "FK_AccessibilityAccomodation_Accessibilities_AccessibilitiesId",
-                        column: x => x.AccessibilitiesId,
+                        name: "FK_AccomodationAccessibility_Accessibilities_AccessibilityId",
+                        column: x => x.AccessibilityId,
                         principalTable: "Accessibilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AccessibilityAccomodation_Accommodations_AccomodationsId",
-                        column: x => x.AccomodationsId,
+                        name: "FK_AccomodationAccessibility_Accommodations_AccomodationId",
+                        column: x => x.AccomodationId,
                         principalTable: "Accommodations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -317,12 +318,23 @@ namespace resortapi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Accommodations",
-                columns: new[] { "Id", "AccomodationTypeId", "MaxOccupancy", "Name" },
+                columns: new[] { "Id", "AccomodationTypeId", "Description", "MaxOccupancy", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, "101A" },
-                    { 2, 2, 2, "202B" },
-                    { 3, 3, 4, "Penthouse 1" }
+                    { 1, 1, null, 1, "101A" },
+                    { 2, 2, null, 2, "202B" },
+                    { 3, 3, null, 4, "Penthouse 1" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AccomodationAccessibility",
+                columns: new[] { "AccessibilityId", "AccomodationId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 3 },
+                    { 2, 2 },
+                    { 2, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -346,14 +358,14 @@ namespace resortapi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AccessibilityAccomodation_AccomodationsId",
-                table: "AccessibilityAccomodation",
-                column: "AccomodationsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Accommodations_AccomodationTypeId",
                 table: "Accommodations",
                 column: "AccomodationTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AccomodationAccessibility_AccomodationId",
+                table: "AccomodationAccessibility",
+                column: "AccomodationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AdditionalOptionBooking_BookingsId",
@@ -390,7 +402,7 @@ namespace resortapi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AccessibilityAccomodation");
+                name: "AccomodationAccessibility");
 
             migrationBuilder.DropTable(
                 name: "AdditionalOptionBooking");

@@ -24,6 +24,8 @@ namespace resortapi.Repositories
         public async Task<ICollection<Accomodation>> GetAvailableByGuestNo(DateTime start, DateTime end, int noOfGuests)
         {
             var availableRooms = _context.Set<Accomodation>()
+                        .Include(a => a.AccomodationType)
+                        .Include(a => a.Accessibilities)
                         .Where(a => a.MaxOccupancy >= noOfGuests)
                         .Include(a => a.Bookings)
                         .SelectMany(
