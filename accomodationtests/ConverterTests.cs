@@ -1,4 +1,5 @@
 using Microsoft.Identity.Client;
+using resortapi.Converters;
 using resortdtos;
 using resortlibrary.Models;
 
@@ -7,6 +8,9 @@ namespace accomodationtests;
 [TestClass]
 public class ConverterTests
 {
+
+    // Basic conversion of obj/dto and collections
+    // Accessibility
     [TestMethod]
     public void FromAccessibility_ToAccessibilityDTO ()
     {
@@ -33,6 +37,52 @@ public class ConverterTests
 
         Assert.AreEqual(obj.Name, dto.Name);
         Assert.AreEqual(obj.Description, dto.Description);
+    }
+
+    // Guest
+
+    [TestMethod]
+    public void FromGuest_ToGuestDTO()
+    {
+        var converter = new GuestConverter();
+        var expected = new Guest() { Id = 1, FirstName = "Gurra", LastName = "Svensson", Age = 52 };
+
+        var actual = converter.FromObjecttoDTO(expected);
+
+        Assert.AreEqual(expected.FirstName, actual.FirstName);
+        Assert.AreEqual (expected.LastName, actual.LastName);
+        Assert.AreEqual(expected.Age, actual.Age);
+    }
+
+    [TestMethod]
+    public void FromGuestDTO_ToGuest()
+    {
+        var converter = new GuestConverter();
+        var expected = new GuestDto() { FirstName = "Gurra", LastName = "Svensson", Age = 52 };
+
+        var actual = converter.FromDTOtoObject(expected);
+
+        Assert.AreEqual(expected.FirstName, actual.FirstName);
+        Assert.AreEqual(expected.LastName, actual.LastName);
+        Assert.AreEqual(expected.Age, actual.Age);
+    }
+
+    [TestMethod]
+    public void FromGuestCollection_ToGuestDTOCollection()
+    {
+        var converter = new GuestConverter();
+        var guest1 = new Guest() { Id = 1, FirstName = "Sven", LastName = "Stefansson", Age = 3 };
+        var guest2 = new Guest() { Id = 2, FirstName = "Stefan", LastName = "Svensson", Age = 29 }; 
+        var expected = new List<Guest> { guest1, guest2 };
+        
+        var actual = converter.FromObjecttoDTO_Collection(expected).ToList();
+
+
+        Assert.AreEqual(expected.Count, actual.Count);
+        Assert.AreEqual(expected[0].FirstName, actual[0].FirstName);
+        Assert.AreEqual(expected[1].FirstName, actual[1].FirstName);
+        Assert.AreEqual(expected[0].Age, actual[0].Age);
+
     }
 
     // Booking
