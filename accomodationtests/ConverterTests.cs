@@ -1,3 +1,4 @@
+using Microsoft.Identity.Client;
 using resortdtos;
 using resortlibrary.Models;
 
@@ -70,6 +71,45 @@ public class ConverterTests
     [TestMethod]
     public void BookingConverter_FromObjectCollection_ToDTOCollection()
     {
+        var bookingList = new List<Booking>()
+        {
+            new Booking() { Id = 1, AccomodationId = 1, CheckIn = new DateTime(2025, 6, 1), CheckOut = new DateTime(2025, 6, 2) },
+            new Booking() { Id = 2, AccomodationId = 2, CheckIn = new DateTime(2025, 7, 1), CheckOut = new DateTime(2025, 7, 5) }
+        };
+
+        var dtoList = new List<BookingDto>();
+        var guestList = new List<GuestDto>();
+
+        
+        foreach(var b  in bookingList)
+        {
+            foreach(var g in b.Guests)
+            {
+                var guestDto = new GuestDto()
+                {
+                    FirstName = g.FirstName,
+                    LastName = g.LastName,
+                    Age = g.Age,
+                };
+                guestList.Add(guestDto);
+            }
+
+            var dto = new BookingDto()
+            {
+                AccomodationId = b.AccomodationId,
+                CheckIn = b.CheckIn,
+                CheckOut = b.CheckOut,
+                Cost = b.Cost,
+                CustomerId = b.CustomerId,
+                //AdditionalOptionIds = b.AdditionalOptionIds (FIX FIX)
+                Guests = guestList
+            };
+
+            dtoList.Add(dto);
+            guestList.Clear();
+        }
+        var expected = bookingList.Count;
+        Assert.AreEqual(expected, dtoList.Count);
 
     }
 }

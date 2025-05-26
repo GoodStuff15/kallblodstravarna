@@ -19,6 +19,11 @@ namespace resortapi.Converters
 
         }
 
+        public ICollection<Customer> FromDTOtoObject_Collection(ICollection<CreateCustomerRequestDTO> collection)
+        {
+            throw new NotImplementedException();
+        }
+
         public CreateCustomerRequestDTO FromObjecttoDTO(Customer entity)
         {
             return new CreateCustomerRequestDTO()
@@ -31,5 +36,9 @@ namespace resortapi.Converters
             };
         }
 
+        public ICollection<CreateCustomerRequestDTO> FromObjecttoDTO_Collection(ICollection<Customer> collection)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

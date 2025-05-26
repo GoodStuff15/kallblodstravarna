@@ -11,6 +11,11 @@ namespace resortapi.Converters
             throw new NotImplementedException();
         }
 
+        public ICollection<Booking> FromDTOtoObject_Collection(ICollection<BookingDto> collection)
+        {
+            throw new NotImplementedException();
+        }
+
         public BookingDto FromObjecttoDTO(Booking obj)
         {
             var dto = new BookingDto();
@@ -33,6 +38,11 @@ namespace resortapi.Converters
             dto.AccomodationId = obj.AccomodationId;
 
             return dto;
+        }
+
+        public ICollection<BookingDto> FromObjecttoDTO_Collection(ICollection<Booking> collection)
+        {
+            throw new NotImplementedException();
         }
 
         public Booking ModifyDtoToObject(ModifyBookingDto dto)

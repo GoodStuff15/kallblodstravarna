@@ -14,6 +14,11 @@ namespace resortapi.Converters
             return obj;
         }
 
+        public ICollection<Accessibility> FromDTOtoObject_Collection(ICollection<AccessibilityDto> collection)
+        {
+            throw new NotImplementedException();
+        }
+
         public AccessibilityDto FromObjecttoDTO(Accessibility obj)
         {
             var dto = new AccessibilityDto();
@@ -21,6 +26,11 @@ namespace resortapi.Converters
             dto.Description = obj.Description;
 
             return dto;
+        }
+
+        public ICollection<AccessibilityDto> FromObjecttoDTO_Collection(ICollection<Accessibility> collection)
+        {
+            throw new NotImplementedException();
         }
     }
 }
