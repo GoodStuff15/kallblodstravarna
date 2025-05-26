@@ -6,5 +6,7 @@
 
         public V FromObjecttoDTO(T obj);
 
+        public ICollection<V> FromObjecttoDTO_Collection(ICollection<T> collection);
+        public ICollection<T> FromDTOtoObject_Collection(ICollection<V> collection);
     }
 }

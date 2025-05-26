@@ -11,6 +11,31 @@ namespace resortapi.Converters
             throw new NotImplementedException();
         }
 
+        public ICollection<Booking> FromDTOtoObject_Collection(ICollection<BookingDto> collection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<BookingsOverviewDto> FromObjectCollection_ToOverviewCollection(ICollection<Booking> bookings)
+        {
+            var overview = new List<BookingsOverviewDto>();
+
+            foreach(var b in bookings)
+            {
+                var dto = new BookingsOverviewDto()
+                {
+                    BookingId = b.Id,
+                    CheckIn = b.CheckIn,
+                    CheckOut = b.CheckOut,
+                    AccomodationId = b.AccomodationId,
+                    CustomerId = b.CustomerId,
+                    Active = b.Active
+                };
+                overview.Add(dto);
+            }
+            return overview;
+        }
+
         public BookingDto FromObjecttoDTO(Booking obj)
         {
             var dto = new BookingDto();
@@ -33,6 +58,29 @@ namespace resortapi.Converters
             dto.AccomodationId = obj.AccomodationId;
 
             return dto;
+        }
+
+        public ICollection<BookingDto> FromObjecttoDTO_Collection(ICollection<Booking> collection)
+        {
+            var guestConverter = new GuestConverter();
+            var dtos = new List<BookingDto>();
+
+            foreach(var b in collection)
+            {
+                var dto = new BookingDto()
+                {
+                    CheckIn = b.CheckIn,
+                    CheckOut = b.CheckOut,
+                    AccomodationId = b.AccomodationId,
+                    CustomerId = b.CustomerId,
+                    Cost = b.Cost,
+                    Guests = guestConverter.FromObjecttoDTO_Collection(b.Guests),
+                    AdditionalOptionIds = null ////// !!!!!
+                };
+
+                dtos.Add(dto);
+            }
+            return dtos;
         }
 
         public Booking ModifyDtoToObject(ModifyBookingDto dto)
