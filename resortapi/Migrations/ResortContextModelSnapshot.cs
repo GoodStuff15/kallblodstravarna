@@ -34,7 +34,7 @@ namespace resortapi.Migrations
 
                     b.HasIndex("AccomodationsId");
 
-                    b.ToTable("AccessibilityAccomodation");
+                    b.ToTable("AccessibilityAccomodation", (string)null);
                 });
 
             modelBuilder.Entity("AdditionalOptionBooking", b =>
@@ -49,7 +49,7 @@ namespace resortapi.Migrations
 
                     b.HasIndex("BookingsId");
 
-                    b.ToTable("AdditionalOptionBooking");
+                    b.ToTable("AdditionalOptionBooking", (string)null);
                 });
 
             modelBuilder.Entity("BookingPriceChanges", b =>
@@ -64,7 +64,7 @@ namespace resortapi.Migrations
 
                     b.HasIndex("PriceChangesId");
 
-                    b.ToTable("BookingPriceChanges");
+                    b.ToTable("BookingPriceChanges", (string)null);
                 });
 
             modelBuilder.Entity("resortlibrary.Models.Accessibility", b =>
@@ -85,7 +85,7 @@ namespace resortapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accessibilities");
+                    b.ToTable("Accessibilities", (string)null);
 
                     b.HasData(
                         new
@@ -123,7 +123,7 @@ namespace resortapi.Migrations
 
                     b.HasIndex("AccomodationTypeId");
 
-                    b.ToTable("Accommodations");
+                    b.ToTable("Accommodations", (string)null);
 
                     b.HasData(
                         new
@@ -171,7 +171,7 @@ namespace resortapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AccomodationTypes");
+                    b.ToTable("AccomodationTypes", (string)null);
 
                     b.HasData(
                         new
@@ -219,7 +219,7 @@ namespace resortapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdditionalOptions");
+                    b.ToTable("AdditionalOptions", (string)null);
 
                     b.HasData(
                         new
@@ -281,7 +281,7 @@ namespace resortapi.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
 
                     b.HasData(
                         new
@@ -345,7 +345,7 @@ namespace resortapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
 
                     b.HasData(
                         new
@@ -396,7 +396,7 @@ namespace resortapi.Migrations
 
                     b.HasIndex("BookingId");
 
-                    b.ToTable("Guests");
+                    b.ToTable("Guests", (string)null);
 
                     b.HasData(
                         new
@@ -450,7 +450,7 @@ namespace resortapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PriceChanges");
+                    b.ToTable("PriceChanges", (string)null);
 
                     b.HasData(
                         new
@@ -500,7 +500,7 @@ namespace resortapi.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new

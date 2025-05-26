@@ -34,6 +34,8 @@ public class ConverterTests
         Assert.AreEqual(obj.Description, dto.Description);
     }
 
+    // Booking
+
     [TestMethod]
     public void FromBooking_ToBookingDTO()
     {
@@ -62,6 +64,12 @@ public class ConverterTests
         dto.Guests = dtoguests;
         dto.AccomodationId = obj.AccomodationId;    
 
+
+    }
+
+    [TestMethod]
+    public void BookingConverter_FromObjectCollection_ToDTOCollection()
+    {
 
     }
 }
