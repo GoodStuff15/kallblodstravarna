@@ -76,18 +76,17 @@ public class BookingFactoryTests
         Assert.AreEqual("Utcheckning måste vara efter incheckning.", ex.Message);
     }
     [TestMethod]
-    public void CreateBooking_CheckInPastDate_ShouldSucceed()
+    public void CreateBooking_CheckInPastDate_ShouldThrow()
     {
         var customer = new Customer();
         var accomodation = new Accomodation();
         var checkIn = DateTime.Now.AddDays(-1);
         var checkOut = DateTime.Now.AddDays(2);
 
-        var booking = _factory.CreateBooking(checkIn,checkOut, customer, accomodation);
+        var ex = Assert.ThrowsException<ArgumentException> (() =>
+        _factory.CreateBooking(checkIn,checkOut, customer, accomodation));
 
-        Assert.IsNotNull(booking);
-        Assert.AreEqual(checkIn, booking.CheckIn);
-        Assert.AreEqual(checkOut, booking.CheckOut);
+        Assert.AreEqual("Incheckning kan inte vara i då-tid.", ex.Message);
     }
     
 }
