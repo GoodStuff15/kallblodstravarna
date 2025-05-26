@@ -174,18 +174,5 @@ public class ConverterTests
 
     }
 
-    [TestMethod]
-    public void BookingConverter_GetBookingsIncludingGuests()
-    {
-        //var bookCon = new BookingConverter();
 
-        //var bookingList = new List<Booking>()
-        //{
-        //    new Booking() { Id = 1, AccomodationId = 1, CheckIn = new DateTime(2025, 6, 1), CheckOut = new DateTime(2025, 6, 2) },
-        //    new Booking() { Id = 2, AccomodationId = 2, CheckIn = new DateTime(2025, 7, 1), CheckOut = new DateTime(2025, 7, 5) }
-        //};
-
-
-
-    }
 }
