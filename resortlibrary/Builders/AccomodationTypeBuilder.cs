@@ -10,14 +10,18 @@ namespace resortlibrary.Builders
         {
             _accomodationType = new AccomodationType();
         }
+
         public AccomodationTypeBuilder AddName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
+            {
                 throw new ArgumentException("Namn måste anges.");
+            }
 
             _accomodationType.Name = name;
             return this;
         }
+
         public AccomodationTypeBuilder AddDescription(string description)
         {
             _accomodationType.Description = description;
@@ -27,8 +31,10 @@ namespace resortlibrary.Builders
         public AccomodationTypeBuilder AddBasePrice(decimal basePrice)
         {
             if (basePrice <= 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(basePrice), "Pris måste vara högre än 0.");
-          
+            }
+
             _accomodationType.BasePrice = basePrice;
             return this;
         }

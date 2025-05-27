@@ -4,12 +4,22 @@ namespace resortlibrary.Builders
 {
     public class CustomerBuilder
     {
-        public Customer _customer;
+        private Customer _customer;
+
+        public CustomerBuilder()
+        {
+            _customer = new Customer
+            {
+                Bookings = new List<Booking>()
+            };
+        }
 
         public CustomerBuilder AddType(string type)
         {
             if (string.IsNullOrWhiteSpace(type))
+            {
                 throw new ArgumentException("Fyll i kundtyp");
+            }
 
             _customer.Type = type;
             return this;
@@ -18,7 +28,9 @@ namespace resortlibrary.Builders
         public CustomerBuilder AddFirstName(string firstName)
         {
             if (string.IsNullOrWhiteSpace(firstName))
-                throw new ArgumentException("Fyll i kundtyp");
+            {
+                throw new ArgumentException("Fyll i förnamn");
+            }
 
             _customer.FirstName = firstName;
             return this;
@@ -27,7 +39,9 @@ namespace resortlibrary.Builders
         public CustomerBuilder AddLastName(string lastName)
         {
             if (string.IsNullOrWhiteSpace(lastName))
-                throw new ArgumentException("Fyll i kundtyp");
+            {
+                throw new ArgumentException("Fyll i efternamn");
+            }
 
             _customer.LastName = lastName;
             return this;
@@ -36,7 +50,9 @@ namespace resortlibrary.Builders
         public CustomerBuilder AddEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentException("Fyll i kundtyp");
+            {
+                throw new ArgumentException("Fyll i epostadress");
+            }
 
             _customer.Email = email;
             return this;
@@ -45,7 +61,9 @@ namespace resortlibrary.Builders
         public CustomerBuilder AddPhone(string phone)
         {
             if (string.IsNullOrWhiteSpace(phone))
-                throw new ArgumentException("Fyll i kundtyp");
+            {
+                throw new ArgumentException("Fyll i telefonnr");
+            }
 
             _customer.Phone = phone;
             return this;
@@ -54,7 +72,9 @@ namespace resortlibrary.Builders
         public CustomerBuilder AddPaymentMethod(string paymentMethod)
         {
             if (string.IsNullOrWhiteSpace(paymentMethod))
-                throw new ArgumentException("Fyll i kundtyp");
+            {
+                throw new ArgumentException("Fyll i betalningsmetod");
+            }
 
             _customer.PaymentMethod = paymentMethod;
             return this;

@@ -14,7 +14,9 @@ namespace resortlibrary.Builders
         public PriceChangesBuilder AddPriceChange(float priceChange)
         {
             if (float.IsNaN(priceChange) || float.IsInfinity(priceChange))
+            {
                 throw new ArgumentException("Prisändringen måste vara ett giltigt tal.");
+            }
 
             _priceChange.PriceChange = priceChange;
             return this;
@@ -23,7 +25,9 @@ namespace resortlibrary.Builders
         public PriceChangesBuilder AddType(string type)
         {
             if (string.IsNullOrWhiteSpace(type))
+            {
                 throw new ArgumentException("Typ måste anges");
+            }
 
             _priceChange.Type = type;
             return this;
@@ -44,6 +48,5 @@ namespace resortlibrary.Builders
         {
             return _priceChange;
         }
-
     }
 }
