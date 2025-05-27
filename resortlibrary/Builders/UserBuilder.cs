@@ -83,6 +83,5 @@ namespace resortlibrary.Factories
                 RefreshTokenExpiryTime = _refreshTokenExpiryTime
             };
         }
- 
     }
 }
