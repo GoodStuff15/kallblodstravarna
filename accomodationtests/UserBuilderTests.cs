@@ -60,12 +60,20 @@ public class UserBuilderTests
     public void Build_MissingRequiredFields_ShouldThrowInvalidOperationException(string username, string passwordHash, string role)
     {
         if (!string.IsNullOrWhiteSpace(username))
+        {
             _builder.WithUsername(username);
+        }
+            
         if (!string.IsNullOrWhiteSpace(passwordHash))
+        {
             _builder.WithPasswordHash(passwordHash);
+        }
+            
         if (!string.IsNullOrWhiteSpace(role))
+        {
             _builder.WithRole(role);
-
+        }
+            
         Assert.ThrowsException<InvalidOperationException>(() => _builder.Build());
     }
 

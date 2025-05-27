@@ -15,6 +15,7 @@ namespace resortlibrary.Builders
         private string? _role;
         private Customer? _customer;
         private string? _refreshToken;
+
         private DateTime? _refreshTokenExpiryTime;
 
         public UserBuilder WithUsername(string username)
@@ -28,7 +29,10 @@ namespace resortlibrary.Builders
         public UserBuilder WithPasswordHash(string passwordHash)
         {
             if (string.IsNullOrWhiteSpace(passwordHash))
+            {
                 throw new ArgumentException("Lösenord måste anges.", nameof(passwordHash));
+            }
+                
             _passwordHash = passwordHash;
             return this;
         }
