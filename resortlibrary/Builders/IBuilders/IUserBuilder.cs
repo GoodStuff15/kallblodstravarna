@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace resortlibrary.Factories.IFactories
+namespace resortlibrary.Builders.IBuilders
 {
     public interface IUserBuilder
     {
-        IUserBuilder WithUsername(string username);
-        IUserBuilder WithPasswordHash(string passwordHash);
-        IUserBuilder WithRole(string role);
-        IUserBuilder WithCustomerId(int customerId);
-        IUserBuilder WithCustomer(Customer customer);
-        IUserBuilder WithRefreshToken(string refreshToken);
-        IUserBuilder WithRefreshTokenExpiry(DateTime expiryTime);
+        UserBuilder WithUsername(string username);
+        UserBuilder WithPasswordHash(string passwordHash);
+        UserBuilder WithRole(string role);
+        UserBuilder WithCustomerId(int customerId);
+        UserBuilder WithCustomer(Customer customer);
+        UserBuilder WithRefreshToken(string refreshToken);
+        UserBuilder WithRefreshTokenExpiry(DateTime expiryTime);
         User Build();
     }
 }

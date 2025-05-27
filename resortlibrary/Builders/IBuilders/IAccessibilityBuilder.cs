@@ -1,11 +1,11 @@
 ﻿using resortlibrary.Models;
 
-namespace resortlibrary.Factories.IFactories
+namespace resortlibrary.Builders.IBuilders
 {
     public interface IAccessibilityBuilder
     {
-        IAccessibilityBuilder WithName(string name);
-        IAccessibilityBuilder WithDescription(string description);
+        AccessibilityBuilder WithName(string name);
+        AccessibilityBuilder WithDescription(string description);
         Accessibility Build();
     }
 }

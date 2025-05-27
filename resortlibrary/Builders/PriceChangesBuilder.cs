@@ -1,7 +1,7 @@
-﻿using resortlibrary.Factories.IFactories;
+﻿using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
-namespace resortlibrary.Factories
+namespace resortlibrary.Builders
 {
     public class PriceChangesBuilder : IPriceChangesBuilder
     {

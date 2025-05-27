@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using resortlibrary.Factories;
-using resortlibrary.Factories.IFactories;
+using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
-namespace resortlibrary.Factories
+namespace resortlibrary.Builders
 {
     public class BookingBuilder : IBookingBuilder
     {

@@ -1,4 +1,5 @@
 ﻿using resortdtos;
+using resortlibrary.Builders;
 using resortlibrary.Models;
 
 namespace resortapi.Converters
@@ -8,7 +9,9 @@ namespace resortapi.Converters
 
         public Booking FromDTOtoObject(BookingDto dto)
         {
-            throw new NotImplementedException();
+            var booking = new BookingBuilder.AddCheckIn(dto.CheckIn)
+                                            .AddCheckOut(dto.CheckOut)
+                                            .Add
         }
 
         public ICollection<Booking> FromDTOtoObject_Collection(ICollection<BookingDto> collection)
