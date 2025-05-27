@@ -7,11 +7,11 @@ namespace accomodationtests;
 [TestClass]
 public class BookingFactoryTests
 {
-    private IBookingFactory _factory;
+    private IBookingBuilder _factory;
     [TestInitialize]
     public void Setup()
     {
-        _factory = new BookingFactory();
+        _factory = new BookingBuilder();
     }
     [TestMethod]
     public void CreateBooking_ValidInputs_ShouldReturnBooking()
