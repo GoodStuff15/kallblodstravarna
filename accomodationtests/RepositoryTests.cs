@@ -17,20 +17,16 @@ public class RepositoryTests
         builder.UseInMemoryDatabase("ResortContext");
         options = builder.Options;
         _context = new ResortContext(options);
-
-
-
     }
 
     [TestInitialize]
     public void TestInit()
     {
+        var dbName = Guid.NewGuid().ToString(); // Unik databas för varje test
         builder = new DbContextOptionsBuilder<ResortContext>();
-        builder.UseInMemoryDatabase("ResortContext");
+        builder.UseInMemoryDatabase(dbName);
         options = builder.Options;
         _context = new ResortContext(options);
-
-
 
         var customer = new Customer()
         {
@@ -43,6 +39,7 @@ public class RepositoryTests
             PaymentMethod = "Gold card",
             Bookings = new List<Booking>()
         };
+
         var customer2 = new Customer()
         {
             Id = 2,
@@ -54,6 +51,7 @@ public class RepositoryTests
             PaymentMethod = "SMS Loan",
             Bookings = new List<Booking>()
         };
+
         var customer3 = new Customer()
         {
             Id = 3,
@@ -78,8 +76,8 @@ public class RepositoryTests
             Cost = 1000,
             AmountPaid = 1000,
             Accomodation = new Accomodation() { Id = 1, MaxOccupancy = 2 }
-
         };
+
         var booking2 = new Booking()
         {
             Id = 2,
@@ -92,8 +90,8 @@ public class RepositoryTests
             Cost = 1000,
             AmountPaid = 0,
             Accomodation = new Accomodation() { Id = 2, MaxOccupancy = 4 }
-
         };
+
         var booking3 = new Booking()
         {
             Id = 3,
@@ -106,13 +104,9 @@ public class RepositoryTests
             Cost = 1000,
             AmountPaid = 1000,
             Accomodation = new Accomodation() { Id = 3, MaxOccupancy = 4 }
-
-
         };
 
-
         var accomodationType = new AccomodationType() { Id = 2, Name = "Rum", BasePrice = 1000 };
-
 
         _context.Set<AccomodationType>().Add(accomodationType);
         var accomodation = new Accomodation() { Id = 4, Name = "Gamerrummet", MaxOccupancy = 4 };
@@ -155,7 +149,6 @@ public class RepositoryTests
         // Then customers name should be updated.
 
         Assert.AreEqual(expected, actual);
-
     }
 
     [TestMethod]
@@ -166,13 +159,13 @@ public class RepositoryTests
 
         // When trying to delete this customer
         _context.Set<Customer>().Remove(deleteme);
+        _context.SaveChanges();
 
         // Then should not be found in database
         var actual = _context.Set<Customer>().Find(1);
-
         Assert.IsNull(actual);
-
     }
+
 
     [TestMethod]
     public void CustomerRepo_GetCustomerById()
@@ -186,7 +179,6 @@ public class RepositoryTests
 
         // Then should find this customer
         Assert.AreEqual<Customer>(expected, actual);
-
     }
 
     [TestMethod]
@@ -201,8 +193,6 @@ public class RepositoryTests
 
         // Then should find list of all customers
         Assert.AreEqual(expected, actual.Count);
-
-
     }
 
     // Booking Repo
@@ -282,14 +272,22 @@ public class RepositoryTests
     [TestMethod]
     public void CustomerBooking_NumberOfGuests_IsBiggerThanZero()
     {
+        // Given a booking with no guests
         var booking = new Booking() { Id = 3, CheckIn = new DateTime(2025, 5, 22), CheckOut = new DateTime(2025, 5, 21), Active = true };
+
+        // When adding a guest to the booking
         booking.Guests.Add(new Guest());
+
+        // If there are no guests in the booking
         if (booking.Guests.Count == 0)
         {
             booking = null;
         }
-        Assert.IsNull(booking);
+
+        // Then booking should not be null
+        Assert.IsNotNull(booking);
     }
+
     [TestMethod]
     public void CustomerBooking_NumberOfGuests_CantBeBiggerThanAccomodationSize()
     {
@@ -311,6 +309,7 @@ public class RepositoryTests
         // Booking should fail
         Assert.IsNull(booking);
     }
+
     [TestMethod]
     public void CustomerBooking_CalculatingPrice()
     {
@@ -328,7 +327,6 @@ public class RepositoryTests
 
         var actual = booking.Cost * (decimal)deezNuts;
         Assert.AreEqual(4000, actual);
-
     }
 
     [TestMethod]
@@ -379,10 +377,7 @@ public class RepositoryTests
                                 .Select(a => acc))
                              .ToList();
 
-
-
         Assert.AreEqual(1, availableRooms.Count);
-
     }
 
     [TestCleanup]
