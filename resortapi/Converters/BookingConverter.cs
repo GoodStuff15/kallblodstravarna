@@ -13,6 +13,8 @@ namespace resortapi.Converters
                                               .AddCheckOut(dto.CheckOut)
                                               .AddCost(dto.Cost)
                                               .Build();
+
+            return booking;
         }
 
         public ICollection<Booking> FromDTOtoObject_Collection(ICollection<BookingDto> collection)

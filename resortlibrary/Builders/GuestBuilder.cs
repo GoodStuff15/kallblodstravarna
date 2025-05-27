@@ -7,6 +7,11 @@ namespace resortlibrary.Builders
     {
         private Guest _guest;
 
+        public GuestBuilder()
+        {
+            _guest = new Guest();
+        }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }

@@ -7,6 +7,11 @@ namespace resortlibrary.Builders
     {
         private AdditionalOption _additionalOption;
 
+        public AdditionalOptionBuilder()
+        {
+            _additionalOption = new AdditionalOption();
+        }
+
         public AdditionalOptionBuilder AddName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

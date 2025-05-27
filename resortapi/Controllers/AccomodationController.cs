@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using resortapi.Converters;
 using resortapi.Repositories;
 using resortdtos;
@@ -16,6 +17,7 @@ namespace resortapi.Controllers
             _repo = accomodationRepo;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("available")]
         public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodations([FromBody] AvailableRoomRequest request)
         {

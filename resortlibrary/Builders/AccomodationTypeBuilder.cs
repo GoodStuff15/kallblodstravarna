@@ -7,6 +7,11 @@ namespace resortlibrary.Builders
     {
         private AccomodationType _accomodationType;
 
+        public AccomodationTypeBuilder()
+        {
+            _accomodationType = new AccomodationType();
+        }
+
         public AccomodationTypeBuilder AddName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

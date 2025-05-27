@@ -8,6 +8,11 @@ namespace resortlibrary.Builders
     {
         public Customer _customer;
 
+        public CustomerBuilder()
+        {
+            _customer = new Customer();
+        }
+
         public CustomerBuilder AddType(string type)
         {
             if (string.IsNullOrWhiteSpace(type))

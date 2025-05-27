@@ -7,6 +7,11 @@ namespace resortlibrary.Builders
     {
         private PriceChanges _priceChange;
 
+        public PriceChangesBuilder()
+        {
+            _priceChange = new PriceChanges();
+        }
+
         public PriceChangesBuilder AddPriceChange(float priceChange)
         {
             if (float.IsNaN(priceChange) || float.IsInfinity(priceChange))

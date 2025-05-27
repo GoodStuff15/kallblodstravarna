@@ -13,7 +13,6 @@ public static class ResortContextSeed
         SeedBookings(modelBuilder);
         SeedGuests(modelBuilder);
         SeedPriceChanges(modelBuilder);
-        SeedUsers(modelBuilder);
         SeedAccomodationAccessibilityRelations(modelBuilder);
     }
 
@@ -42,7 +41,6 @@ public static class ResortContextSeed
             new Accomodation { Id = 3, Name = "Penthouse 1", MaxOccupancy = 4, AccomodationTypeId = 3 }
         );
     }
-
 
     private static void SeedAdditionalOptions(ModelBuilder modelBuilder)
     {
@@ -110,14 +108,6 @@ public static class ResortContextSeed
         );
     }
 
-    private static void SeedUsers(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, Username = "admin", PasswordHash = "Adminadmin123#", Role = "Admin", RefreshToken = null, RefreshTokenExpiryTime = null },
-            new User { Id = 2, Username = "reception", PasswordHash = "Reception123#", Role = "User", RefreshToken = null, RefreshTokenExpiryTime = null }
-        );
-    }
-
     public static void SeedAccomodationAccessibilityRelations(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Accomodation>()
@@ -134,6 +124,5 @@ public static class ResortContextSeed
                 new { AccomodationId = 3, AccessibilityId = 2 }
             );
     }
-
 
 }

@@ -34,7 +34,7 @@ namespace resortapi.Controllers
         }
 
 
-        [HttpGet(Name = "Get overview of all bookings")]
+        [HttpGet("overview", Name = "Get overview of all bookings")]
         public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetAllBookings()
         {
             var bookings = await _repo.GetAllAsync();
