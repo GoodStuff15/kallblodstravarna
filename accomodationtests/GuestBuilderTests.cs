@@ -1,21 +1,21 @@
-using resortlibrary.Factories;
-using resortlibrary.Factories.IFactories;
+using resortlibrary.Builders;
+using resortlibrary.Builders.IBuilders;
 
 namespace accomodationtests;
 
 [TestClass]
-public class GuestFactoryTests
+public class GuestBuilderTests
 {
-    private IGuestFactory _factory;
+    private IGuestBuilder _builder;
     [TestInitialize]
     public void Setup()
     {
-        _factory = new GuestFactory();
+        _builder = new GuestBuilder();
     }
     [TestMethod]
     public void CreateGuest_ValidData_ShouldReturnGuest()
     {
-        var guest = _factory.CreateGuest("Johan", "Hansson");
+        var guest = _builder.CreateGuest("Johan", "Hansson");
 
         Assert.IsNotNull(guest);
         Assert.AreEqual("Johan", guest.FirstName);
@@ -29,7 +29,7 @@ public class GuestFactoryTests
     public void CreateGuest_InvalidFirstName_ShouldThrow(string firstName)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateGuest(firstName, "Johan"));
+        _builder.CreateGuest(firstName, "Johan"));
 
         Assert.AreEqual("Förnamn måste anges.", ex.Message);
     }
@@ -41,7 +41,7 @@ public class GuestFactoryTests
     public void CreateGuest_InvalidLastName_ShouldThrow(string lastName)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateGuest(lastName, "Hansson"));
+        _builder.CreateGuest(lastName, "Hansson"));
 
         Assert.AreEqual("Efternamn måste anges.", ex.Message);
     }

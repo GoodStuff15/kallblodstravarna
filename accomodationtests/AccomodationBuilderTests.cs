@@ -1,25 +1,25 @@
-using resortlibrary.Factories;
-using resortlibrary.Factories.IFactories;
+using resortlibrary.Builders;
+using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
 namespace accomodationtests;
 
 [TestClass]
-public class AccomodationFactoryTests
+public class AccomodationBuilderTests
 {
-    private IAccomodationBuilder _factory;
+    private IAccomodationBuilder _builder;
 
     [TestInitialize]
     public void Setup()
     {
-        _factory = new AccomodationFactory();
+        _builder = new AccomodationBuilder();
     }
     [TestMethod]
     public void CreateAccomodation_ValidInputs_ShouldReturnAccomodation()
     {
         var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
 
-        var accomodation = _factory.CreateAccomodation("Strandvilla 1", 8, type);
+        var accomodation = _builder.CreateAccomodation("Strandvilla 1", 8, type);
 
         Assert.IsNotNull(accomodation);
         Assert.AreEqual("Strandvilla 1", accomodation.Name);
@@ -36,7 +36,7 @@ public class AccomodationFactoryTests
     {
         var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateAccomodation("Strandvilla 1", 0, type)
+        _builder.CreateAccomodation("Strandvilla 1", 0, type)
         );
 
         Assert.AreEqual("Antalet gäster måste vara fler än 0.", ex.Message);
@@ -49,7 +49,7 @@ public class AccomodationFactoryTests
     {
         var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-            _factory.CreateAccomodation(name, 8, type)
+            _builder.CreateAccomodation(name, 8, type)
             );
         Assert.AreEqual("Namn måste anges.", ex.Message);
     }
@@ -60,7 +60,7 @@ public class AccomodationFactoryTests
     {
         var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateAccomodation("Strandvilla 1", maxOccupancy, type)
+        _builder.CreateAccomodation("Strandvilla 1", maxOccupancy, type)
         );
         Assert.AreEqual("Antalet gäster måste vara fler än 0.", ex.Message);
     }
@@ -68,7 +68,7 @@ public class AccomodationFactoryTests
     public void CreateAccomodation_NullAccomodationType_ShouldThrow()
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateAccomodation("Strandvilla 1", 8, null)
+        _builder.CreateAccomodation("Strandvilla 1", 8, null)
         );
         Assert.AreEqual("Boendetyp måste anges.", ex.Message);
     }

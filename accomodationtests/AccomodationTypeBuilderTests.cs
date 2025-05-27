@@ -1,23 +1,23 @@
-using resortlibrary.Factories;
-using resortlibrary.Factories.IFactories;
+using resortlibrary.Builders;
+using resortlibrary.Builders.IBuilders;
 
 namespace accomodationtests;
 
 [TestClass]
-public class AccomodationTypeFactoryTests
+public class AccomodationTypeBuilderTests
 {
-    private IAccomodationTypeBuilder _factory;
+    private IAccomodationTypeBuilder _builder;
 
 
     [TestInitialize]
     public void Setup()
     {
-        _factory = new AccomodationTypeFactory();
+        _builder = new AccomodationTypeBuilder();
     }
     [TestMethod]
     public void CreateAccomodationType_ValidData_SouldReturnAccomodationType()
     {
-        var type = _factory.CreateAccomodationType("Bungalow", 700m);
+        var type = _builder.CreateAccomodationType("Bungalow", 700m);
 
         Assert.IsNotNull(type);
         Assert.AreEqual("Bungalow", type.Name);
@@ -30,7 +30,7 @@ public class AccomodationTypeFactoryTests
     public void CreateAccomodationType_InvalidName_ShouldThrow(string name)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateAccomodationType(name, 700m));
+        _builder.CreateAccomodationType(name, 700m));
         Assert.AreEqual("Namn måste anges.", ex.Message);
     }
     [DataTestMethod]
@@ -40,10 +40,10 @@ public class AccomodationTypeFactoryTests
     {
         decimal basePrice = (decimal)basePriceInput;
         //var ex = Assert.ThrowsException<ArgumentException>(() =>
-        //_factory.CreateAccomodationType("Bungalow", basePrice));
+        //_builder.CreateAccomodationType("Bungalow", basePrice));
         //Assert.AreEqual("Pris måste vara högre än 0.", ex.Message);
         var ex = Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-        _factory.CreateAccomodationType("Bungalow", basePrice));
+        _builder.CreateAccomodationType("Bungalow", basePrice));
         Assert.AreEqual("basePrice", ex.ParamName);
     }
 }

@@ -4,7 +4,7 @@ using resortlibrary.Builders.IBuilders;
 namespace accomodationtests;
 
 [TestClass]
-public class PriceChangesFactoryTests
+public class PriceChangesBuilderTests
 {
     private IPriceChangesBuilder _builder;
 

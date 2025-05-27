@@ -1,12 +1,12 @@
 using resortlibrary.Builders.IBuilders;
-using resortlibrary.Factories;
+using resortlibrary.Builders;
 
 namespace accomodationtests;
 
 [TestClass]
-public class AdditionalOptionFactoryTests
+public class AdditionalOptionBuilderTests
 {
-    private IAdditionalOptionBuilder _factory;
+    private IAdditionalOptionBuilder _builder;
 
     [TestInitialize]
     public void Setup()
@@ -16,7 +16,7 @@ public class AdditionalOptionFactoryTests
     [TestMethod]
     public void CreateAdditionalOption_ValidData_ShouldReturnAddedOption()
     {
-        var option = _factory.CreateAdditionalOption("Frukost", "Buffé", 100m);
+        var option = _builder.CreateAdditionalOption("Frukost", "Buffé", 100m);
 
         Assert.IsNotNull(option);
         Assert.AreEqual("Frukost", option.Name);
@@ -32,7 +32,7 @@ public class AdditionalOptionFactoryTests
     public void CreateAdditionalOption_InvalidName_ShouldThrow(string name)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateAdditionalOption(name, "Beskrivning", 50m));
+        _builder.CreateAdditionalOption(name, "Beskrivning", 50m));
         Assert.AreEqual("Namn måste anges.", ex.Message);
     }
 
@@ -43,7 +43,7 @@ public class AdditionalOptionFactoryTests
     {
         decimal price = (decimal)inputPrice;
         var ex = Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-        _factory.CreateAdditionalOption("Frukost", "Beskrivning", price));
+        _builder.CreateAdditionalOption("Frukost", "Beskrivning", price));
         Assert.AreEqual("price", ex.ParamName);
     }
 }
