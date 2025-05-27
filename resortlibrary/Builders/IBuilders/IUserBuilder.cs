@@ -12,7 +12,6 @@ namespace resortlibrary.Builders.IBuilders
         UserBuilder WithUsername(string username);
         UserBuilder WithPasswordHash(string passwordHash);
         UserBuilder WithRole(string role);
-        UserBuilder WithCustomerId(int customerId);
         UserBuilder WithCustomer(Customer customer);
         UserBuilder WithRefreshToken(string refreshToken);
         UserBuilder WithRefreshTokenExpiry(DateTime expiryTime);

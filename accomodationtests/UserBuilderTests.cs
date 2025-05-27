@@ -5,7 +5,7 @@ using resortlibrary.Models;
 namespace accomodationtests;
 
 [TestClass]
-public class UserFactoryTests
+public class UserBuilderTests
 {
     private UserBuilder _builder;
 
@@ -33,7 +33,6 @@ public class UserFactoryTests
             .WithUsername("johan")
             .WithPasswordHash("pass123")
             .WithRole("Guest")
-            .WithCustomerId(1)
             .WithCustomer(customer)
             .WithRefreshToken("token")
             .WithRefreshTokenExpiry(expiry)
@@ -43,7 +42,6 @@ public class UserFactoryTests
         Assert.AreEqual("johan", user.Username);
         Assert.AreEqual("pass123", user.PasswordHash);
         Assert.AreEqual("Guest", user.Role);
-        Assert.AreEqual(1, user.CustomerId);
         Assert.AreEqual(customer, user.Customer);
         Assert.AreEqual("token", user.RefreshToken);
         Assert.AreEqual(expiry, user.RefreshTokenExpiryTime);

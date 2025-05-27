@@ -13,7 +13,6 @@ namespace resortlibrary.Builders
         private string? _username;
         private string? _passwordHash;
         private string? _role;
-        private int _customerId;
         private Customer? _customer;
         private string? _refreshToken;
         private DateTime? _refreshTokenExpiryTime;
@@ -38,11 +37,6 @@ namespace resortlibrary.Builders
             if (string.IsNullOrWhiteSpace(role))
                 throw new ArgumentException("Roll måste anges.", nameof(role));
             _role = role;
-            return this;
-        }
-        public UserBuilder WithCustomerId(int customerId)
-        {
-            _customerId = customerId;
             return this;
         }
 
@@ -77,7 +71,6 @@ namespace resortlibrary.Builders
                 Username = _username,
                 PasswordHash = _passwordHash,
                 Role = _role,
-                CustomerId = _customerId,
                 Customer = _customer,
                 RefreshToken = _refreshToken,
                 RefreshTokenExpiryTime = _refreshTokenExpiryTime
