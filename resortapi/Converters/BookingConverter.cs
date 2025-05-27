@@ -9,9 +9,10 @@ namespace resortapi.Converters
 
         public Booking FromDTOtoObject(BookingDto dto)
         {
-            var booking = new BookingBuilder.AddCheckIn(dto.CheckIn)
-                                            .AddCheckOut(dto.CheckOut)
-                                            .Add
+            var booking = new BookingBuilder().AddCheckIn(dto.CheckIn)
+                                              .AddCheckOut(dto.CheckOut)
+                                              .AddCost(dto.Cost)
+                                              .Build();
         }
 
         public ICollection<Booking> FromDTOtoObject_Collection(ICollection<BookingDto> collection)
