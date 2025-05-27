@@ -1,12 +1,15 @@
 ﻿using resortlibrary.Models;
-using resortlibrary.Builders.IBuilders;
 
 namespace resortlibrary.Builders
 {
-    public class AccomodationTypeBuilder : IAccomodationTypeBuilder
+    public class AccomodationTypeBuilder
     {
         private AccomodationType _accomodationType;
 
+        public AccomodationTypeBuilder()
+        {
+            _accomodationType = new AccomodationType();
+        }
         public AccomodationTypeBuilder AddName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

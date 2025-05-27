@@ -1,13 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using resortlibrary.Builders.IBuilders;
+
 using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class BookingBuilder : IBookingBuilder
+    public class BookingBuilder
     {
         private Booking _booking;
 
+        public BookingBuilder() 
+        {
+            _booking = new Booking();
+        }
         public BookingBuilder AddCheckIn(DateTime checkIn)
         {
             if (checkIn < DateTime.Now.Date)

@@ -1,15 +1,15 @@
-﻿using resortlibrary.Builders.IBuilders;
-using resortlibrary.Models;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class GuestBuilder : IGuestBuilder
+    public class GuestBuilder
     {
         private Guest _guest;
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int Age { get; set; }
+        public GuestBuilder()
+        {
+            _guest = new Guest();
+        }
 
         public GuestBuilder AddFirstName(string firstName)
         {

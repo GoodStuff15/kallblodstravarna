@@ -1,11 +1,16 @@
-﻿using resortlibrary.Builders.IBuilders;
+﻿
 using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class AdditionalOptionBuilder : IAdditionalOptionBuilder
+    public class AdditionalOptionBuilder
     {
         private AdditionalOption _additionalOption;
+
+        public AdditionalOptionBuilder()
+        {
+            _additionalOption = new AdditionalOption();
+        }
 
         public AdditionalOptionBuilder AddName(string name)
         {
