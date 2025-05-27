@@ -20,7 +20,7 @@ namespace resortlibrary.Builders
         public AccomodationBuilder WithMaxOccupancy(int maxOccupancy)
         {
             if (maxOccupancy <= 0)
-                throw new ArgumentException("Antalet gäster måste vara fler än 0.", nameof(maxOccupancy);
+                throw new ArgumentException("Antalet gäster måste vara fler än 0.", nameof(maxOccupancy));
 
             _maxOccupancy = maxOccupancy;
             return this;
@@ -28,7 +28,7 @@ namespace resortlibrary.Builders
         public AccomodationBuilder WithAccomodationType(AccomodationType accomodationType)
         {
             if (accomodationType == null)
-                throw new ArgumentException("Boendetyp måste anges.", nameof(accomodationType);
+                throw new ArgumentException("Boendetyp måste anges.", nameof(accomodationType));
             _accomodationType = accomodationType;
             return this;
         }
