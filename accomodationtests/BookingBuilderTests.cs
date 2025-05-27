@@ -7,11 +7,11 @@ namespace accomodationtests;
 [TestClass]
 public class BookingBuilderTests
 {
-    private IBookingBuilder _factory;
+    private IBookingBuilder _builder;
     [TestInitialize]
     public void Setup()
     {
-        _factory = new BookingBuilder();
+        _builder = new BookingBuilder();
     }
     [TestMethod]
     public void CreateBooking_ValidInputs_ShouldReturnBooking()
@@ -21,7 +21,8 @@ public class BookingBuilderTests
         var checkIn = new DateTime(2025, 7, 1);
         var checkOut = new DateTime(2025, 7, 5);
 
-        var booking = _factory.CreateBooking(checkIn, checkOut, customer, accomodation);
+        var booking = 
+                      
 
         Assert.IsNotNull(booking);
         Assert.AreEqual(customer, booking.Customer);
@@ -38,7 +39,13 @@ public class BookingBuilderTests
         var checkOut = new DateTime(2025, 7, 1);
 
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateBooking(checkIn, checkOut, customer, accomodation));
+                       _builder
+                      .AddCustomer(customer)
+                      .AddAccomodation(accomodation)
+                      .AddCheckIn(checkIn)
+                      .AddCheckOut(checkOut)
+                      .Build());
+
         Assert.AreEqual("Utcheckning måste vara efter incheckning.", ex.Message);
     }
     [TestMethod]
@@ -49,7 +56,7 @@ public class BookingBuilderTests
         var checkOut = new DateTime(2025, 7, 5);
 
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateBooking(checkIn, checkOut, null, accomodation));
+        _builder.AddCustomer(null));
         Assert.AreEqual("Kund måste anges.", ex.Message);
     }
     [TestMethod]
@@ -61,7 +68,7 @@ public class BookingBuilderTests
         var checkOut = new DateTime(2025, 7, 5);
 
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateBooking(checkIn, checkOut, customer, accomodation));
+        _builder.AddAccomodation(accomodation));
         Assert.AreEqual("Boende måste anges.", ex.Message);
     }
     [TestMethod]
@@ -72,19 +79,22 @@ public class BookingBuilderTests
         var checkInOut = new DateTime(2025, 7, 1);
 
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateBooking(checkInOut, checkInOut, customer, accomodation));
+        _builder
+                      .AddCustomer(customer)
+                      .AddAccomodation(accomodation)
+                      .AddCheckIn(checkInOut)
+                      .AddCheckOut(checkInOut)
+                      .Build());
         Assert.AreEqual("Utcheckning måste vara efter incheckning.", ex.Message);
     }
     [TestMethod]
     public void CreateBooking_CheckInPastDate_ShouldThrow()
     {
-        var customer = new Customer();
-        var accomodation = new Accomodation();
+
         var checkIn = DateTime.Now.AddDays(-1);
-        var checkOut = DateTime.Now.AddDays(2);
 
         var ex = Assert.ThrowsException<ArgumentException> (() =>
-        _factory.CreateBooking(checkIn,checkOut, customer, accomodation));
+        _builder.AddCheckIn(checkIn));
 
         Assert.AreEqual("Incheckning kan inte vara i då-tid.", ex.Message);
     }
