@@ -6,12 +6,12 @@ namespace accomodationtests;
 [TestClass]
 public class PriceChangesFactoryTests
 {
-    private PriceChangesFactory _factory;
+    private PriceChangesBuilder _factory;
 
     [TestInitialize]
     public void Setup()
     {
-        _factory = new PriceChangesFactory();
+        _factory = new PriceChangesBuilder();
     }
     [TestMethod]
     public void CreatePriceChange_ValidData_ShouldReturnPriceChange()

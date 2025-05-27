@@ -2,8 +2,11 @@
 
 namespace resortlibrary.Factories.IFactories
 {
-    public interface IGuestFactory
+    public interface IGuestBuilder
     {
-        Guest CreateGuest(string firstName, string lastName);
+        GuestBuilder AddFirstName(string firstName);
+        GuestBuilder AddLastName(string lastName);
+        GuestBuilder AddAge(int age);
+        Guest Build();
     }
 }
