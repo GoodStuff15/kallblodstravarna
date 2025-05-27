@@ -9,6 +9,5 @@ namespace resortlibrary.Factories.IFactories
         IAccomodationBuilder WithAccomodationType(AccomodationType accomodationType);
 
         Accomodation Build();
-
     }
 }

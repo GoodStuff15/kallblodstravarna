@@ -7,12 +7,12 @@ namespace accomodationtests;
 [TestClass]
 public class UserFactoryTests
 {
-    private IUserFactory _factory;
+    private IUserBuilder _factory;
 
     [TestInitialize]
     public void Setup()
     {
-        _factory = new UserFactory();
+        _factory = new UserBuilder();
     }
     [TestMethod]
     public void CreateUser_ValidData_ShouldReturnUser()
