@@ -1,9 +1,8 @@
-﻿using resortlibrary.Builders.IBuilders;
-using resortlibrary.Models;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class UserBuilder : IUserBuilder
+    public class UserBuilder
     {
         private string? _username;
         private string? _passwordHash;

@@ -1,9 +1,8 @@
-﻿using resortlibrary.Builders.IBuilders;
-using resortlibrary.Models;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class AdditionalOptionBuilder : IAdditionalOptionBuilder
+    public class AdditionalOptionBuilder
     {
         private AdditionalOption _additionalOption;
 

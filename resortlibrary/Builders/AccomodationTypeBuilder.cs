@@ -1,9 +1,8 @@
 ﻿using resortlibrary.Models;
-using resortlibrary.Builders.IBuilders;
 
 namespace resortlibrary.Builders
 {
-    public class AccomodationTypeBuilder : IAccomodationTypeBuilder
+    public class AccomodationTypeBuilder
     {
         private AccomodationType _accomodationType;
 

@@ -1,10 +1,8 @@
-﻿using resortlibrary.Builders.IBuilders;
-using resortlibrary.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class CustomerBuilder : ICustomerBuilder
+    public class CustomerBuilder
     {
         public Customer _customer;
 

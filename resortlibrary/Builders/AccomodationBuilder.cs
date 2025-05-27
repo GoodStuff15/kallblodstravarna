@@ -1,9 +1,8 @@
-﻿using resortlibrary.Builders.IBuilders;
-using resortlibrary.Models;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class AccomodationBuilder : IAccomodationBuilder
+    public class AccomodationBuilder
     {
         private string? _name;
         private int _maxOccupancy;

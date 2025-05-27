@@ -1,9 +1,8 @@
-﻿using resortlibrary.Builders.IBuilders;
-using resortlibrary.Models;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class AccessibilityBuilder : IAccessibilityBuilder
+    public class AccessibilityBuilder
     {
         private string? _name;
         private string? _description;

@@ -1,9 +1,8 @@
-﻿using resortlibrary.Builders.IBuilders;
-using resortlibrary.Models;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class BookingBuilder : IBookingBuilder
+    public class BookingBuilder
     {
         private Booking _booking;
 
