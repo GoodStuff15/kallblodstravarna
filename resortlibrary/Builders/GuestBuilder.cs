@@ -15,7 +15,7 @@ namespace resortlibrary.Builders
         {
             if (string.IsNullOrWhiteSpace(firstName))
             {
-                throw new ArgumentException("Förnamn måste anges.", nameof(firstName));
+                throw new ArgumentException("Förnamn måste anges.");
             }
             _guest.FirstName = firstName;
             return this;
@@ -25,7 +25,7 @@ namespace resortlibrary.Builders
         {
             if (string.IsNullOrWhiteSpace(lastName))
             {
-                throw new ArgumentException("Efternamn måste anges.", nameof(lastName));
+                throw new ArgumentException("Efternamn måste anges.");
             }
             _guest.LastName = lastName;
             return this;
