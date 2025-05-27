@@ -6,7 +6,7 @@ namespace accomodationtests;
 [TestClass]
 public class PriceChangesBuilderTests
 {
-    private IPriceChangesBuilder _builder;
+    private PriceChangesBuilder _builder;
 
     [TestInitialize]
     public void Setup()

@@ -7,7 +7,7 @@ namespace accomodationtests;
 [TestClass]
 public class AccomodationBuilderTests
 {
-    private IAccomodationBuilder _builder;
+    private AccomodationBuilder _builder;
 
     [TestInitialize]
     public void Setup()

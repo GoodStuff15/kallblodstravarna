@@ -15,8 +15,9 @@ namespace resortlibrary.Builders
         public BookingBuilder AddCheckIn(DateTime checkIn)
         {
             if (checkIn < DateTime.Now.Date)
+            {
                 throw new ArgumentException("Incheckning kan inte vara i då-tid.");
-
+            }
             _booking.CheckIn = checkIn;
             return this;
         }
@@ -55,8 +56,9 @@ namespace resortlibrary.Builders
         public BookingBuilder AddCustomer(Customer customer)
         {
             if (customer == null)
+            {
                 throw new ArgumentException("Kund måste anges.");
-
+            }
             _booking.Customer = customer;
             return this;
         }
@@ -69,8 +71,9 @@ namespace resortlibrary.Builders
         public BookingBuilder AddAccomodation(Accomodation accomodation)
         {
             if (accomodation == null)
+            {
                 throw new ArgumentException("Boende måste anges.");
-
+            }
             _booking.Accomodation = accomodation;
             return this;
         }
@@ -92,8 +95,9 @@ namespace resortlibrary.Builders
         public Booking Build()
         {
             if (_booking.CheckOut <= _booking.CheckIn)
+            {
                 throw new ArgumentException("Utcheckning måste vara efter incheckning.");
-
+            }
             return _booking;
         }
     }
