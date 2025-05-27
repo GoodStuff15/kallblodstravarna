@@ -1,8 +1,8 @@
-﻿using resortlibrary.Factories.IFactories;
+﻿using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace resortlibrary.Factories
+namespace resortlibrary.Builders
 {
     public class CustomerBuilder : ICustomerBuilder
     {

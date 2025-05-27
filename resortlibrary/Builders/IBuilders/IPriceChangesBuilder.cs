@@ -1,6 +1,6 @@
 ﻿using resortlibrary.Models;
 
-namespace resortlibrary.Factories.IFactories
+namespace resortlibrary.Builders.IBuilders
 {
     public interface IPriceChangesBuilder
     {

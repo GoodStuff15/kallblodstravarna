@@ -5,12 +5,12 @@ using Microsoft.IdentityModel.Tokens;
 using resortapi.Data;
 using resortlibrary.Models;
 using resortapi.Repositories;
-using resortlibrary.Factories;
-using resortlibrary.Factories.IFactories;
 using resortapi.Services;
 using Scalar.AspNetCore;
 using resortapi.Converters;
 using resortdtos;
+using resortlibrary.Builders.IBuilders;
+using resortlibrary.Builders;
 
 namespace resortapi
 {

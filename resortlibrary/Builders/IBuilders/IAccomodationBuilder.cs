@@ -1,12 +1,12 @@
 ﻿using resortlibrary.Models;
 
-namespace resortlibrary.Factories.IFactories
+namespace resortlibrary.Builders.IBuilders
 {
     public interface IAccomodationBuilder
     {
-        IAccomodationBuilder WithName(string name);
-        IAccomodationBuilder WithMaxOccupancy(int maxOccupancy);
-        IAccomodationBuilder WithAccomodationType(AccomodationType accomodationType);
+        AccomodationBuilder WithName(string name);
+        AccomodationBuilder WithMaxOccupancy(int maxOccupancy);
+        AccomodationBuilder WithAccomodationType(AccomodationType accomodationType);
 
         Accomodation Build();
     }

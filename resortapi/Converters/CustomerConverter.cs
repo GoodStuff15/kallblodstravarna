@@ -1,5 +1,5 @@
 ﻿using resortdtos;
-using resortlibrary.Factories.IFactories;
+using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
 namespace resortapi.Converters

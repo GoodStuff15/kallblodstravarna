@@ -1,7 +1,7 @@
 ﻿using resortlibrary.Models;
-using resortlibrary.Factories.IFactories;
+using resortlibrary.Builders.IBuilders;
 
-namespace resortlibrary.Factories
+namespace resortlibrary.Builders
 {
     public class AccomodationTypeBuilder : IAccomodationTypeBuilder
     {
