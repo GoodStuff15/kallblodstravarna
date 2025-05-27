@@ -35,6 +35,26 @@ namespace resortlibrary.Builders
             return this;
         }
 
+        public GuestBuilder WithBooking(Booking booking)
+        {
+            if (booking == null)
+                throw new ArgumentNullException(nameof(booking), "Bokning måste anges.");
+
+            _guest.Booking = booking;
+            _guest.BookingId = booking.Id;
+            return this;
+        }
+
+        public GuestBuilder WithBookingId(int bookingId)
+        {
+            if (bookingId <= 0)
+                throw new ArgumentException("Boknings-ID måste vara större än 0.", nameof(bookingId));
+
+            _guest.BookingId = bookingId;
+            // _guest.Booking kan lämnas null tills objektet hämtas från databasen
+            return this;
+        }
+
         public Guest Build()
         {
             return _guest;

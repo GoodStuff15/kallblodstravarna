@@ -1,5 +1,4 @@
-﻿
-using resortlibrary.Models;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
@@ -7,6 +6,7 @@ namespace resortlibrary.Builders
     {
         private string? _name;
         private string? _description;
+        private ICollection<Accomodation> _accomodations;
 
         public AccessibilityBuilder WithName(string name)
         {
@@ -25,12 +25,24 @@ namespace resortlibrary.Builders
             return this;
         }
 
+        public AccessibilityBuilder WithAccomodations(ICollection<Accomodation> accomodations)
+        {
+            if (accomodations == null || accomodations.Count == 0)
+            {
+                throw new ArgumentException("Lista med boenden måste anges och inte vara tom.", nameof(accomodations));
+            }
+
+            _accomodations = accomodations;
+            return this;
+        }
+
         public Accessibility Build()
         {
             return new Accessibility
             {
                 Name = _name!,
-                Description = _description!
+                Description = _description!,
+                Accomodations = _accomodations!
             };
         }
     }

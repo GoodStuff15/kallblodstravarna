@@ -29,6 +29,17 @@ namespace resortlibrary.Builders
             return this;
         }
 
+        public PriceChangesBuilder AddBookings(ICollection<Booking> bookings)
+        {
+            if (bookings == null || bookings.Count == 0)
+            {
+                throw new ArgumentException("Prisändringen måste ha minst en bokning.");
+            }
+
+            _priceChange.Bookings = bookings;
+            return this;
+        }
+
         public PriceChanges Build()
         {
             return _priceChange;

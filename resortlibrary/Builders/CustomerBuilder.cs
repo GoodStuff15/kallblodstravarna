@@ -1,5 +1,4 @@
 ﻿using resortlibrary.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace resortlibrary.Builders
 {
@@ -58,6 +57,17 @@ namespace resortlibrary.Builders
                 throw new ArgumentException("Fyll i kundtyp");
 
             _customer.PaymentMethod = paymentMethod;
+            return this;
+        }
+
+        public CustomerBuilder AddBookings(ICollection<Booking> bookings)
+        {
+            if (bookings == null || bookings.Count == 0)
+            {
+                throw new ArgumentException("Kund måste ha minst en bokning.");
+            }
+
+            _customer.Bookings = bookings;
             return this;
         }
 

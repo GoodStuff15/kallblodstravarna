@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using resortapi.Converters;
 using resortapi.Repositories;
 using resortdtos;
-using resortlibrary.Models;
 
 namespace resortapi.Controllers
 {
@@ -21,7 +19,7 @@ namespace resortapi.Controllers
         {
             var accomodations = await _repo.GetAvailableByGuestNo(request.CheckIn, request.CheckOut, request.NoOfGuests);
 
-            var overview = accomodations.Select(a => new AvailableRoomDto
+            var available = accomodations.Select(a => new AvailableRoomDto
             {
                 Id = a.Id,
                 Name = a.Name,
@@ -36,8 +34,7 @@ namespace resortapi.Controllers
                 }).ToList() ?? new List<AccessibilityDto>()
             }).ToList();
 
-
-            return Ok(overview);
+            return Ok(available);
         }
 
 
