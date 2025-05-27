@@ -5,7 +5,15 @@ namespace resortlibrary.Builders
 {
     public class CustomerBuilder
     {
-        public Customer _customer;
+        private Customer _customer;
+
+        public CustomerBuilder()
+        {
+            _customer = new Customer
+            {
+                Bookings = new List<Booking>()
+            };
+        }
 
         public CustomerBuilder AddType(string type)
         {
