@@ -11,12 +11,15 @@ public class AdditionalOptionBuilderTests
     [TestInitialize]
     public void Setup()
     {
-        _factory = new AdditionalOptionBuilder();
+        _builder = new AdditionalOptionBuilder();
     }
     [TestMethod]
     public void CreateAdditionalOption_ValidData_ShouldReturnAddedOption()
     {
-        var option = _builder.CreateAdditionalOption("Frukost", "Buffé", 100m);
+        var option = _builder.AddName("Frukost")
+                    .AddDescription("Buffé")
+                    .AddPrice(100m)
+                    .Build();
 
         Assert.IsNotNull(option);
         Assert.AreEqual("Frukost", option.Name);
@@ -32,7 +35,7 @@ public class AdditionalOptionBuilderTests
     public void CreateAdditionalOption_InvalidName_ShouldThrow(string name)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder.CreateAdditionalOption(name, "Beskrivning", 50m));
+        _builder.AddName(name));
         Assert.AreEqual("Namn måste anges.", ex.Message);
     }
 
@@ -43,7 +46,7 @@ public class AdditionalOptionBuilderTests
     {
         decimal price = (decimal)inputPrice;
         var ex = Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-        _builder.CreateAdditionalOption("Frukost", "Beskrivning", price));
+        _builder.AddPrice(price));
         Assert.AreEqual("price", ex.ParamName);
     }
 }

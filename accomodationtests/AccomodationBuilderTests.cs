@@ -19,11 +19,12 @@ public class AccomodationBuilderTests
     {
         var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
 
-        var accomodation = _builder
-                            .WithName("Strandvilla 1")
-                            .WithMaxOccupancy(8)
-                            .WithAccomodationType(type)
-                            .Build();
+        
+
+        var accomodation = _builder.WithName("Strandvilla 1")
+                           .WithMaxOccupancy(8)
+                           .WithAccomodationType(type)
+                           .Build();
 
         Assert.IsNotNull(accomodation);
         Assert.AreEqual("Strandvilla 1", accomodation.Name);
@@ -40,12 +41,7 @@ public class AccomodationBuilderTests
     {
         var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder
-            .WithName("Strandvilla")
-            .WithMaxOccupancy(0)
-            .WithAccomodationType(type)
-            .Build()
-        );
+        _builder.WithMaxOccupancy(0));
 
         Assert.AreEqual("Antalet gäster måste vara fler än 0.", ex.Message);
     }
@@ -55,13 +51,8 @@ public class AccomodationBuilderTests
     [DataRow(" ")]
     public void CreateAccomodation_InvalidName_ShouldThrow(string name)
     {
-        var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-            _builder
-                .WithName(name)
-                .WithMaxOccupancy(8)
-                .WithAccomodationType(type)
-                .Build()
+            _builder.WithName(name)
             );
         Assert.AreEqual("Namn måste anges.", ex.Message);
     }
@@ -70,13 +61,8 @@ public class AccomodationBuilderTests
     [DataRow(-1)]
     public void CreateAccomodation_InvalidOccupancy_ShouldThrow(int maxOccupancy)
     {
-        var type = new AccomodationType { Id = 1, Name = "Strandvilla", BasePrice = 1000m };
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder
-            .WithName("Strandvilla 1")
-            .WithMaxOccupancy(maxOccupancy)
-            .WithAccomodationType (type)
-            .Build()
+        _builder.WithMaxOccupancy(maxOccupancy)
         );
         Assert.AreEqual("Antalet gäster måste vara fler än 0.", ex.Message);
     }
@@ -84,11 +70,7 @@ public class AccomodationBuilderTests
     public void CreateAccomodation_NullAccomodationType_ShouldThrow()
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder
-            .WithName("Strandvilla 1")
-            .WithMaxOccupancy(8)
-            .WithAccomodationType(null)
-            .Build()
+        _builder.WithAccomodationType(null)
         );
         Assert.AreEqual("Boendetyp måste anges.", ex.Message);
     }

@@ -18,10 +18,9 @@ public class AccessibilityBuilderTests
         string name = "Handikappsanpassat rum";
         string description = "Rullstolsramp";
 
-        var accessibility = _builder
-                            .WithName(name)
-                            .WithDescription(description)
-                            .Build();
+        var accessibility = _builder.WithName(name)
+            .WithDescription(description)
+            .Build();
 
         Assert.IsNotNull(accessibility);
         Assert.AreEqual(name, accessibility.Name);
@@ -35,8 +34,7 @@ public class AccessibilityBuilderTests
     public void CreateAccessibility_InvalidName_ShouldThrow(string invalidName)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder.WithName(invalidName)
-        );
+        _builder.WithName(invalidName));
 
         Assert.AreEqual("Namn måste anges.", ex.Message);
     }
@@ -45,8 +43,7 @@ public class AccessibilityBuilderTests
     public void CreateAccessibility_NullDescription_ShouldThrow()
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder.WithDescription(null)
-        );
+        _builder.WithDescription(null));
 
         Assert.AreEqual("Beskrivning måste anges.", ex.Message);
     }
