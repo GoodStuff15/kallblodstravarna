@@ -4,14 +4,14 @@ using resortlibrary.Builders.IBuilders;
 namespace accomodationtests;
 
 [TestClass]
-public class CustomerFactoryTests
+public class CustomerBuilderTests
 {
-    private ICustomerBuilder _customerFactory;
+    private ICustomerBuilder _builder;
 
     [TestInitialize]
     public void Setup()
     {
-        _customerFactory = new CustomerBuilder();
+        _builder = new CustomerBuilder();
     }
     [TestMethod]
     public void CreateCustomer_WithValidData_ReturnsCustomer()
@@ -25,7 +25,7 @@ public class CustomerFactoryTests
 
 
 
-        var customer = _customerFactory.CreateCustomer(type, firstName, lastName, email, phone, paymentMethod);
+        var customer = _builder.CreateCustomer(type, firstName, lastName, email, phone, paymentMethod);
 
         Assert.IsNotNull(customer);
         Assert.AreEqual(type, customer.Type);
@@ -55,7 +55,7 @@ public class CustomerFactoryTests
     public void CreateCustomer_InvalidInputs_ShouldThrowException(string type, string firstName, string lastName, string email, string phone, string paymentMethod)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _customerFactory.CreateCustomer(type, firstName, lastName, email, phone, paymentMethod)
+        _builder.CreateCustomer(type, firstName, lastName, email, phone, paymentMethod)
         );
     }
 }

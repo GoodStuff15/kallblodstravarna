@@ -1,11 +1,11 @@
-using resortlibrary.Factories;
-using resortlibrary.Factories.IFactories;
+using resortlibrary.Builders;
+using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
 namespace accomodationtests;
 
 [TestClass]
-public class BookingFactoryTests
+public class BookingBuilderTests
 {
     private IBookingBuilder _factory;
     [TestInitialize]
