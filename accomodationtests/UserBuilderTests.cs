@@ -58,9 +58,11 @@ public class UserBuilderTests
     [DataRow("user", "password", " ")]
     public void Build_MissingRequiredFields_ShouldThrowInvalidOperationException(string username, string passwordHash, string role)
     {
+        var builder = new UserBuilder();
+
         if (!string.IsNullOrWhiteSpace(username))
         {
-            _builder.WithUsername(username);
+            builder.WithUsername(username);
         }
             
         if (!string.IsNullOrWhiteSpace(passwordHash))
