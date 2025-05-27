@@ -18,7 +18,7 @@ namespace resortapi.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("available")]
+        [HttpGet("available")]
         public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodations([FromBody] AvailableRoomRequest request)
         {
             var accomodations = await _repo.GetAvailableByGuestNo(request.CheckIn, request.CheckOut, request.NoOfGuests);

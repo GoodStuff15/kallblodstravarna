@@ -20,6 +20,7 @@ namespace resortlibrary.Builders
             _booking.CheckIn = checkIn;
             return this;
         }
+
         public BookingBuilder AddCheckOut(DateTime checkOut)
         {
             _booking.CheckOut = checkOut;
