@@ -1,4 +1,5 @@
 ﻿using resortdtos;
+using resortlibrary.Builders;
 using resortlibrary.Models;
 
 namespace resortapi.Converters
@@ -7,12 +8,11 @@ namespace resortapi.Converters
     {
         public Guest FromDTOtoObject(GuestDto dto)
         {
-            var obj = new Guest()
-            {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Age = dto.Age
-            };
+            var obj = new GuestBuilder()
+                      .AddFirstName(dto.FirstName)
+                      .AddLastName(dto.LastName)
+                      .AddAge(dto.Age)
+                      .Build();
 
             return obj;
         }
@@ -23,12 +23,12 @@ namespace resortapi.Converters
 
             foreach (var dto in collection)
             {
-                var obj = new Guest()
-                {
-                    FirstName = dto.FirstName,
-                    LastName = dto.LastName,
-                    Age = dto.Age
-                };
+                var obj = new GuestBuilder()
+                      .AddFirstName(dto.FirstName)
+                      .AddLastName(dto.LastName)
+                      .AddAge(dto.Age)
+                      .Build();
+
                 objCollection.Add(obj);
             }
 
