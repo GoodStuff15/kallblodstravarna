@@ -1,5 +1,6 @@
 using resortlibrary.Builders;
 using resortlibrary.Builders.IBuilders;
+using resortlibrary.Models;
 
 namespace accomodationtests;
 
@@ -23,9 +24,13 @@ public class CustomerBuilderTests
         string phone = "0707000000";
         string paymentMethod = "Cash";
 
-
-
-        var customer = _builder.CreateCustomer(type, firstName, lastName, email, phone, paymentMethod);
+        var customer = _builder.AddFirstName(firstName)
+            .AddLastName(lastName)
+            .AddType(type)
+            .AddEmail(email)
+            .AddPhone(phone)
+            .AddPaymentMethod(paymentMethod)
+            .Build();
 
         Assert.IsNotNull(customer);
         Assert.AreEqual(type, customer.Type);
@@ -55,7 +60,13 @@ public class CustomerBuilderTests
     public void CreateCustomer_InvalidInputs_ShouldThrowException(string type, string firstName, string lastName, string email, string phone, string paymentMethod)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder.CreateCustomer(type, firstName, lastName, email, phone, paymentMethod)
+         _builder.AddFirstName(firstName)
+            .AddLastName(lastName)
+            .AddType(type)
+            .AddEmail(email)
+            .AddPhone(phone)
+            .AddPaymentMethod(paymentMethod)
+            .Build()
         );
     }
 }

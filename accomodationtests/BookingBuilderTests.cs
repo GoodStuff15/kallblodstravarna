@@ -21,7 +21,11 @@ public class BookingBuilderTests
         var checkIn = new DateTime(2025, 7, 1);
         var checkOut = new DateTime(2025, 7, 5);
 
-        var booking = 
+        var booking = _builder.AddAccomodation(accomodation)
+                        .AddCheckIn(checkIn)
+                        .AddCheckOut(checkOut)
+                        .AddCustomer(customer)
+                        .Build();
                       
 
         Assert.IsNotNull(booking);
