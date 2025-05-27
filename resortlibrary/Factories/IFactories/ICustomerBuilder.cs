@@ -9,7 +9,7 @@ namespace resortlibrary.Factories.IFactories
         CustomerBuilder AddLastName(string lastName);
         CustomerBuilder AddEmail(string email);
         CustomerBuilder AddPhone(string phone);
-        CustomerBuilder AddPaymentMethod(string paymentMethod)
+        CustomerBuilder AddPaymentMethod(string paymentMethod);
         Customer Build();
     }
 }
