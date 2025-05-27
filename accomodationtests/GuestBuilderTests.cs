@@ -15,7 +15,9 @@ public class GuestBuilderTests
     [TestMethod]
     public void CreateGuest_ValidData_ShouldReturnGuest()
     {
-        var guest = _builder.CreateGuest("Johan", "Hansson");
+        var guest = _builder.AddFirstName("Johan")
+                            .AddLastName("Hansson")
+                            .Build(); 
 
         Assert.IsNotNull(guest);
         Assert.AreEqual("Johan", guest.FirstName);
@@ -29,7 +31,7 @@ public class GuestBuilderTests
     public void CreateGuest_InvalidFirstName_ShouldThrow(string firstName)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder.CreateGuest(firstName, "Johan"));
+        _builder.AddFirstName(firstName));
 
         Assert.AreEqual("Förnamn måste anges.", ex.Message);
     }
@@ -41,7 +43,7 @@ public class GuestBuilderTests
     public void CreateGuest_InvalidLastName_ShouldThrow(string lastName)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder.CreateGuest(lastName, "Hansson"));
+        _builder.AddLastName(lastName));
 
         Assert.AreEqual("Efternamn måste anges.", ex.Message);
     }
