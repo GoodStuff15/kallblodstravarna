@@ -1,4 +1,3 @@
-using resortlibrary.Builders.IBuilders;
 using resortlibrary.Builders;
 
 namespace accomodationtests;
@@ -6,7 +5,7 @@ namespace accomodationtests;
 [TestClass]
 public class AdditionalOptionBuilderTests
 {
-    private IAdditionalOptionBuilder _builder;
+    private AdditionalOptionBuilder _builder;
 
     [TestInitialize]
     public void Setup()

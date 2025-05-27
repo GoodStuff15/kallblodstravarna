@@ -1,5 +1,4 @@
 using resortlibrary.Builders;
-using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
 namespace accomodationtests;
@@ -59,13 +58,23 @@ public class UserBuilderTests
     [DataRow("user", "password", " ")]
     public void Build_MissingRequiredFields_ShouldThrowInvalidOperationException(string username, string passwordHash, string role)
     {
-        if (!string.IsNullOrWhiteSpace(username))
-            _builder.WithUsername(username);
-        if (!string.IsNullOrWhiteSpace(passwordHash))
-            _builder.WithPasswordHash(passwordHash);
-        if (!string.IsNullOrWhiteSpace(role))
-            _builder.WithRole(role);
+        var builder = new UserBuilder();
 
+        if (!string.IsNullOrWhiteSpace(username))
+        {
+            builder.WithUsername(username);
+        }
+            
+        if (!string.IsNullOrWhiteSpace(passwordHash))
+        {
+            _builder.WithPasswordHash(passwordHash);
+        }
+            
+        if (!string.IsNullOrWhiteSpace(role))
+        {
+            _builder.WithRole(role);
+        }
+            
         Assert.ThrowsException<InvalidOperationException>(() => _builder.Build());
     }
 

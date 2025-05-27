@@ -11,7 +11,9 @@ namespace resortlibrary.Builders
         public AccessibilityBuilder WithName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentNullException(nameof(name), "Namn måste anges.");
+            {
+                throw new ArgumentException("Namn måste anges.");
+            }    
             _name = name;
             return this;
         }
@@ -19,8 +21,9 @@ namespace resortlibrary.Builders
         public AccessibilityBuilder WithDescription(string description)
         {
             if (string.IsNullOrWhiteSpace(description))
-                throw new ArgumentNullException(nameof(description), "Beskrivning måste anges.");
-                
+            {
+                throw new ArgumentException("Beskrivning måste anges.");
+            }
             _description = description;
             return this;
         }

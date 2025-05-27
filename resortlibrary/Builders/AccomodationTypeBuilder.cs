@@ -13,8 +13,9 @@ namespace resortlibrary.Builders
         public AccomodationTypeBuilder AddName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
+            {
                 throw new ArgumentException("Namn måste anges.");
-
+            }
             _accomodationType.Name = name;
             return this;
         }
@@ -27,8 +28,9 @@ namespace resortlibrary.Builders
         public AccomodationTypeBuilder AddBasePrice(decimal basePrice)
         {
             if (basePrice <= 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(basePrice), "Pris måste vara högre än 0.");
-          
+            }
             _accomodationType.BasePrice = basePrice;
             return this;
         }

@@ -1,12 +1,11 @@
 using resortlibrary.Builders;
-using resortlibrary.Builders.IBuilders;
 
 namespace accomodationtests;
 
 [TestClass]
 public class AccomodationTypeBuilderTests
 {
-    private IAccomodationTypeBuilder _builder;
+    private AccomodationTypeBuilder _builder;
 
 
     [TestInitialize]

@@ -1,14 +1,14 @@
 ﻿using resortdtos;
-using resortlibrary.Builders.IBuilders;
+using resortlibrary.Builders;
 using resortlibrary.Models;
 
 namespace resortapi.Converters
 {
     public class CustomerConverter : IConverter<Customer, CreateCustomerRequestDTO>
     {
-        private readonly ICustomerBuilder _builder;
+        private readonly CustomerBuilder _builder;
 
-        public CustomerConverter(ICustomerBuilder builder)
+        public CustomerConverter(CustomerBuilder builder)
         {
             _builder = builder;
         }
