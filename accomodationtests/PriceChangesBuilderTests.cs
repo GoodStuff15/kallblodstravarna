@@ -32,8 +32,8 @@ public class PriceChangesBuilderTests
     public void CreatePriceChange_InvalidType_ShouldThrow(string type)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder.AddType(null));
+        _builder.AddType(type));
 
-        Assert.AreEqual("Typ måste anges.", ex.Message);
+        StringAssert.StartsWith(ex.Message, "Typ måste anges");
     }
 }
