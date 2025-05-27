@@ -3,7 +3,7 @@ using resortlibrary.Models;
 
 namespace resortlibrary.Factories
 {
-    public class AccomodationFactory : IAccomodationFactory
+    public class AccomodationFactory : IAccomodationBuilder
     {
         public Accomodation CreateAccomodation(string? name, int maxOccupancy, AccomodationType accomodationType)
         {
