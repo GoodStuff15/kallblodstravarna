@@ -46,11 +46,12 @@ namespace resortapi
                     };
                 });
 
-            builder.Services.AddControllers()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-                });
+            // JSON serialization options for reference handling
+            //builder.Services.AddControllers()
+            //    .AddJsonOptions(options =>
+            //    {
+            //        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+            //    });
 
 
             builder.Services.AddScoped<IAuthService, AuthService>();
@@ -66,7 +67,7 @@ namespace resortapi
             builder.Services.AddTransient<IConverter<Customer, CreateCustomerRequestDTO>, CustomerConverter>();
 
             // Adding services for Factories
-            builder.Services.AddScoped<ICustomerFactory, CustomerFactory>();
+            builder.Services.AddScoped<ICustomerBuilder, CustomerBuilder>();
 
             var app = builder.Build();
 

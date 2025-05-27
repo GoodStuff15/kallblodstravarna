@@ -6,12 +6,12 @@ namespace accomodationtests;
 [TestClass]
 public class AdditionalOptionFactoryTests
 {
-    private IAdditionalOptionFactory _factory;
+    private IAdditionalOptionBuilder _factory;
 
     [TestInitialize]
     public void Setup()
     {
-        _factory = new AdditionalOptionFactory();
+        _factory = new AdditionalOptionBuilder();
     }
     [TestMethod]
     public void CreateAdditionalOption_ValidData_ShouldReturnAddedOption()

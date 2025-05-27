@@ -11,7 +11,7 @@ namespace resortlibrary.Models
         public string Role { get; set; } = "User";
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
-        public int CustomerId { get; set; } = 0;
+        public int? CustomerId { get; set; }
         public Customer? Customer { get; set; } = null;
 
     }

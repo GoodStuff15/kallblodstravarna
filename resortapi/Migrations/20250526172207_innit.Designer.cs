@@ -12,8 +12,8 @@ using resortapi.Data;
 namespace resortapi.Migrations
 {
     [DbContext(typeof(ResortContext))]
-    [Migration("20250523084019_InnitialCreate")]
-    partial class InnitialCreate
+    [Migration("20250526172207_innit")]
+    partial class innit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,19 +25,41 @@ namespace resortapi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AccessibilityAccomodation", b =>
+            modelBuilder.Entity("AccomodationAccessibility", b =>
                 {
-                    b.Property<int>("AccessibilitiesId")
+                    b.Property<int>("AccessibilityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AccomodationsId")
+                    b.Property<int>("AccomodationId")
                         .HasColumnType("int");
 
-                    b.HasKey("AccessibilitiesId", "AccomodationsId");
+                    b.HasKey("AccessibilityId", "AccomodationId");
 
-                    b.HasIndex("AccomodationsId");
+                    b.HasIndex("AccomodationId");
 
-                    b.ToTable("AccessibilityAccomodation");
+                    b.ToTable("AccomodationAccessibility");
+
+                    b.HasData(
+                        new
+                        {
+                            AccessibilityId = 1,
+                            AccomodationId = 1
+                        },
+                        new
+                        {
+                            AccessibilityId = 2,
+                            AccomodationId = 2
+                        },
+                        new
+                        {
+                            AccessibilityId = 1,
+                            AccomodationId = 3
+                        },
+                        new
+                        {
+                            AccessibilityId = 2,
+                            AccomodationId = 3
+                        });
                 });
 
             modelBuilder.Entity("AdditionalOptionBooking", b =>
@@ -79,7 +101,6 @@ namespace resortapi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -115,6 +136,9 @@ namespace resortapi.Migrations
 
                     b.Property<int>("AccomodationTypeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MaxOccupancy")
                         .HasColumnType("int");
@@ -522,17 +546,17 @@ namespace resortapi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AccessibilityAccomodation", b =>
+            modelBuilder.Entity("AccomodationAccessibility", b =>
                 {
                     b.HasOne("resortlibrary.Models.Accessibility", null)
                         .WithMany()
-                        .HasForeignKey("AccessibilitiesId")
+                        .HasForeignKey("AccessibilityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("resortlibrary.Models.Accomodation", null)
                         .WithMany()
-                        .HasForeignKey("AccomodationsId")
+                        .HasForeignKey("AccomodationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
