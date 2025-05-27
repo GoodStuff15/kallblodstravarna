@@ -9,10 +9,19 @@ namespace resortapi.Converters
 
         public Booking FromDTOtoObject(BookingDto dto)
         {
+            var guestConverter = new GuestConverter();
+
+            var guestList = guestConverter.FromDTOtoObject_Collection(dto.Guests);
+
             var booking = new BookingBuilder().AddCheckIn(dto.CheckIn)
                                               .AddCheckOut(dto.CheckOut)
                                               .AddCost(dto.Cost)
+                                              .AddAccomodationId(dto.AccomodationId)
+                                              .AddCustomerId(dto.CustomerId)
+                                              .AddGuestList(guestList)
                                               .Build();
+
+            return booking;
         }
 
         public ICollection<Booking> FromDTOtoObject_Collection(ICollection<BookingDto> collection)
@@ -89,25 +98,16 @@ namespace resortapi.Converters
 
         public Booking ModifyDtoToObject(ModifyBookingDto dto)
         {
-            var booking = new Booking();
+            var guestConverter = new GuestConverter();
 
-            var objGuests = new List<Guest>();
+            var guestList = guestConverter.FromDTOtoObject_Collection(dto.Guests);
 
-            foreach (var g in dto.Guests)
-            {
-                var gObj = new Guest();
-                gObj.Age = g.Age;
-                gObj.FirstName = g.FirstName;
-                gObj.LastName = g.LastName;
-                objGuests.Add(gObj);
-            }
-
-            booking.Id = dto.BookingId;
-            booking.CheckIn = dto.CheckIn;
-            booking.CheckOut = dto.CheckOut;
-            booking.AccomodationId = dto.AccomodationId;
-            //booking.AdditionalOptions = ??
-            booking.Guests = objGuests;
+            var booking = new BookingBuilder()
+                              .AddCheckIn(dto.CheckIn)
+                              .AddCheckOut(dto.CheckOut)
+                              .AddAccomodationId(dto.AccomodationId)
+                              .AddGuestList(guestList)
+                              .Build();
 
             return booking;
         }
