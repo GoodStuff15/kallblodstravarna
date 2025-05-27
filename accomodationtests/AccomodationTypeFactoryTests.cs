@@ -6,7 +6,7 @@ namespace accomodationtests;
 [TestClass]
 public class AccomodationTypeFactoryTests
 {
-    private IAccomodationTypeFactory _factory;
+    private IAccomodationTypeBuilder _factory;
 
 
     [TestInitialize]
