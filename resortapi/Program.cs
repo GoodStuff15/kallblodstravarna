@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using resortapi.Converters;
 using resortapi.Data;
-using resortlibrary.Models;
 using resortapi.Repositories;
 using resortapi.Services;
-using Scalar.AspNetCore;
-using resortapi.Converters;
 using resortdtos;
 using resortlibrary.Builders;
+using resortlibrary.Models;
+using Scalar.AspNetCore;
 
 namespace resortapi
 {
@@ -61,6 +61,7 @@ namespace resortapi
             builder.Services.AddScoped<IRepository<Customer>, CustomerRepo>();
             builder.Services.AddScoped<IRepository<Booking>, BookingRepo>();
             builder.Services.AddScoped<AccomodationRepo>();
+            builder.Services.AddScoped<CustomerBuilder>();
 
             // Adding services for DTO conversion
             builder.Services.AddTransient<IConverter<Customer, CreateCustomerRequestDTO>, CustomerConverter>();

@@ -1,5 +1,4 @@
-﻿
-using resortlibrary.Models;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
@@ -18,6 +17,7 @@ namespace resortlibrary.Builders
             {
                 throw new ArgumentException("Namn måste anges.");
             }
+
             _additionalOption.Name = name;
             return this;
         }
@@ -34,6 +34,7 @@ namespace resortlibrary.Builders
             {
                 throw new ArgumentOutOfRangeException(nameof(price), "Priset får inte vara lägre än 0.");
             }
+
             _additionalOption.Price = price;
             return this;
         }
