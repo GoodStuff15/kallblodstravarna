@@ -6,9 +6,9 @@ namespace resortapi.Converters
 {
     public class CustomerConverter : IConverter<Customer, CreateCustomerRequestDTO>
     {
-        private readonly ICustomerFactory _factory;
+        private readonly ICustomerBuilder _factory;
 
-        public CustomerConverter(ICustomerFactory factory)
+        public CustomerConverter(ICustomerBuilder factory)
         {
             _factory = factory;
         }

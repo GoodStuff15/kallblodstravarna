@@ -1,10 +1,9 @@
 ﻿using resortlibrary.Factories.IFactories;
 using resortlibrary.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace resortlibrary.Factories
 {
-    public class GuestBuilder : IGuestFactory
+    public class GuestBuilder : IGuestBuilder
     {
         private Guest _guest;
 

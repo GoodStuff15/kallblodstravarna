@@ -6,12 +6,12 @@ namespace accomodationtests;
 [TestClass]
 public class CustomerFactoryTests
 {
-    private ICustomerFactory _customerFactory;
+    private ICustomerBuilder _customerFactory;
 
     [TestInitialize]
     public void Setup()
     {
-        _customerFactory = new CustomerFactory();
+        _customerFactory = new CustomerBuilder();
     }
     [TestMethod]
     public void CreateCustomer_WithValidData_ReturnsCustomer()
