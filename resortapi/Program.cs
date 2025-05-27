@@ -66,9 +66,6 @@ namespace resortapi
             // Adding services for DTO conversion
             builder.Services.AddTransient<IConverter<Customer, CreateCustomerRequestDTO>, CustomerConverter>();
 
-            // Adding services for Factories
-            builder.Services.AddScoped<ICustomerBuilder, CustomerBuilder>();
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -1,11 +1,15 @@
-﻿using resortlibrary.Builders.IBuilders;
-using resortlibrary.Models;
+﻿using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class PriceChangesBuilder : IPriceChangesBuilder
+    public class PriceChangesBuilder
     {
         private PriceChanges _priceChange;
+
+        public PriceChangesBuilder()
+        {
+            _priceChange = new PriceChanges();
+        }
 
         public PriceChangesBuilder AddPriceChange(float priceChange)
         {

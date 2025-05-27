@@ -1,20 +1,22 @@
-﻿using resortlibrary.Builders.IBuilders;
+﻿
 using resortlibrary.Models;
 
 namespace resortlibrary.Builders
 {
-    public class AccomodationBuilder : IAccomodationBuilder
+    public class AccomodationBuilder
     {
-        private string? _name;
-        private int _maxOccupancy;
-        private AccomodationType _accomodationType;
+        private Accomodation _accomodation;
 
+        public AccomodationBuilder()
+        {
+            _accomodation = new Accomodation();
+        }
         public AccomodationBuilder WithName(string? name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Namn måste anges.", nameof(name));
 
-            _name = name;
+            _accomodation.Name = name;
             return this;
         }
         public AccomodationBuilder WithMaxOccupancy(int maxOccupancy)
@@ -22,30 +24,25 @@ namespace resortlibrary.Builders
             if (maxOccupancy <= 0)
                 throw new ArgumentException("Antalet gäster måste vara fler än 0.", nameof(maxOccupancy));
 
-            _maxOccupancy = maxOccupancy;
+            _accomodation.MaxOccupancy = maxOccupancy;
             return this;
         }
         public AccomodationBuilder WithAccomodationType(AccomodationType accomodationType)
         {
             if (accomodationType == null)
                 throw new ArgumentException("Boendetyp måste anges.", nameof(accomodationType));
-            _accomodationType = accomodationType;
+
+            _accomodation.AccomodationType = accomodationType;
             return this;
         }
         public Accomodation Build()
         {
-            if (_name == null)
+            if (_accomodation.Name == null)
                 throw new InvalidOperationException("Namn har inte angetts.");
-            if (_accomodationType == null)
+            if (_accomodation.AccomodationType == null)
                 throw new InvalidOperationException("Boendetyp har inte angetts.");
-            return new Accomodation
-            {
-                Name = _name,
-                MaxOccupancy = _maxOccupancy,
-                AccomodationType = _accomodationType,
-                Bookings = new List<Booking>(),
-                Accessibilities = new List<Accessibility>()
-            };
+            
+            return _accomodation;
         }      
     }
 }
