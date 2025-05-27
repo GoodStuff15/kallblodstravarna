@@ -1,15 +1,15 @@
-﻿using resortlibrary.Factories.IFactories;
+﻿using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
-namespace resortlibrary.Factories
+namespace resortlibrary.Builders
 {
-    public class AccomodationFactory : IAccomodationBuilder
+    public class AccomodationBuilder : IAccomodationBuilder
     {
         private string? _name;
         private int _maxOccupancy;
         private AccomodationType _accomodationType;
 
-        public IAccomodationBuilder WithName(string? name)
+        public AccomodationBuilder WithName(string? name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Namn måste anges.", nameof(name));
@@ -17,18 +17,18 @@ namespace resortlibrary.Factories
             _name = name;
             return this;
         }
-        public IAccomodationBuilder WithMaxOccupancy(int maxOccupancy)
+        public AccomodationBuilder WithMaxOccupancy(int maxOccupancy)
         {
             if (maxOccupancy <= 0)
-                throw new ArgumentException("Antalet gäster måste vara fler än 0.", nameof(maxOccupancy);
+                throw new ArgumentException("Antalet gäster måste vara fler än 0.", nameof(maxOccupancy));
 
             _maxOccupancy = maxOccupancy;
             return this;
         }
-        public IAccomodationBuilder WithAccomodationType(AccomodationType accomodationType)
+        public AccomodationBuilder WithAccomodationType(AccomodationType accomodationType)
         {
             if (accomodationType == null)
-                throw new ArgumentException("Boendetyp måste anges.", nameof(accomodationType);
+                throw new ArgumentException("Boendetyp måste anges.", nameof(accomodationType));
             _accomodationType = accomodationType;
             return this;
         }

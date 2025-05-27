@@ -1,16 +1,16 @@
-using resortlibrary.Factories;
+using resortlibrary.Builders;
 
 namespace accomodationtests;
 
 [TestClass]
-public class AccessibilityFactoryTests
+public class AccessibilityBuilderTests
 {
-    private AccessibilityFactory _factory;
+    private AccessibilityBuilder _builder;
 
     [TestInitialize]
     public void Setup()
     {
-        _factory = new AccessibilityFactory();
+        _builder = new AccessibilityBuilder();
     }
     [TestMethod]
     public void CreateAccessibility_ValidData_ShouldReturnAccessibility()
@@ -18,7 +18,7 @@ public class AccessibilityFactoryTests
         string name = "Handikappsanpassat rum";
         string description = "Rullstolsramp";
 
-        var accessibility = _factory.CreateAcceessibility(name, description);
+        var accessibility = _builder.CreateAcceessibility(name, description);
 
         Assert.IsNotNull(accessibility);
         Assert.AreEqual(name, accessibility.Name);
@@ -32,7 +32,7 @@ public class AccessibilityFactoryTests
     public void CreateAccessibility_InvalidName_ShouldThrow(string invalidName)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateAcceessibility(invalidName, "Beskrivning"));
+        _builder.CreateAcceessibility(invalidName, "Beskrivning"));
 
         Assert.AreEqual("Namn måste anges.", ex.Message);
     }
@@ -41,7 +41,7 @@ public class AccessibilityFactoryTests
     public void CreateAccessibility_NullDescription_ShouldThrow()
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _factory.CreateAcceessibility("Namn,", null));
+        _builder.CreateAcceessibility("Namn,", null));
 
         Assert.AreEqual("Beskrivning måste anges.", ex.Message);
     }

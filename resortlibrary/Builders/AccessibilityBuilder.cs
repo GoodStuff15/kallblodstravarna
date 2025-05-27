@@ -1,14 +1,14 @@
-﻿using resortlibrary.Factories.IFactories;
+﻿using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
-namespace resortlibrary.Factories
+namespace resortlibrary.Builders
 {
-    public class AccessibilityFactory : IAccessibilityBuilder
+    public class AccessibilityBuilder : IAccessibilityBuilder
     {
         private string? _name;
         private string? _description;
 
-        public IAccessibilityBuilder WithName(string name)
+        public AccessibilityBuilder WithName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException(nameof(name), "Namn måste anges.");
@@ -16,7 +16,7 @@ namespace resortlibrary.Factories
             return this;
         }
 
-        public IAccessibilityBuilder WithDescription(string description)
+        public AccessibilityBuilder WithDescription(string description)
         {
             if (string.IsNullOrWhiteSpace(description))
                 throw new ArgumentNullException(nameof(description), "Beskrivning måste anges.");

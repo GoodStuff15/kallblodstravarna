@@ -1,17 +1,17 @@
-using resortlibrary.Factories;
-using resortlibrary.Factories.IFactories;
+using resortlibrary.Builders;
+using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
 namespace accomodationtests;
 
 [TestClass]
-public class BookingFactoryTests
+public class BookingBuilderTests
 {
-    private IBookingFactory _factory;
+    private IBookingBuilder _factory;
     [TestInitialize]
     public void Setup()
     {
-        _factory = new BookingFactory();
+        _factory = new BookingBuilder();
     }
     [TestMethod]
     public void CreateBooking_ValidInputs_ShouldReturnBooking()

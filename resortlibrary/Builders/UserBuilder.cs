@@ -1,4 +1,4 @@
-﻿using resortlibrary.Factories.IFactories;
+﻿using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace resortlibrary.Factories
+namespace resortlibrary.Builders
 {
     public class UserBuilder : IUserBuilder
     {
@@ -18,7 +18,7 @@ namespace resortlibrary.Factories
         private string? _refreshToken;
         private DateTime? _refreshTokenExpiryTime;
 
-        public IUserBuilder WithUsername(string username)
+        public UserBuilder WithUsername(string username)
         {
             if (string.IsNullOrWhiteSpace(username))
                 throw new ArgumentException("Användarnamn måste anges.", nameof(username));
@@ -26,39 +26,39 @@ namespace resortlibrary.Factories
             _username = username;
             return this;
         }
-        public IUserBuilder WithPasswordHash(string passwordHash)
+        public UserBuilder WithPasswordHash(string passwordHash)
         {
             if (string.IsNullOrWhiteSpace(passwordHash))
                 throw new ArgumentException("Lösenord måste anges.", nameof(passwordHash));
             _passwordHash = passwordHash;
             return this;
         }
-        public IUserBuilder WithRole(string role)
+        public UserBuilder WithRole(string role)
         {
             if (string.IsNullOrWhiteSpace(role))
                 throw new ArgumentException("Roll måste anges.", nameof(role));
             _role = role;
             return this;
         }
-        public IUserBuilder WithCustomerId(int customerId)
+        public UserBuilder WithCustomerId(int customerId)
         {
             _customerId = customerId;
             return this;
         }
 
-        public IUserBuilder WithCustomer(Customer customer)
+        public UserBuilder WithCustomer(Customer customer)
         {
             _customer = customer;
             return this;
         }
 
-        public IUserBuilder WithRefreshToken(string refreshToken)
+        public UserBuilder WithRefreshToken(string refreshToken)
         {
             _refreshToken = refreshToken;
             return this;
         }
 
-        public IUserBuilder WithRefreshTokenExpiry(DateTime expiryTime)
+        public UserBuilder WithRefreshTokenExpiry(DateTime expiryTime)
         {
             _refreshTokenExpiryTime = expiryTime;
             return this;

@@ -1,22 +1,28 @@
 ﻿using resortdtos;
-using resortlibrary.Factories.IFactories;
+using resortlibrary.Builders.IBuilders;
 using resortlibrary.Models;
 
 namespace resortapi.Converters
 {
     public class CustomerConverter : IConverter<Customer, CreateCustomerRequestDTO>
     {
-        private readonly ICustomerFactory _factory;
+        private readonly ICustomerBuilder _builder;
 
-        public CustomerConverter(ICustomerFactory factory)
+        public CustomerConverter(ICustomerBuilder builder)
         {
-            _factory = factory;
+            _builder = builder;
         }
 
         public Customer FromDTOtoObject(CreateCustomerRequestDTO entity)
         {
-            return _factory.CreateCustomer("Basic", entity.FirstName, entity.LastName, entity.Email, entity.PhoneNumber, entity.PaymentMethod);
-
+            return _builder
+                .AddType(entity.Type)
+                .AddFirstName(entity.FirstName)
+                .AddLastName(entity.LastName)
+                .AddPhone(entity.PhoneNumber)
+                .AddEmail(entity.Email)
+                .AddPaymentMethod(entity.PaymentMethod)
+                .Build();
         }
 
         public ICollection<Customer> FromDTOtoObject_Collection(ICollection<CreateCustomerRequestDTO> collection)
