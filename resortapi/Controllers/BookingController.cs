@@ -3,6 +3,7 @@ using resortapi.Repositories;
 using resortdtos;
 using resortapi.Converters;
 using resortlibrary.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace resortapi.Controllers
 {
@@ -18,6 +19,7 @@ namespace resortapi.Controllers
             _converter = new BookingConverter();
         }
 
+        [Authorize(Roles = "Staff, Admin")]
         [HttpPost(Name = "Add New Booking")]
         public async Task<ActionResult> AddBooking(BookingDto booking)
         {
@@ -49,6 +51,7 @@ namespace resortapi.Controllers
             return Ok(dtos);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("detailed", Name = "Get all bookings with details included")]
         public async Task<ActionResult<ICollection<BookingDto>>> GetAllBookingsWithGuestInfo()
         {
@@ -80,6 +83,7 @@ namespace resortapi.Controllers
             return Ok($"Booking #{cancelById} has been cancelled");
         }
 
+        [Authorize(Roles = "Staff, Admin")]
         [HttpDelete("{deleteById}", Name = "Delete booking from database")]
         public async Task<ActionResult> RemoveBookingFromDb(int deleteById)
         {
