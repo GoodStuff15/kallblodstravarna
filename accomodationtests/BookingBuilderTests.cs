@@ -149,4 +149,31 @@ public class BookingBuilderTests
 
         Assert.IsTrue(booking.Active);
     }
+    [TestMethod]
+    public void CreateBooking_WithOutCancelationDate_ShouldBeNull()
+    {
+        var booking = _builder
+            .AddCustomer(new Customer { Id = 1 })
+            .AddAccomodation(new Accomodation { Id = 1 })
+            .AddCheckIn(DateTime.Now.AddDays(1))
+            .AddCheckOut(DateTime.Now.AddDays(3))
+            .AddGuestList(new List<Guest> { new Guest { Id = 1 } })
+            .Build();
+
+        Assert.IsNull(booking.CancellationDate);
+    }
+    [TestMethod]
+    public void CreateBooking_WithOutGuest_ShouldThrow()
+    {
+        var ex = Assert.ThrowsException<ArgumentException>(() =>
+        _builder
+            .AddCustomer(new Customer { Id = 1 })
+            .AddAccomodation(new Accomodation { Id = 1 })
+            .AddCheckIn(DateTime.Now.AddDays(1))
+            .AddCheckOut(DateTime.Now.AddDays(3))
+            .AddGuestList(new List<Guest>())
+            .Build());
+
+        Assert.AreEqual("Minst en gäst måste anges.", ex.Message);
+    }
 }
