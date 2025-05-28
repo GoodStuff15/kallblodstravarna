@@ -8,5 +8,6 @@
         public int AccomodationId { get; set; }  
         public int CustomerId { get; set; }
         public bool Active { get; set; } = true;
+        public bool Cost { get; set; }
     }
 }

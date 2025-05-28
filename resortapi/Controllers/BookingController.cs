@@ -32,23 +32,7 @@ namespace resortapi.Controllers
 
             await _repo.CreateAsync(newBooking);
 
-            return Ok($"Booking {newBooking.Id} added to Database successfully"); // Id wont exist? (yupp, does not exist(?))
-        }
-
-
-        [HttpGet("overview", Name = "Get overview of all bookings")]
-        public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetAllBookings()
-        {
-            var bookings = await _repo.GetAllAsync();
-
-            if (!bookings.Any())
-            {
-                return NoContent();
-            }
-
-            var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
-
-            return Ok(dtos);
+            return Ok($"Booking added to Database successfully");
         }
 
         [Authorize(Roles = "Admin")]
@@ -77,7 +61,8 @@ namespace resortapi.Controllers
             {
                 return BadRequest($"Booking with {cancelById} cannot be found!");
             }
-            cancelThis.Active = false; // Borde väl ändras til false?
+            cancelThis.Cancelled = true;
+            cancelThis.Active = false;
             await _repo.UpdateAsync(cancelThis);
 
             return Ok($"Booking #{cancelById} has been cancelled");

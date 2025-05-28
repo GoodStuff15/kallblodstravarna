@@ -14,7 +14,7 @@ namespace resortapi.Repositories
         public async Task<ICollection<Accomodation>> GetAvailableAsync(DateTime start, DateTime end)
         {
             var booked = _context.Set<Booking>()
-                .Where(b => b.Active && b.CheckIn < end && start < b.CheckOut)
+                .Where(b => b.Active && !b.Cancelled && b.CheckIn < end && start < b.CheckOut)
                 .Select(b => b.AccomodationId);
 
             var available = _context.Set<Accomodation>()
@@ -27,18 +27,20 @@ namespace resortapi.Repositories
 
         public async Task<ICollection<Accomodation>> GetAvailableByGuestNo(DateTime start, DateTime end, int noOfGuests)
         {
-            var availableRooms = _context.Set<Accomodation>()
-                        .Include(a => a.AccomodationType)
-                        .Include(a => a.Accessibilities)
-                        .Where(a => a.MaxOccupancy >= noOfGuests)
-                        .Include(a => a.Bookings)
-                        .SelectMany(
-                            acc => acc.Bookings
-                           .Where(date => !(start < date.CheckOut && date.CheckIn < end))
-                           .Select(a => acc));
-                        
-            return await availableRooms.ToListAsync();
+            // Hämta bokade boenden som krockar med datumintervallet
+            var bookedIds = _context.Set<Booking>()
+                .Where(b => b.Active && !b.Cancelled && b.CheckIn < end && start < b.CheckOut)
+                .Select(b => b.AccomodationId);
+
+            // Filtrera boenden som inte är bokade och som klarar antal gäster
+            var available = _context.Set<Accomodation>()
+                .Where(a => !bookedIds.Contains(a.Id) && a.MaxOccupancy >= noOfGuests)
+                .Include(a => a.AccomodationType)
+                .Include(a => a.Accessibilities);
+
+            return await available.ToListAsync();
         }
+
 
         public override Task<ICollection<Accomodation>> GetAllWithIncludesAsync()
         {

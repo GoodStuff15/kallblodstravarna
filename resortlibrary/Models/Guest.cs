@@ -12,6 +12,7 @@ namespace resortlibrary.Models
         public string LastName { get; set; }
         [Required]
         public int Age { get; set; }
+        public bool IsChild { get; set; }
         public int BookingId { get; set; }
         public Booking Booking { get; set; }
 
