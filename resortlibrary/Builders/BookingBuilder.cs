@@ -10,7 +10,7 @@ namespace resortlibrary.Builders
         {
             _booking = new Booking
             {
-                //TimeOfBooking = DateTime.Now,
+                TimeOfBooking = DateTime.Now,
                 AmountPaid = 0,
                 Active = true,
                 CancellationDate = null
@@ -124,7 +124,6 @@ namespace resortlibrary.Builders
         {
             if(_booking.TimeOfBooking == default(DateTime))
             {
-
                 _booking.TimeOfBooking = DateTime.Now;
             }
             return _booking;
