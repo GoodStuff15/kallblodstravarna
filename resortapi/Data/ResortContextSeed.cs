@@ -43,12 +43,36 @@ public static class ResortContextSeed
         );
     }
 
-
     private static void SeedAdditionalOptions(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AdditionalOption>().HasData(
-            new AdditionalOption { Id = 1, Name = "Frukost", Description = "Bufféfrukost", Price = 120 },
-            new AdditionalOption { Id = 2, Name = "Sen utcheckning", Description = "Utcheckning kl 14", Price = 200 }
+            new AdditionalOption
+            {
+                Id = 1,
+                Name = "Frukost",
+                Description = "Bufféfrukost varje morgon",
+                Price = 120,
+                PerGuest = true,
+                PerNight = true
+            },
+            new AdditionalOption
+            {
+                Id = 2,
+                Name = "Sen utcheckning",
+                Description = "Utcheckning kl 14:00 istället för 11:00",
+                Price = 200,
+                PerGuest = false,
+                PerNight = false
+            },
+            new AdditionalOption
+            {
+                Id = 3,
+                Name = "Daglig städning",
+                Description = "Extra städning varje dag",
+                Price = 150,
+                PerGuest = false,
+                PerNight = true
+            }
         );
     }
 
