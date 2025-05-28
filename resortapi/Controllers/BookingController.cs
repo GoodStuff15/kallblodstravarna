@@ -77,7 +77,7 @@ namespace resortapi.Controllers
             {
                 return BadRequest($"Booking with {cancelById} cannot be found!");
             }
-            cancelThis.Active = false; // Borde väl ändras til false?
+            cancelThis.Cancelled = true;
             await _repo.UpdateAsync(cancelThis);
 
             return Ok($"Booking #{cancelById} has been cancelled");

@@ -12,6 +12,7 @@ namespace resortlibrary.Models
         public DateTime CheckOut { get; set; }
         public DateTime TimeOfBooking { get; set; }
         public bool Active { get; set; }
+        public bool Cancelled { get; set; } = false;
         public DateTime? CancellationDate { get; set; }
         public decimal Cost { get; set; }
         public decimal AmountPaid { get; set; }

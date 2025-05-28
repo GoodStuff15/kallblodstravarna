@@ -38,6 +38,12 @@ namespace resortlibrary.Builders
             return this;
         }
 
+        public BookingBuilder AddCancelled(bool active)
+        {
+            _booking.Cancelled = false;
+            return this;
+        }
+
         public BookingBuilder AddCost(decimal cost)
         {
             _booking.Cost = cost;
