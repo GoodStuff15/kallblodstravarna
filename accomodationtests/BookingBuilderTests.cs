@@ -118,6 +118,7 @@ public class BookingBuilderTests
                         .AddCheckIn(checkIn)
                         .AddCheckOut(checkOut)
                         .AddGuestList(new List<Guest> { guest })
+                        .AddTimeOfBooking(DateTime.Now)
                         .Build();
 
         var afterBuild = DateTime.Now;

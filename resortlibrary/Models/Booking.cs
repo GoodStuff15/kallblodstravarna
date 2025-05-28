@@ -11,11 +11,11 @@ namespace resortlibrary.Models
         [Required]
         public DateTime CheckOut { get; set; }
         public DateTime? TimeOfBooking { get; set; }
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
         public bool Cancelled { get; set; } = false;
-        public DateTime? CancellationDate { get; set; }
+        public DateTime? CancellationDate { get; set; } = null;
         public decimal Cost { get; set; }
-        public decimal AmountPaid { get; set; }
+        public decimal AmountPaid { get; set; } = 0;
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public int AccomodationId { get; set; }

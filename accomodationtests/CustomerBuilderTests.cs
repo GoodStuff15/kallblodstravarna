@@ -68,6 +68,50 @@ public class CustomerBuilderTests
             .Build()
         );
     }
+    [DataTestMethod]
+    [DataRow("valid.email@example.com")]
+    [DataRow("namn.efternamn@mail.se")]
+    public void AddEmail_ValidEmailAddress_ShouldSetEmail(string validEmail)
+    {
+        var customer = _builder.AddEmail(validEmail).Build();
+        Assert.AreEqual(validEmail, customer.Email);
+    }
+    [DataTestMethod]
+    [DataRow(null)]
+    [DataRow("")]
+    [DataRow(" ")]
+    [DataRow("incorrect-email")]
+    [DataRow("email@.com")]
+    [DataRow("email@mail")]
+    public void AddEmail_InvalidEmailAddress_ShouldThrow(string invalidEmail)
+    {
+        var ex = Assert.ThrowsException<ArgumentException>(() =>
+        _builder.AddEmail(invalidEmail));
+        StringAssert.Contains(ex.Message, "email");
+    }
+    [DataTestMethod]
+    [DataRow("0707000000")]
+    [DataRow("(070) 700 00 00")]
+    [DataRow("070-700-00-00")]
+    [DataRow("070 700 00 00")]
+    public void AddPhone_ValidPhoneNumber_ShouldSetPhone(string validPhone)
+    {
+        var customer = _builder.AddPhone(validPhone).Build();
+        Assert.AreEqual(validPhone, customer.Phone);
+    }
+    [DataTestMethod]
+    [DataRow(null)]
+    [DataRow("")]
+    [DataRow(" ")]
+    [DataRow("123")]
+    [DataRow("abc")]
+    [DataRow("070_700_0000")]
+    public void AddPhone_InvalidPhoneNumber_ShouldThrow(string invalidPhone)
+    {
+        var ex = Assert.ThrowsException<ArgumentException>(() =>
+        _builder.AddPhone(invalidPhone));
+        StringAssert.Contains(ex.Message, "phone");
+    }
 }
     
     
