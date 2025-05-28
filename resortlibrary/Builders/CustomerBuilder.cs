@@ -1,5 +1,6 @@
 ﻿using resortlibrary.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace resortlibrary.Builders
 {
@@ -50,11 +51,12 @@ namespace resortlibrary.Builders
 
         public CustomerBuilder AddEmail(string email)
         {
-            var emailValidator = new EmailAddressAttribute();
-            if (string.IsNullOrWhiteSpace(email) || !emailValidator.IsValid(email))
-            {
+            if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Invalid email address");
-            }
+
+            var pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if (!Regex.IsMatch(email, pattern))
+                throw new ArgumentException("Invalid email address");
 
             _customer.Email = email;
             return this;
@@ -62,10 +64,12 @@ namespace resortlibrary.Builders
 
         public CustomerBuilder AddPhone(string phone)
         {
-            var phoneValidator = new PhoneAttribute();
-            if (string.IsNullOrWhiteSpace(phone) || !phoneValidator.IsValid(phone))
+            var pattern = @"^(\+46|0)(7[0236]\d{7}|[1-9]\d{1,2}[\d\s-]{5,10})$";
+            var regex = new Regex(pattern);
+
+            if (string.IsNullOrWhiteSpace(phone) || !regex.IsMatch(phone))
             {
-                throw new ArgumentException("Invalid phone number");
+                throw new ArgumentException("Invalid phone number.");
             }
 
             _customer.Phone = phone;

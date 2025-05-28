@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using resortapi.Converters;
 using resortapi.Data;
 using resortlibrary.Models;
@@ -16,18 +15,24 @@ public class CalculatorServiceTests
     public CalculatorServiceTests()
     {
         builder = new DbContextOptionsBuilder<ResortContext>();
-        builder.UseInMemoryDatabase("ResortContext");
+        builder.UseInMemoryDatabase(Guid.NewGuid().ToString()); // Unik databas per testinstans
         options = builder.Options;
         _context = new ResortContext(options);
-        var option = new AdditionalOption() { Id = 1, Price = 120, Name = "Breakfast", Description ="Buffé"};
+
+        var option = new AdditionalOption() { Id = 1, Price = 120, Name = "Breakfast", Description = "Buffé" };
         var accotype = new AccomodationType() { Id = 1, BasePrice = 1250, Name = "Rum" };
         var acco = new Accomodation() { Id = 1, AccomodationType = accotype, AccomodationTypeId = 1, Name = "Rum 1", MaxOccupancy = 4 };
         var guest1 = new Guest() { Id = 1, FirstName = "Gustav", LastName = "Eriksson", Age = 25 };
         var guest2 = new Guest() { Id = 2, FirstName = "Gustava", LastName = "Eriksdottir", Age = 30 };
 
- 
-        _context.Set<Booking>().Add(new Booking() { Id = 1, AdditionalOptions = new List<AdditionalOption>() { option }, 
-                              Guests = new List<Guest>() { guest1, guest2 }, Accomodation = acco });
+        _context.Set<Booking>().Add(new Booking()
+        {
+            Id = 1,
+            AdditionalOptions = new List<AdditionalOption>() { option },
+            Guests = new List<Guest>() { guest1, guest2 },
+            Accomodation = acco
+        });
+
         _context.SaveChanges();
     }
 
