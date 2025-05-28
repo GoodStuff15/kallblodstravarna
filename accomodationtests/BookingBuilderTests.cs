@@ -101,5 +101,52 @@ public class BookingBuilderTests
 
         Assert.AreEqual("Incheckning kan inte vara i då-tid.", ex.Message);
     }
-    
+    [TestMethod]
+    public void CreateBooking_WithoutTimeOfBooking_ShouldBeCurrentTime()
+    {
+        var customer = new Customer {Id = 0};
+        var accomodation = new Accomodation { Id = 1};
+        var checkIn = DateTime.Now.AddDays(1);
+        var checkOut = DateTime.Now.AddDays(3);
+        var guest = new Guest {Id = 1};
+
+        var beforeBuild = DateTime.Now;
+
+        var booking = _builder
+                        .AddCustomer(customer)
+                        .AddAccomodation(accomodation)
+                        .AddCheckIn(checkIn)
+                        .AddCheckOut(checkOut)
+                        .AddGuestList(new List<Guest> { guest })
+                        .Build();
+
+        var afterBuild = DateTime.Now;
+        Assert.IsTrue(booking.TimeOfBooking >= beforeBuild && booking.TimeOfBooking <= afterBuild);
+    }
+    [TestMethod]
+    public void CreateBooking_WithOutAmountPaid_ShouldBeZero()
+    {
+        var booking = _builder
+            .AddCustomer(new Customer { Id = 1 })
+            .AddAccomodation(new Accomodation { Id = 1 })
+            .AddCheckIn(DateTime.Now.AddDays(1))
+            .AddCheckOut(DateTime.Now.AddDays(3))
+            .AddGuestList(new List<Guest> { new Guest { Id = 1 } })
+            .Build();
+
+        Assert.AreEqual(0, booking.AmountPaid);
+    }
+    [TestMethod]
+    public void CreateBooking_WithOutActiveBooking_ShouldBeTrue()
+    {
+        var booking = _builder
+            .AddCustomer(new Customer { Id = 1 })
+            .AddAccomodation(new Accomodation { Id = 1 })
+            .AddCheckIn(DateTime.Now.AddDays(1))
+            .AddCheckOut(DateTime.Now.AddDays(3))
+            .AddGuestList(new List<Guest> { new Guest { Id = 1 } })
+            .Build();
+
+        Assert.IsTrue(booking.Active);
+    }
 }
