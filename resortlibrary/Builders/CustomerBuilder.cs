@@ -1,4 +1,5 @@
 ﻿using resortlibrary.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace resortlibrary.Builders
 {
@@ -49,9 +50,10 @@ namespace resortlibrary.Builders
 
         public CustomerBuilder AddEmail(string email)
         {
-            if (string.IsNullOrWhiteSpace(email))
+            var emailValidator = new EmailAddressAttribute();
+            if (string.IsNullOrWhiteSpace(email) || !emailValidator.IsValid(email))
             {
-                throw new ArgumentException("Fyll i epostadress");
+                throw new ArgumentException("Invalid email address");
             }
 
             _customer.Email = email;
@@ -60,9 +62,10 @@ namespace resortlibrary.Builders
 
         public CustomerBuilder AddPhone(string phone)
         {
-            if (string.IsNullOrWhiteSpace(phone))
+            var phoneValidator = new PhoneAttribute();
+            if (string.IsNullOrWhiteSpace(phone) || !phoneValidator.IsValid(phone))
             {
-                throw new ArgumentException("Fyll i telefonnr");
+                throw new ArgumentException("Invalid phone number");
             }
 
             _customer.Phone = phone;
