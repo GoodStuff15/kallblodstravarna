@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using resortapi.Converters;
 using resortapi.Data;
 using resortlibrary.Models;
 
@@ -48,6 +49,32 @@ public class CalculatorServiceTests
         booking.Cost = actual;
 
         Assert.IsNotNull(booking);
-        Assert.AreEqual(1371, actual);
+        Assert.AreEqual(1370, actual);
+    }
+
+    [TestMethod] 
+    public void CalculatePriceFromBookingDto()
+    {
+        decimal totalPrice = 0;
+        var booking = _context.Set<Booking>().Find(1);
+        var conv = new BookingConverter();
+        var dto = conv.FromObjecttoDTO(booking);
+        var additional = new List<AdditionalOption>();
+        foreach( var option in dto.AdditionalOptionIds)
+        {
+            additional.Add(_context.Set<AdditionalOption>().Find(option));
+        }
+
+        var accomodation = _context.Set<Accomodation>().Find(dto.AccomodationId);
+        var type = _context.Set<AccomodationType>().Find(accomodation.AccomodationTypeId);
+        foreach ( var option in additional)
+        {
+            totalPrice += option.Price;
+        }
+
+        totalPrice += type.BasePrice;
+
+        Assert.AreEqual(1370, totalPrice);
+
     }
 }

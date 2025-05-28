@@ -54,6 +54,8 @@ namespace resortapi.Converters
 
             var dtoGuests = new List<GuestDto>();
 
+            var dtoOptionIds = new List<int>();
+
             foreach (var g in obj.Guests)
             {
                 var gdto = new GuestDto();
@@ -63,10 +65,17 @@ namespace resortapi.Converters
                 dtoGuests.Add(gdto);
             }
 
+            foreach (var o in obj.AdditionalOptions)
+            {
+                dtoOptionIds.Add(o.Id);
+            }
+
             dto.CheckIn = obj.CheckIn;
             dto.CheckOut = obj.CheckOut;
             dto.Guests = dtoGuests;
             dto.AccomodationId = obj.AccomodationId;
+            dto.CustomerId = obj.CustomerId;
+            dto.AdditionalOptionIds = dtoOptionIds;
 
             return dto;
         }

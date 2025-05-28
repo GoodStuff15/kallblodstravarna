@@ -1,4 +1,5 @@
-﻿using resortlibrary.Models;
+﻿using resortdtos;
+using resortlibrary.Models;
 
 namespace resortapi.Services
 {
@@ -19,6 +20,8 @@ namespace resortapi.Services
 
             return totalPrice;
         }
+
+
 
 
     }
