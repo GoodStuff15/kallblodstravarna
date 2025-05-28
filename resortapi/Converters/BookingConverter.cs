@@ -15,7 +15,6 @@ namespace resortapi.Converters
 
             var booking = new BookingBuilder().AddCheckIn(dto.CheckIn)
                                               .AddCheckOut(dto.CheckOut)
-                                              .AddCost(dto.Cost)
                                               .AddAccomodationId(dto.AccomodationId)
                                               .AddCustomerId(dto.CustomerId)
                                               .AddGuestList(guestList)
@@ -66,7 +65,6 @@ namespace resortapi.Converters
 
             dto.CheckIn = obj.CheckIn;
             dto.CheckOut = obj.CheckOut;
-            dto.Cost = obj.Cost;
             dto.Guests = dtoGuests;
             dto.AccomodationId = obj.AccomodationId;
 
@@ -86,7 +84,6 @@ namespace resortapi.Converters
                     CheckOut = b.CheckOut,
                     AccomodationId = b.AccomodationId,
                     CustomerId = b.CustomerId,
-                    Cost = b.Cost,
                     Guests = guestConverter.FromObjecttoDTO_Collection(b.Guests),
                     AdditionalOptionIds = null ////// !!!!!
                 };

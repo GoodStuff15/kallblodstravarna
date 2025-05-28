@@ -64,6 +64,15 @@ namespace resortlibrary.Builders
 
         public Guest Build()
         {
+            if (_guest.Age < 12 && _guest.Age != null)
+            {
+                _guest.IsChild = true;
+            }
+            else
+            {
+                _guest.IsChild = false;
+            }
+
             return _guest;
         }
     }

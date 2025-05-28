@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace resortdtos
 {
@@ -16,7 +11,6 @@ namespace resortdtos
         [Required]
         public int AccomodationId { get; set; }
         public int CustomerId { get; set; }
-        public decimal Cost { get; set; }
         public ICollection<GuestDto> Guests { get; set; } = new List<GuestDto>(); // list of guests for the room
         public ICollection<int> AdditionalOptionIds { get; set; } = new List<int>();  // more than one additional option for the future
 

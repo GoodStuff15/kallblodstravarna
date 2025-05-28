@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace resortapi.Migrations
 {
     /// <inheritdoc />
-    public partial class innit : Migration
+    public partial class AddCancelledToBooking : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -96,7 +96,6 @@ namespace resortapi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MaxOccupancy = table.Column<int>(type: "int", nullable: false),
                     AccomodationTypeId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -168,6 +167,7 @@ namespace resortapi.Migrations
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TimeOfBooking = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
+                    Cancelled = table.Column<bool>(type: "bit", nullable: false),
                     CancellationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Cost = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     AmountPaid = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
@@ -318,12 +318,12 @@ namespace resortapi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Accommodations",
-                columns: new[] { "Id", "AccomodationTypeId", "Description", "MaxOccupancy", "Name" },
+                columns: new[] { "Id", "AccomodationTypeId", "MaxOccupancy", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, null, 1, "101A" },
-                    { 2, 2, null, 2, "202B" },
-                    { 3, 3, null, 4, "Penthouse 1" }
+                    { 1, 1, 1, "101A" },
+                    { 2, 2, 2, "202B" },
+                    { 3, 3, 4, "Penthouse 1" }
                 });
 
             migrationBuilder.InsertData(
@@ -339,11 +339,11 @@ namespace resortapi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Bookings",
-                columns: new[] { "Id", "AccomodationId", "Active", "AmountPaid", "CancellationDate", "CheckIn", "CheckOut", "Cost", "CustomerId", "TimeOfBooking" },
+                columns: new[] { "Id", "AccomodationId", "Active", "AmountPaid", "CancellationDate", "Cancelled", "CheckIn", "CheckOut", "Cost", "CustomerId", "TimeOfBooking" },
                 values: new object[,]
                 {
-                    { 1, 2, true, 2640m, null, new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2640m, 1, new DateTime(2025, 5, 20, 12, 34, 56, 0, DateTimeKind.Unspecified) },
-                    { 2, 3, false, 0m, new DateTime(2025, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 5000m, 2, new DateTime(2025, 5, 21, 9, 10, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, 2, true, 2640m, null, false, new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2640m, 1, new DateTime(2025, 5, 20, 12, 34, 56, 0, DateTimeKind.Unspecified) },
+                    { 2, 3, false, 0m, new DateTime(2025, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(2025, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 5000m, 2, new DateTime(2025, 5, 21, 9, 10, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(

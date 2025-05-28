@@ -35,22 +35,6 @@ namespace resortapi.Controllers
             return Ok($"Booking added to Database successfully");
         }
 
-
-        [HttpGet("overview", Name = "Get overview of all bookings")]
-        public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetAllBookings()
-        {
-            var bookings = await _repo.GetAllAsync();
-
-            if (!bookings.Any())
-            {
-                return NoContent();
-            }
-
-            var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
-
-            return Ok(dtos);
-        }
-
         [Authorize(Roles = "Admin")]
         [HttpGet("detailed", Name = "Get all bookings with details included")]
         public async Task<ActionResult<ICollection<BookingDto>>> GetAllBookingsWithGuestInfo()

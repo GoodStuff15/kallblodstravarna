@@ -134,9 +134,6 @@ namespace resortapi.Migrations
                     b.Property<int>("AccomodationTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("MaxOccupancy")
                         .HasColumnType("int");
 
@@ -283,6 +280,9 @@ namespace resortapi.Migrations
                     b.Property<DateTime?>("CancellationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("Cancelled")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("CheckIn")
                         .HasColumnType("datetime2");
 
@@ -314,6 +314,7 @@ namespace resortapi.Migrations
                             AccomodationId = 2,
                             Active = true,
                             AmountPaid = 2640m,
+                            Cancelled = false,
                             CheckIn = new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CheckOut = new DateTime(2025, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Cost = 2640m,
@@ -327,6 +328,7 @@ namespace resortapi.Migrations
                             Active = false,
                             AmountPaid = 0m,
                             CancellationDate = new DateTime(2025, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Cancelled = false,
                             CheckIn = new DateTime(2025, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CheckOut = new DateTime(2025, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Cost = 5000m,
