@@ -3,6 +3,7 @@ using resortapi.Repositories;
 using resortdtos;
 using resortapi.Converters;
 using resortlibrary.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace resortapi.Controllers
 {
@@ -18,7 +19,8 @@ namespace resortapi.Controllers
             _converter = new BookingConverter();
         }
 
-        [HttpPost("{newBooking}", Name = "Add New Booking")]
+        [Authorize(Roles = "Staff, Admin")]
+        [HttpPost(Name = "Add New Booking")]
         public async Task<ActionResult> AddBooking(BookingDto booking)
         {
             var newBooking = _converter.FromDTOtoObject(booking);
@@ -30,11 +32,11 @@ namespace resortapi.Controllers
 
             await _repo.CreateAsync(newBooking);
 
-            return Ok($"Booking {newBooking.Id} added to Database successfully"); // Id wont exist?
+            return Ok($"Booking {newBooking.Id} added to Database successfully"); // Id wont exist? (yupp, does not exist(?))
         }
 
 
-        [HttpGet(Name = "Get overview of all bookings")]
+        [HttpGet("overview", Name = "Get overview of all bookings")]
         public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetAllBookings()
         {
             var bookings = await _repo.GetAllAsync();
@@ -49,7 +51,8 @@ namespace resortapi.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet(Name = "Get all bookings with details included")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("detailed", Name = "Get all bookings with details included")]
         public async Task<ActionResult<ICollection<BookingDto>>> GetAllBookingsWithGuestInfo()
         {
             var bookings = await _repo.GetAllWithIncludesAsync();
@@ -74,12 +77,13 @@ namespace resortapi.Controllers
             {
                 return BadRequest($"Booking with {cancelById} cannot be found!");
             }
-            cancelThis.Active = true;
+            cancelThis.Active = false; // Borde väl ändras til false?
             await _repo.UpdateAsync(cancelThis);
 
             return Ok($"Booking #{cancelById} has been cancelled");
         }
 
+        [Authorize(Roles = "Staff, Admin")]
         [HttpDelete("{deleteById}", Name = "Delete booking from database")]
         public async Task<ActionResult> RemoveBookingFromDb(int deleteById)
         {

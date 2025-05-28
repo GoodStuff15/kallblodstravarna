@@ -17,6 +17,7 @@ namespace resortlibrary.Builders
             {
                 throw new ArgumentException("Prisändringen måste vara ett giltigt tal.");
             }
+
             _priceChange.PriceChange = priceChange;
             return this;
         }
@@ -27,7 +28,19 @@ namespace resortlibrary.Builders
             {
                 throw new ArgumentException("Typ måste anges");
             }
+
             _priceChange.Type = type;
+            return this;
+        }
+
+        public PriceChangesBuilder AddBookings(ICollection<Booking> bookings)
+        {
+            if (bookings == null || bookings.Count == 0)
+            {
+                throw new ArgumentException("Prisändringen måste ha minst en bokning.");
+            }
+
+            _priceChange.Bookings = bookings;
             return this;
         }
 

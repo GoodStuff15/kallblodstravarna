@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using resortapi.Converters;
-using resortlibrary.Models;
-using resortdtos;
 using resortapi.Repositories;
+using resortdtos;
+using resortlibrary.Models;
 
 namespace resortapi.Controllers
 {

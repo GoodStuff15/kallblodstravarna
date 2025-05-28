@@ -17,6 +17,7 @@ namespace resortlibrary.Builders
             {
                 throw new ArgumentException("Förnamn måste anges.");
             }
+
             _guest.FirstName = firstName;
             return this;
         }
@@ -27,14 +28,40 @@ namespace resortlibrary.Builders
             {
                 throw new ArgumentException("Efternamn måste anges.");
             }
+
             _guest.LastName = lastName;
             return this;
         }
+
         public GuestBuilder AddAge(int age)
         {
             _guest.Age = age;
             return this;
         }
+
+        public GuestBuilder WithBooking(Booking booking)
+        {
+            if (booking == null)
+            {
+                throw new ArgumentNullException(nameof(booking), "Bokning måste anges.");
+            }
+
+            _guest.Booking = booking;
+            _guest.BookingId = booking.Id;
+            return this;
+        }
+
+        public GuestBuilder WithBookingId(int bookingId)
+        {
+            if (bookingId <= 0)
+            {
+                throw new ArgumentException("Boknings-ID måste vara större än 0.", nameof(bookingId));
+            }
+
+            _guest.BookingId = bookingId;
+            return this;
+        }
+
         public Guest Build()
         {
             return _guest;

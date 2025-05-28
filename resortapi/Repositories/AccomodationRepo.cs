@@ -11,14 +11,18 @@ namespace resortapi.Repositories
             _context = context;
         }
 
-
         public async Task<ICollection<Accomodation>> GetAvailableAsync(DateTime start, DateTime end)
         {
-            var availableRooms = _context.Set<Booking>()
-                    .Where(b => b.CheckIn < end && start < b.CheckOut)
-                    .Select(a => a.Accomodation);
+            var booked = _context.Set<Booking>()
+                .Where(b => b.Active && b.CheckIn < end && start < b.CheckOut)
+                .Select(b => b.AccomodationId);
 
-            return await availableRooms.ToListAsync();
+            var available = _context.Set<Accomodation>()
+                .Where(a => !booked.Contains(a.Id))
+                .Include(a => a.AccomodationType)
+                .Include(a => a.Accessibilities);
+
+            return await available.ToListAsync();
         }
 
         public async Task<ICollection<Accomodation>> GetAvailableByGuestNo(DateTime start, DateTime end, int noOfGuests)
@@ -33,7 +37,6 @@ namespace resortapi.Repositories
                            .Where(date => !(start < date.CheckOut && date.CheckIn < end))
                            .Select(a => acc));
                         
-
             return await availableRooms.ToListAsync();
         }
 
