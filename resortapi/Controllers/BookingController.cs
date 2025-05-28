@@ -32,7 +32,7 @@ namespace resortapi.Controllers
 
             await _repo.CreateAsync(newBooking);
 
-            return Ok($"Booking {newBooking.Id} added to Database successfully"); // Id wont exist? (yupp, does not exist(?))
+            return Ok($"Booking added to Database successfully");
         }
 
 
