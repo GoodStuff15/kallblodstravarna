@@ -10,7 +10,7 @@ namespace resortlibrary.Models
         public DateTime CheckIn { get; set; }
         [Required]
         public DateTime CheckOut { get; set; }
-        public DateTime TimeOfBooking { get; set; }
+        public DateTime? TimeOfBooking { get; set; }
         public bool Active { get; set; }
         public bool Cancelled { get; set; } = false;
         public DateTime? CancellationDate { get; set; }

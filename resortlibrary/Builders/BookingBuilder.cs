@@ -8,7 +8,13 @@ namespace resortlibrary.Builders
 
         public BookingBuilder() 
         {
-            _booking = new Booking();
+            _booking = new Booking
+            {
+                TimeOfBooking = DateTime.Now,
+                AmountPaid = 0,
+                Active = true,
+                CancellationDate = null
+            };
         }
         public BookingBuilder AddCheckIn(DateTime checkIn)
         {
@@ -22,6 +28,14 @@ namespace resortlibrary.Builders
         }
         public BookingBuilder AddCheckOut(DateTime checkOut)
         {
+            if(_booking.CheckIn == default)
+            {
+                throw new InvalidOperationException("Incheckning måste anges innan utcheckning.");
+            }
+            if(checkOut <= _booking.CheckIn)
+            {
+                throw new ArgumentException("Utcheckning måste vara efter incheckning.");
+            }
             _booking.CheckOut = checkOut;
             return this;
         }
@@ -92,6 +106,10 @@ namespace resortlibrary.Builders
 
         public BookingBuilder AddGuestList(ICollection<Guest> guests)
         {
+            if(guests == null || !guests.Any())
+            {
+                throw new ArgumentException("Minst en gäst måste anges.");
+            }
             _booking.Guests = guests;
             return this;
         }
@@ -110,11 +128,10 @@ namespace resortlibrary.Builders
 
         public Booking Build()
         {
-            if (_booking.CheckOut <= _booking.CheckIn)
+            if(_booking.TimeOfBooking == default(DateTime))
             {
-                throw new ArgumentException("Utcheckning måste vara efter incheckning.");
+                _booking.TimeOfBooking = DateTime.Now;
             }
-
             return _booking;
         }
     }
