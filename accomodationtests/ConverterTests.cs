@@ -111,7 +111,6 @@ public class ConverterTests
 
         dto.CheckIn = obj.CheckIn;
         dto.CheckOut = obj.CheckOut;
-        dto.Cost = obj.Cost;
         dto.Guests = dtoguests;
         dto.AccomodationId = obj.AccomodationId;    
 
@@ -158,7 +157,6 @@ public class ConverterTests
                 AccomodationId = b.AccomodationId,
                 CheckIn = b.CheckIn,
                 CheckOut = b.CheckOut,
-                Cost = b.Cost,
                 CustomerId = b.CustomerId,
                 //AdditionalOptionIds = b.AdditionalOptionIds (FIX FIX)
                 Guests = guestList
