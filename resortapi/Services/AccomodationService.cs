@@ -25,22 +25,29 @@ namespace resortapi.Services
 
         public AvailableRoomDto ConvertToAvailableRoomDto(Accomodation accomodation)
         {
-            throw new NotImplementedException();
+            return _converter.FromObjecttoDTO(accomodation);
         }
 
         public ICollection<AvailableRoomDto> GetAvailableRooms(AvailableRoomRequest request)
         {
             var available = _repo.GetAvailableByGuestNo(request.CheckIn, request.CheckOut, request.NoOfGuests).Result;
 
+            var validatedAndConverted = new List<AvailableRoomDto>();
+
+            
             foreach (var a in available)
             {
+                // validation
                 if (!ValidateAccomodation(a))
                 {
                     throw new Exception($"Validation error: accomodation {a.Id}");
                 }
+
+                //conversion
+                validatedAndConverted.Add(ConvertToAvailableRoomDto(a));
             }
 
-            return _converter.FromObjecttoDTO_Collection(available);
+            return validatedAndConverted;
         }
 
 
