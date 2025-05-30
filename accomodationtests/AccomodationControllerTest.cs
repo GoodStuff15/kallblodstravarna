@@ -19,6 +19,10 @@ public class AccomodationControllerTest
 
     public void SeedData()
     {
+        _context.Accommodations.RemoveRange(_context.Accommodations);
+        _context.AccomodationTypes.RemoveRange(_context.AccomodationTypes);
+        _context.SaveChanges();
+
         var accomodationType1 = new AccomodationType { Name = "Enkelrum", Description = "Ett rum med en säng", BasePrice = 800 };
         var accomodationType2 = new AccomodationType { Name = "Dubbelrum", Description = "Rum med två sängar", BasePrice = 1200 };
         var accomodationType3 = new AccomodationType { Name = "Svit", Description = "Lyxsvit med utsikt", BasePrice = 2500 };
