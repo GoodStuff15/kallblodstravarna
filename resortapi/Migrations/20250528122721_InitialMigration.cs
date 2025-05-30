@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace resortapi.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCancelledToBooking : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -165,7 +165,7 @@ namespace resortapi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TimeOfBooking = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TimeOfBooking = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Cancelled = table.Column<bool>(type: "bit", nullable: false),
                     CancellationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -248,6 +248,7 @@ namespace resortapi.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
+                    IsChild = table.Column<bool>(type: "bit", nullable: false),
                     BookingId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -348,13 +349,13 @@ namespace resortapi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Guests",
-                columns: new[] { "Id", "Age", "BookingId", "FirstName", "LastName" },
+                columns: new[] { "Id", "Age", "BookingId", "FirstName", "IsChild", "LastName" },
                 values: new object[,]
                 {
-                    { 1, 34, 1, "Anna", "Svensson" },
-                    { 2, 28, 1, "Maria", "Nilsson" },
-                    { 3, 45, 2, "Lars", "Andersson" },
-                    { 4, 42, 2, "Eva", "Karlsson" }
+                    { 1, 34, 1, "Anna", false, "Svensson" },
+                    { 2, 28, 1, "Maria", false, "Nilsson" },
+                    { 3, 45, 2, "Lars", false, "Andersson" },
+                    { 4, 42, 2, "Eva", false, "Karlsson" }
                 });
 
             migrationBuilder.CreateIndex(

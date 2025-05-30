@@ -39,6 +39,18 @@ namespace resortlibrary.Builders
             return this;
         }
 
+        public AdditionalOptionBuilder AddPerGuest(bool perGuest)
+        {
+            _additionalOption.PerGuest = perGuest;
+            return this;
+        }
+
+        public AdditionalOptionBuilder AddPerNight(bool perNight)
+        {
+            _additionalOption.PerNight = perNight;
+            return this;
+        }
+
         public AdditionalOption Build()
         {
             return _additionalOption;
