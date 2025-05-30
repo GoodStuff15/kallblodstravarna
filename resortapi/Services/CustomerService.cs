@@ -5,14 +5,15 @@ using resortlibrary.Models;
 
 namespace resortapi.Services
 {
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
         private IRepository<Customer> _repo;
         private IConverter<Customer, CreateCustomerRequestDTO> _converter;
 
-        public CustomerService(IRepository<Customer> repo)
+        public CustomerService(IRepository<Customer> repo, IConverter<Customer, CreateCustomerRequestDTO> converter)
         {
             _repo = repo;
+            _converter = converter;
         }
 
         public bool ValidateCustomer(Customer customer)

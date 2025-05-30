@@ -1,4 +1,5 @@
-﻿using resortdtos;
+﻿using resortapi.Repositories;
+using resortdtos;
 using resortlibrary.Builders;
 using resortlibrary.Models;
 
@@ -7,11 +8,21 @@ namespace resortapi.Converters
     public class BookingConverter : IConverter<Booking, BookingDto>
     {
 
+        private readonly IRepository<Accomodation> _accomodationRepo;
+        private readonly IConverter<Guest, GuestDto> _guestConverter;
+        private readonly IRepository<AdditionalOption> _additionalOptions;
+
+        public BookingConverter(IRepository<Accomodation> repo, IConverter<Guest, GuestDto> converter, IRepository<AdditionalOption> options)
+        {
+            _accomodationRepo = repo;
+            _guestConverter = converter;
+            _additionalOptions = options;
+        }
+
         public Booking FromDTOtoObject(BookingDto dto)
         {
-            var guestConverter = new GuestConverter();
 
-            var guestList = guestConverter.FromDTOtoObject_Collection(dto.Guests);
+            var guestList = _guestConverter.FromDTOtoObject_Collection(dto.Guests);
 
             var booking = new BookingBuilder().AddCheckIn(dto.CheckIn)
                                               .AddCheckOut(dto.CheckOut)
@@ -73,7 +84,6 @@ namespace resortapi.Converters
 
         public ICollection<BookingDto> FromObjecttoDTO_Collection(ICollection<Booking> collection)
         {
-            var guestConverter = new GuestConverter();
             var dtos = new List<BookingDto>();
 
             foreach(var b in collection)
@@ -84,7 +94,7 @@ namespace resortapi.Converters
                     CheckOut = b.CheckOut,
                     AccomodationId = b.AccomodationId,
                     CustomerId = b.CustomerId,
-                    Guests = guestConverter.FromObjecttoDTO_Collection(b.Guests),
+                    Guests = _guestConverter.FromObjecttoDTO_Collection(b.Guests),
                     AdditionalOptionIds = null ////// !!!!!
                 };
 
@@ -95,18 +105,29 @@ namespace resortapi.Converters
 
         public Booking ModifyDtoToObject(ModifyBookingDto dto)
         {
-            var guestConverter = new GuestConverter();
 
-            var guestList = guestConverter.FromDTOtoObject_Collection(dto.Guests);
+            var accomodation = _accomodationRepo.GetAsync(dto.AccomodationId).Result;
+
+            var optionsList = new List<AdditionalOption>();
+
+            foreach(var option in dto.AdditionalOptionIds)
+            {
+                optionsList.Add(_additionalOptions.GetAsync(option).Result);
+            }
+            var guestList = _guestConverter.FromDTOtoObject_Collection(dto.Guests);
 
             var booking = new BookingBuilder()
                               .AddCheckIn(dto.CheckIn)
                               .AddCheckOut(dto.CheckOut)
                               .AddAccomodationId(dto.AccomodationId)
                               .AddGuestList(guestList)
+                              .AddAccomodation(accomodation)
+                              .AdditionalOptions(optionsList)
                               .Build();
 
             return booking;
         }
+
+
     }
 }
