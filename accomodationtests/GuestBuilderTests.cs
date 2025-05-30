@@ -46,4 +46,21 @@ public class GuestBuilderTests
 
         Assert.AreEqual("Efternamn måste anges.", ex.Message);
     }
+    [DataTestMethod]
+    [DataRow(0)]
+    [DataRow(-1)]
+    public void CreateGuest_InvalidAge_ShouldThrow(int invalidAge)
+    {
+        var ex = Assert.ThrowsException<ArgumentException>(() =>
+        _builder.AddAge(invalidAge));
+
+        Assert.AreEqual("Ålder måste vara högre än 0", ex.Message);
+    }
+    [TestMethod]
+    public void CreateGuest_NullBooking_ShouldThrow()
+    {
+        var ex = Assert.ThrowsException<ArgumentNullException>(() =>
+        _builder.WithBooking(null));
+        Assert.AreEqual("Bokning måste anges. (Parameter 'booking')", ex.Message);
+    }
 }
