@@ -92,5 +92,24 @@ public class AccomodationControllerTest
         Assert.IsNotNull(availableRoomDto);
         Assert.AreEqual(id, availableRoomDto.Id);
     }
+    [TestMethod]
+    public async Task GetAvailableAccomodations_WithValidData_ReturnsOnlyAvailableAccomodations()
+    {
+        // Arrange
+        var checkIn = DateTime.Now.AddDays(1);
+        var checkOut = DateTime.Now.AddDays(4);
+        var noOfGuests = 2;
+        
+        // Act
+        var result = await _controller.GetAvailableAccomodations(checkIn, checkOut, noOfGuests);
+        
+        // Assert
+        var okResult = result.Result as OkObjectResult;
+        Assert.IsNotNull(okResult);
+        var availableRooms = okResult.Value as ICollection<AvailableRoomDto>;
+        Assert.IsNotNull(availableRooms);
+        Assert.AreEqual(2, availableRooms.Count);
+    }
+
 
 }
