@@ -296,7 +296,7 @@ namespace resortapi.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("TimeOfBooking")
+                    b.Property<DateTime?>("TimeOfBooking")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -414,6 +414,9 @@ namespace resortapi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsChild")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -431,6 +434,7 @@ namespace resortapi.Migrations
                             Age = 34,
                             BookingId = 1,
                             FirstName = "Anna",
+                            IsChild = false,
                             LastName = "Svensson"
                         },
                         new
@@ -439,6 +443,7 @@ namespace resortapi.Migrations
                             Age = 28,
                             BookingId = 1,
                             FirstName = "Maria",
+                            IsChild = false,
                             LastName = "Nilsson"
                         },
                         new
@@ -447,6 +452,7 @@ namespace resortapi.Migrations
                             Age = 45,
                             BookingId = 2,
                             FirstName = "Lars",
+                            IsChild = false,
                             LastName = "Andersson"
                         },
                         new
@@ -455,6 +461,7 @@ namespace resortapi.Migrations
                             Age = 42,
                             BookingId = 2,
                             FirstName = "Eva",
+                            IsChild = false,
                             LastName = "Karlsson"
                         });
                 });

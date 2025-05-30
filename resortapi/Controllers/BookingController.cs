@@ -30,6 +30,7 @@ namespace resortapi.Controllers
                 return BadRequest("Adding booking failed (Booking does not exist)");
             }
 
+            newBooking.TimeOfBooking = DateTime.Now;
             await _repo.CreateAsync(newBooking);
 
             return Ok($"Booking added to Database successfully");
