@@ -42,7 +42,20 @@ namespace resortapi.Converters
 
         public AvailableRoomDto FromObjecttoDTO(Accomodation obj)
         {
-            throw new NotImplementedException();
+            return new AvailableRoomDto()
+            {
+                Id = obj.Id,
+                Name = obj.Name,
+                AccomodationType = obj.AccomodationType.Name,
+                Description = obj.AccomodationType.Description,
+                MaxOccupancy = obj.MaxOccupancy,
+                BasePrice = obj.AccomodationType.BasePrice,
+                Accessibility = obj.Accessibilities.Select(acc => new AccessibilityDto
+                {
+                    Name = acc.Name,
+                    Description = acc.Description
+                }).ToList()
+            };
         }
 
         public ICollection<AvailableRoomDto> FromObjecttoDTO_Collection(ICollection<Accomodation> collection)

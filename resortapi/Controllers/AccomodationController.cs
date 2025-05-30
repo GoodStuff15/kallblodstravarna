@@ -79,6 +79,18 @@ namespace resortapi.Controllers
             var available = _converter.FromObjectCollection_ToOverviewCollection(accomodations);
             return Ok(available);
         }
+        [HttpGet("{id}", Name = "Get Accomodation by Id")]
+        public async Task<ActionResult<AvailableRoomDto>> GetAccomodationById(int id)
+        {
+            var accomodation = await _repo.GetByIdAsync(id);
+            if (accomodation == null)
+            {
+                return NotFound($"Accomodation with Id {id} can not be found");
+            }
+            var dto = _converter.FromObjecttoDTO(accomodation);
+            return Ok(dto);
+
+        }
 
 
 

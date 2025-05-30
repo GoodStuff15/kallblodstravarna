@@ -53,6 +53,13 @@ namespace resortapi.Repositories
                 .Include(a => a.Accessibilities)
                 .ToListAsync();
         }
+        public async Task<Accomodation> GetByIdAsync(int id)
+        {
+            return await _context.Accommodations
+                .Include(a => a.AccomodationType)
+                .Include(a => a.Accessibilities)
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
 
     }
 }
