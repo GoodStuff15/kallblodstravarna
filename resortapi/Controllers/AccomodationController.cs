@@ -71,6 +71,15 @@ namespace resortapi.Controllers
 
             return Ok(available);
         }
+        //[Authorize(Roles = "Staff, Admin")]
+        [HttpGet("Get all Accomodations")] // all accomodations available/not available
+        public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAllAccomodations()
+        {
+            var accomodations = await _repo.GetAllAsync();
+            var available = _converter.FromObjectCollection_ToOverviewCollection(accomodations);
+            return Ok(available);
+        }
+
 
 
     }
