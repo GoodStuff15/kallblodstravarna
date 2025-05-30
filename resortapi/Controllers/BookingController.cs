@@ -19,6 +19,17 @@ namespace resortapi.Controllers
             _converter = new BookingConverter();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BookingDto>> GetBookingById(int id)
+        {
+            var booking = await _repo.GetAsync(id);
+            if (booking == null)
+                return NotFound();
+
+            var bookingDTO = _converter.FromObjecttoDTO(booking);
+            return Ok(bookingDTO);
+        }
+
         [Authorize(Roles = "Staff, Admin")]
         [HttpPost(Name = "Add New Booking")]
         public async Task<ActionResult> AddBooking(BookingDto booking)
@@ -48,6 +59,23 @@ namespace resortapi.Controllers
             }
 
             var dtos = _converter.FromObjecttoDTO_Collection(bookings);
+
+            return Ok(dtos);
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("overview", Name = "Get bookings overview")]
+        public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetBookingsOverview()
+        {
+            var bookings = await _repo.GetAllAsync();
+
+            if (!bookings.Any())
+            {
+                return NoContent();
+            }
+
+            var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
 
             return Ok(dtos);
 

@@ -70,7 +70,6 @@ namespace resortapi.Converters
                 dtoOptionIds.Add(o.Id);
             }
 
-            dto.Id = obj.Id;
             dto.CheckIn = obj.CheckIn;
             dto.CheckOut = obj.CheckOut;
             dto.Guests = dtoGuests;
@@ -90,7 +89,6 @@ namespace resortapi.Converters
             {
                 var dto = new BookingDto()
                 {
-                    Id = b.Id,
                     CheckIn = b.CheckIn,
                     CheckOut = b.CheckOut,
                     AccomodationId = b.AccomodationId,
