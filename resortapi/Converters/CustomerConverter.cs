@@ -13,6 +13,20 @@ namespace resortapi.Converters
             _builder = builder;
         }
 
+        public CustomerDto FromObjectToCustomerDTO(Customer entity)
+        {
+            return new CustomerDto
+            {
+                Id = entity.Id,
+                Type = entity.Type,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                Email = entity.Email,
+                PhoneNumber = entity.Phone,
+                PaymentMethod = entity.PaymentMethod
+            };
+        }
+
         public Customer FromDTOtoObject(CreateCustomerRequestDTO entity)
         {
             return _builder

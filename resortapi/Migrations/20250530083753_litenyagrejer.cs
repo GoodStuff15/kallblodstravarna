@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace resortapi.Migrations
 {
     /// <inheritdoc />
-    public partial class innit : Migration
+    public partial class litenyagrejer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,7 +50,9 @@ namespace resortapi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    PerGuest = table.Column<bool>(type: "bit", nullable: false),
+                    PerNight = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -283,11 +285,12 @@ namespace resortapi.Migrations
 
             migrationBuilder.InsertData(
                 table: "AdditionalOptions",
-                columns: new[] { "Id", "Description", "Name", "Price" },
+                columns: new[] { "Id", "Description", "Name", "PerGuest", "PerNight", "Price" },
                 values: new object[,]
                 {
-                    { 1, "Bufféfrukost", "Frukost", 120m },
-                    { 2, "Utcheckning kl 14", "Sen utcheckning", 200m }
+                    { 1, "Bufféfrukost varje morgon", "Frukost", true, true, 120m },
+                    { 2, "Utcheckning kl 14:00 istället för 11:00", "Sen utcheckning", false, false, 200m },
+                    { 3, "Extra städning varje dag", "Daglig städning", false, true, 150m }
                 });
 
             migrationBuilder.InsertData(

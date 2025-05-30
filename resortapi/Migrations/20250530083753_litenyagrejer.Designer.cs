@@ -12,8 +12,8 @@ using resortapi.Data;
 namespace resortapi.Migrations
 {
     [DbContext(typeof(ResortContext))]
-    [Migration("20250528122721_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250530083753_litenyagrejer")]
+    partial class litenyagrejer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -237,6 +237,12 @@ namespace resortapi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("PerGuest")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("PerNight")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Price")
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
@@ -249,16 +255,29 @@ namespace resortapi.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Bufféfrukost",
+                            Description = "Bufféfrukost varje morgon",
                             Name = "Frukost",
+                            PerGuest = true,
+                            PerNight = true,
                             Price = 120m
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Utcheckning kl 14",
+                            Description = "Utcheckning kl 14:00 istället för 11:00",
                             Name = "Sen utcheckning",
+                            PerGuest = false,
+                            PerNight = false,
                             Price = 200m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Extra städning varje dag",
+                            Name = "Daglig städning",
+                            PerGuest = false,
+                            PerNight = true,
+                            Price = 150m
                         });
                 });
 

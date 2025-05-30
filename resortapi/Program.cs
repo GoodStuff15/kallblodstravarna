@@ -75,6 +75,7 @@ namespace resortapi
             builder.Services.AddScoped<IRepository<Booking>, BookingRepo>();
             builder.Services.AddScoped<AccomodationRepo>();
             builder.Services.AddScoped<CustomerBuilder>();
+            builder.Services.AddScoped<IRepository<AdditionalOption>, AdditionalOptionRepo>();
 
             // Adding services for DTO conversion
             builder.Services.AddTransient<IConverter<Customer, CreateCustomerRequestDTO>, CustomerConverter>();

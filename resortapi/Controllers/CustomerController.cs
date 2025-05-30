@@ -19,20 +19,35 @@ namespace resortapi.Controllers
             _converter = converter;
         }
 
-        [HttpPost("{newCustomer}", Name = "Add New Customer")]
-        public async Task<ActionResult> AddCustomer(CreateCustomerRequestDTO newCustomer)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CustomerDto>> GetCustomerById(int id)
         {
-            if(newCustomer == null)
+            var customer = await _repo.GetAsync(id);
+            if (customer == null)
+                return NotFound();
+
+            var customerDTO = _converter.FromObjecttoDTO(customer);
+            return Ok(customerDTO);
+        }
+
+        [HttpPost(Name = "Add New Customer")]
+        public async Task<ActionResult<CustomerDto>> AddCustomer(CreateCustomerRequestDTO newCustomer)
+        {
+            if (newCustomer == null)
             {
                 return BadRequest("Adding customer failed, incomplete Customer info");
             }
 
             var customer = _converter.FromDTOtoObject(newCustomer);
+            await _repo.CreateAsync(customer);  // här ska Id vara satt efter await
 
-            await _repo.CreateAsync(customer);
+            var customerDtoResponse = (_converter as CustomerConverter).FromObjectToCustomerDTO(customer);
 
-            return Ok($"{customer.FirstName} {customer.LastName} was added to Database successfully");
+            return CreatedAtAction(nameof(GetCustomerById), new { id = customer.Id }, customerDtoResponse);
         }
+
+
+
 
     }
 }
