@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using resortapi.Controllers;
 using resortapi.Converters;
 using resortapi.Data;
 using resortapi.Repositories;
+using resortdtos;
 using resortlibrary.Models;
 
 namespace accomodationtests;
@@ -53,13 +55,17 @@ public class AccomodationControllerTest
         _controller = new AccomodationController(_repository, new AccomodationConverter());
 
     }
-
-
-
-
     [TestMethod]
-    public void TestMethod1()
+    public async Task GetAllAccomodation_WithValidData_ReturnsAccomodations()
     {
+        var result = await _controller.GetAllAccomodations();
 
+        var okResult = result.Result as OkObjectResult;
+        Assert.IsNotNull(okResult);
+
+        var accomodations = okResult.Value as ICollection<AvailableRoomDto>;
+        Assert.IsNotNull(accomodations);
+        Assert.AreEqual(3, accomodations.Count);
     }
+
 }
