@@ -19,9 +19,12 @@ namespace resortapi.Controllers
 
         [Authorize(Roles = "Staff, Admin")]
         [HttpGet("availableReceptionist")]
-        public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodations([FromBody] AvailableRoomRequest request)
+        public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodations(
+            [FromQuery] DateTime checkIn,
+            [FromQuery] DateTime checkOut,
+            [FromQuery] int noOfGuests)
         {
-            var accomodations = await _repo.GetAvailableByGuestNo(request.CheckIn, request.CheckOut, request.NoOfGuests);
+            var accomodations = await _repo.GetAvailableByGuestNo(checkIn, checkOut, noOfGuests);
 
             var available = accomodations.Select(a => new AvailableRoomDto
             {
@@ -40,6 +43,7 @@ namespace resortapi.Controllers
 
             return Ok(available);
         }
+
 
         [HttpGet("availableGuest")]
         public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodationsExclGuests([FromBody] AvailableRoomRequestExclGuests request)

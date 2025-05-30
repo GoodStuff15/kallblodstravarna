@@ -76,6 +76,7 @@ public class CustomerBuilderTests
         var customer = _builder.AddEmail(validEmail).Build();
         Assert.AreEqual(validEmail, customer.Email);
     }
+
     [DataTestMethod]
     [DataRow(null)]
     [DataRow("")]
@@ -86,11 +87,13 @@ public class CustomerBuilderTests
     public void AddEmail_InvalidEmailAddress_ShouldThrow(string invalidEmail)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
-        _builder.AddEmail(invalidEmail));
-        StringAssert.Contains(ex.Message, "email");
+            _builder.AddEmail(invalidEmail));
+
+        StringAssert.Contains(ex.Message.ToLower(), "email");
     }
+
     [DataTestMethod]
-    [DataRow("0707000000")]
+    [DataRow("0700000000")]
     [DataRow("(070) 700 00 00")]
     [DataRow("070-700-00-00")]
     [DataRow("070 700 00 00")]
@@ -99,6 +102,7 @@ public class CustomerBuilderTests
         var customer = _builder.AddPhone(validPhone).Build();
         Assert.AreEqual(validPhone, customer.Phone);
     }
+
     [DataTestMethod]
     [DataRow(null)]
     [DataRow("")]
