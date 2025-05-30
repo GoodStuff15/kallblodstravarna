@@ -24,11 +24,22 @@ namespace resortapi.Converters
 
             var guestList = _guestConverter.FromDTOtoObject_Collection(dto.Guests);
 
+            var accomodation = _accomodationRepo.GetAsync(dto.AccomodationId).Result;
+
+            var optionsList = new List<AdditionalOption>();
+
+            foreach (var option in dto.AdditionalOptionIds)
+            {
+                optionsList.Add(_additionalOptions.GetAsync(option).Result);
+            }
+
             var booking = new BookingBuilder().AddCheckIn(dto.CheckIn)
                                               .AddCheckOut(dto.CheckOut)
                                               .AddAccomodationId(dto.AccomodationId)
+                                              .AddAccomodation(accomodation)
                                               .AddCustomerId(dto.CustomerId)
                                               .AddGuestList(guestList)
+                                              .AdditionalOptions(optionsList)
                                               .Build();
 
             return booking;
