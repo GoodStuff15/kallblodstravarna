@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using resortapi.Converters;
 using resortapi.Repositories;
 using resortdtos;
 
@@ -10,9 +11,12 @@ namespace resortapi.Controllers
     public class AccomodationController : ControllerBase
     {
         private readonly AccomodationRepo _repo;
-        public AccomodationController(AccomodationRepo accomodationRepo)
+        private readonly AccomodationConverter _converter;
+
+        public AccomodationController(AccomodationRepo accomodationRepo, AccomodationConverter accomodationConverter)
         {
             _repo = accomodationRepo;
+            _converter = accomodationConverter;
         }
 
         // [FromBody] kan/bör ändras till [FromQuery] om vi vill skicka in datumen som query-parametrar istället för i body

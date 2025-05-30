@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using resortapi.Controllers;
+using resortapi.Converters;
 using resortapi.Data;
 using resortapi.Repositories;
 using resortlibrary.Models;
@@ -31,8 +32,28 @@ public class AccomodationControllerTest
         };
         _context.Accommodations.AddRange(accomodation);
         _context.SaveChanges();
+    }
+    [TestInitialize]
+    public void TestInit()
+    {
+        //_options = new DbContextOptionsBuilder<ResortContext>()
+        //    .UseInMemoryDatabase(Guid.NewGuid().ToString())
+        //    .Options;
+        _options = new DbContextOptionsBuilder<ResortContext>()
+            .UseInMemoryDatabase("ResortContext")
+            .Options;
+        _context = new ResortContext(_options);
+
+        //_context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
+        SeedData();
+
+        _repository = new AccomodationRepo(_context);
+        _controller = new AccomodationController(_repository, new AccomodationConverter());
 
     }
+
 
 
 
