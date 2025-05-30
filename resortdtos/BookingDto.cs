@@ -4,6 +4,7 @@ namespace resortdtos
 {
     public class BookingDto
     {
+        public int Id { get; set; }
         [Required]
         public DateTime CheckIn { get; set; }
         [Required]
