@@ -1,4 +1,5 @@
-﻿using resortdtos;
+﻿using resortapi.Data;
+using resortdtos;
 using resortlibrary.Models;
 
 namespace resortapi.Converters
@@ -61,6 +62,25 @@ namespace resortapi.Converters
         public ICollection<AvailableRoomDto> FromObjecttoDTO_Collection(ICollection<Accomodation> collection)
         {
             throw new NotImplementedException();
+        }
+        public Accomodation FromDTOtoObject(AccomodationDto dto, ResortContext context)
+        {
+            var accomodation = new Accomodation
+            {
+                Name = dto.Name,
+                MaxOccupancy = dto.MaxOccupancy,
+                AccomodationTypeId = dto.AccomodationTypeId
+            };
+            // return accessibilityIds for accomodation
+            foreach (var accessibilityId in dto.AccessibilityIds)
+            {
+                var accessibility = context.Accessibilities.Find(accessibilityId);
+                if (accessibility != null)
+                {
+                    accomodation.Accessibilities.Add(accessibility);
+                }
+            }
+            return accomodation;
         }
     }
 }
