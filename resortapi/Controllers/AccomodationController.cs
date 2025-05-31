@@ -133,6 +133,17 @@ namespace resortapi.Controllers
             var dto = _converter.FromObjecttoDTO(save);
             return Ok(dto);
         }
+        [HttpDelete("{id}", Name = "Delete Accomodation")]
+        public async Task<ActionResult> DeleteAccomodation(int id)
+        {
+            var existingAccomodation = await _repo.GetByIdAsync(id);
+            if (existingAccomodation == null)
+            {
+                return NotFound($"Accomodation with Id {id} can not be found");
+            }
+            await _repo.DeleteAsync(existingAccomodation);
+            return Ok($"Accomodation {id} deleted successfully");
+        }
 
 
 
