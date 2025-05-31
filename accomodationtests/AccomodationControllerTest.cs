@@ -56,7 +56,7 @@ public class AccomodationControllerTest
         SeedData();
 
         _repository = new AccomodationRepo(_context);
-        _controller = new AccomodationController(_repository, new AccomodationConverter());
+        _controller = new AccomodationController(_repository, new AccomodationConverter(),_context);
 
     }
     [TestMethod]
@@ -109,6 +109,28 @@ public class AccomodationControllerTest
         var availableRooms = okResult.Value as ICollection<AvailableRoomDto>;
         Assert.IsNotNull(availableRooms);
         Assert.AreEqual(2, availableRooms.Count);
+    }
+    [TestMethod]
+    public async Task AddNewAccomodation_WithValidData_ReturnsCreatedAccomodation()
+    {
+        // Arrange
+        var newAccomodation = new AccomodationDto
+        {
+            Name = "207C",
+            MaxOccupancy = 4,
+            AccomodationTypeId = _context.AccomodationTypes.First().Id
+        };
+        // Act
+        var result = await _controller.AddNewAccomodation(newAccomodation);
+        // Assert
+
+        var createdResult = result as CreatedAtRouteResult;
+        Assert.IsNotNull(createdResult);
+
+        var createdAccomodation = createdResult.Value as AvailableRoomDto;
+        Assert.IsNotNull(createdAccomodation);
+        Assert.AreEqual(newAccomodation.Name, createdAccomodation.Name);
+        Assert.AreEqual(newAccomodation.MaxOccupancy, createdAccomodation.MaxOccupancy);
     }
 
 
