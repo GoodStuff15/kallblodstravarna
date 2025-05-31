@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using resortapi.Converters;
+using resortapi.Data;
 using resortapi.Repositories;
 using resortdtos;
+using resortlibrary.Models;
 
 namespace resortapi.Controllers
 {
@@ -12,11 +15,13 @@ namespace resortapi.Controllers
     {
         private readonly AccomodationRepo _repo;
         private readonly AccomodationConverter _converter;
+        private readonly ResortContext _context;
 
-        public AccomodationController(AccomodationRepo accomodationRepo, AccomodationConverter accomodationConverter)
+        public AccomodationController(AccomodationRepo accomodationRepo, AccomodationConverter accomodationConverter, ResortContext context)
         {
             _repo = accomodationRepo;
             _converter = accomodationConverter;
+            _context = context;
         }
 
         // [FromBody] kan/bör ändras till [FromQuery] om vi vill skicka in datumen som query-parametrar istället för i body
@@ -91,6 +96,21 @@ namespace resortapi.Controllers
             return Ok(dto);
 
         }
+        //[Authorize(Roles = "Staff, Admin")]
+        [HttpPost(Name = "Add New Accomodation")]
+        public async Task<ActionResult> AddNewAccomodation([FromBody] AccomodationDto newAccomodation)
+        {
+            var accomodation = _converter.FromDTOtoObject(newAccomodation, _context);
+            if (accomodation == null)
+            {
+                return BadRequest("Can't add accomodation");
+            }
+            accomodation = await _repo.AddAsync(accomodation);
+            var newAcc = _converter.FromObjecttoDTO(accomodation);
+            return CreatedAtRoute("Get Accomodation by Id", new { id = newAcc.Id }, newAcc);
+
+        }
+
 
 
 
