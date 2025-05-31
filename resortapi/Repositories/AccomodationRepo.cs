@@ -70,6 +70,15 @@ namespace resortapi.Repositories
                 .Include(a => a.Accessibilities)
                 .FirstOrDefaultAsync(a => a.Id == accomodation.Id);
         }
+        public async Task<Accomodation?> UpdateAsync(Accomodation accomodation)
+        {
+            _context.Accommodations.Update(accomodation);
+            await _context.SaveChangesAsync();
+            return await _context.Accommodations
+                .Include(a => a.AccomodationType)
+                .Include(a => a.Accessibilities)
+                .FirstOrDefaultAsync(a => a.Id == accomodation.Id);
 
+        }
     }
 }
