@@ -46,15 +46,15 @@ namespace resortapi.Converters
             {
                 Id = obj.Id,
                 Name = obj.Name,
-                AccomodationType = obj.AccomodationType.Name,
-                Description = obj.AccomodationType.Description,
+                AccomodationType = obj.AccomodationType?.Name ?? "", 
+                Description = obj.AccomodationType?.Description ?? "", 
                 MaxOccupancy = obj.MaxOccupancy,
-                BasePrice = obj.AccomodationType.BasePrice,
-                Accessibility = obj.Accessibilities.Select(acc => new AccessibilityDto
+                BasePrice = obj.AccomodationType?.BasePrice ?? 0,
+                Accessibility = obj.Accessibilities?.Select(acc => new AccessibilityDto
                 {
                     Name = acc.Name,
                     Description = acc.Description
-                }).ToList()
+                }).ToList() ?? new List<AccessibilityDto>()
             };
         }
 
