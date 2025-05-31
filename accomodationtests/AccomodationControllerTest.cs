@@ -42,12 +42,12 @@ public class AccomodationControllerTest
     [TestInitialize]
     public void TestInit()
     {
-        //_options = new DbContextOptionsBuilder<ResortContext>()
-        //    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        //    .Options;
         _options = new DbContextOptionsBuilder<ResortContext>()
-            .UseInMemoryDatabase("ResortContext")
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
+        //_options = new DbContextOptionsBuilder<ResortContext>()
+        //    .UseInMemoryDatabase("ResortContext")
+        //    .Options;
         _context = new ResortContext(_options);
 
         //_context.Database.EnsureDeleted();
@@ -132,6 +132,40 @@ public class AccomodationControllerTest
         Assert.AreEqual(newAccomodation.Name, createdAccomodation.Name);
         Assert.AreEqual(newAccomodation.MaxOccupancy, createdAccomodation.MaxOccupancy);
     }
+    [TestMethod]
+    public async Task UpdateAccomodation_WithValidData_ReturnsUpdatedAccomodation()
+    {
+        // Arrange
+        var readAccomodations = await _controller.GetAllAccomodations();
 
+        var firstAcco = readAccomodations.Result as OkObjectResult;
+        var accResult = firstAcco.Value as ICollection<AvailableRoomDto>;
+        var id = accResult.First().Id;
+        Assert.IsTrue(id > 0);
+
+        var newAccomodation = new AccomodationDto
+        {
+            Name = "202B",
+            MaxOccupancy = 3,
+            AccomodationTypeId = _context.AccomodationTypes.First().Id,
+            AccessibilityIds = new List<int> { 1, 2 }
+        };
+        // Act
+        var result = await _controller.UpdateAccomodation(id, newAccomodation);
+        // Assert
+        var okResult = result as OkObjectResult;
+        Assert.IsNotNull(okResult);
+        var updatedAccomodation = okResult.Value as AvailableRoomDto;
+        Assert.IsNotNull(updatedAccomodation);
+
+        Assert.AreEqual(newAccomodation.Name, updatedAccomodation.Name);
+        Assert.AreEqual(newAccomodation.MaxOccupancy, updatedAccomodation.MaxOccupancy);
+
+        // test accomodationTypeId with accomodationType name
+        var name = _context.AccomodationTypes.FirstOrDefault(a => a.Id == newAccomodation.AccomodationTypeId)?.Name;
+        Assert.AreEqual(name, updatedAccomodation.AccomodationType);
+        Assert.AreEqual(2, updatedAccomodation.Accessibility.Count);
+        
+    }
 
 }
