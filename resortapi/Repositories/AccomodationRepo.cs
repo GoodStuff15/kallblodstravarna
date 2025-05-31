@@ -80,5 +80,10 @@ namespace resortapi.Repositories
                 .FirstOrDefaultAsync(a => a.Id == accomodation.Id);
 
         }
+        public async Task DeleteAsync(Accomodation accomodation)
+        {
+            _context.Accommodations.Remove(accomodation);
+            await _context.SaveChangesAsync();
+        }
     }
 }
