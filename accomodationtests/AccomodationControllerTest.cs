@@ -165,7 +165,23 @@ public class AccomodationControllerTest
         var name = _context.AccomodationTypes.FirstOrDefault(a => a.Id == newAccomodation.AccomodationTypeId)?.Name;
         Assert.AreEqual(name, updatedAccomodation.AccomodationType);
         Assert.AreEqual(2, updatedAccomodation.Accessibility.Count);
-        
+    }
+    [TestMethod]
+    public async Task DeleteAccomodation_WithValidData_DeletesAccomodation()
+    {
+        // arrange 
+        var getAccomodation = _context.Accommodations.First();
+        var deleteId = getAccomodation.Id;
+
+        // Act
+        var result = await _controller.DeleteAccomodation(deleteId);
+
+        // Assert
+        var okResult = result as OkObjectResult;
+        Assert.IsNotNull(okResult);
+        Assert.AreEqual($"Accomodation {deleteId} deleted successfully", okResult.Value);
+        var deletedAcco = await _context.Accommodations.FindAsync(deleteId);
+        Assert.IsNull(deletedAcco);
     }
 
 }
