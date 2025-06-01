@@ -16,11 +16,11 @@ namespace resortapi.Repositories
 
             // Checking if accomodation is booked
 
-            var accomodation = _context.Set<Accomodation>()
-                              .Where(a => a.Id == newBooking.Accomodation.Id)
-                              .FirstOrDefault();
+            var accomodation = await _context.Set<Accomodation>()
+                         .Include(a => a.Bookings)
+                         .FirstOrDefaultAsync(a => a.Id == newBooking.Accomodation.Id);
 
-            foreach(var b in accomodation.Bookings)
+            foreach (var b in accomodation.Bookings)
 
             if (newBooking.CheckIn < b.CheckOut && b.CheckIn < newBooking.CheckOut)
             {
