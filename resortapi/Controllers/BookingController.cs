@@ -13,17 +13,38 @@ namespace resortapi.Controllers
     {
         private readonly IRepository<Booking> _repo;
         private readonly BookingConverter _converter;
-        public BookingController(IRepository<Booking> repo)
+        private readonly IRepository<AdditionalOption> _additionalOptionRepo;
+        public BookingController(IRepository<Booking> repo, IRepository<AdditionalOption> additionalOptionRepo)
         {
             _repo = repo;
             _converter = new BookingConverter();
+            _additionalOptionRepo = additionalOptionRepo;
         }
 
-        [Authorize(Roles = "Staff, Admin")]
+        //[Authorize(Roles = "Staff, Admin")]
         [HttpPost(Name = "Add New Booking")]
         public async Task<ActionResult> AddBooking(BookingDto booking)
         {
-            var newBooking = _converter.FromDTOtoObject(booking);
+            var getCustomer = await _repo.GetAsync(booking.CustomerId);
+            if (getCustomer == null)
+            {
+                return BadRequest($"Customer with Id {booking.CustomerId} does not exist");
+            }
+
+            var additionalOptions = new List<AdditionalOption>();
+            if (booking.AdditionalOptionIds != null && booking.AdditionalOptionIds.Any())
+            {
+                foreach (var optionId in booking.AdditionalOptionIds)
+                {
+                    var additionalOption = await _additionalOptionRepo.GetAsync(optionId);
+                    if (additionalOption == null)
+                    {
+                        return BadRequest($"Additional option with Id {optionId} does not exist");
+                    }
+                    additionalOptions.Add(additionalOption);
+                }
+            }
+            var newBooking = _converter.FromDTOtoObject(booking, additionalOptions);
 
             if (booking == null)
             {
@@ -36,7 +57,7 @@ namespace resortapi.Controllers
             return Ok($"Booking added to Database successfully");
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet("detailed", Name = "Get all bookings with details included")]
         public async Task<ActionResult<ICollection<BookingDto>>> GetAllBookingsWithGuestInfo()
         {
