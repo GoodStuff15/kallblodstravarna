@@ -27,6 +27,7 @@ namespace resortapi.Controllers
         public async Task<ActionResult<CustomerDto>> GetCustomerById(int id)
         {
             var customer = await _repo.GetAsync(id);
+
             if (customer == null)
                 return NotFound();
 
@@ -45,11 +46,28 @@ namespace resortapi.Controllers
             var customer = _converter.FromDTOtoObject(newCustomer);
             await _repo.CreateAsync(customer);  // här ska Id vara satt efter await
 
+            await _repo.CreateAsync(customer);  // här ska Id vara satt efter awaitAdd commentMore actions
+
             var customerDtoResponse = (_converter as CustomerConverter).FromObjectToCustomerDTO(customer);
 
-            return CreatedAtAction(nameof(GetCustomerById), new { id = customer.Id }, customerDtoResponse);
+            return CreatedAtAction(nameof(GetCustomerById), new
+            {
+                id = customer.Id
+            }, customerDtoResponse);
         }
 
+        [HttpPost("{newCustomer}", Name = "Add New Customer Via Service")]
+        public async Task<ActionResult> AddCustomerViaService(CreateCustomerRequestDTO newCustomer)
+        {
+            if (service.CreateCustomer(newCustomer))
+            {
+                return Ok($"{newCustomer.FirstName} {newCustomer.LastName} was added to Database successfully");
+            }
+            else
+            {
+                return BadRequest("Error adding new customer to database");
+            }
+        }
 
     }
 }

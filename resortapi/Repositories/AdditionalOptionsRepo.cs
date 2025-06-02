@@ -1,18 +1,21 @@
-﻿using resortapi.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using resortapi.Data;
 using resortlibrary.Models;
 
 namespace resortapi.Repositories
 {
     public class AdditionalOptionsRepo : AbstractRepo<AdditionalOption>
     {
+        private readonly ResortContext _context;
+
         public AdditionalOptionsRepo(ResortContext context) : base(context)
         {
             _context = context;
         }
 
-        public override Task<ICollection<AdditionalOption>> GetAllWithIncludesAsync()
+        public override async Task<ICollection<AdditionalOption>> GetAllWithIncludesAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Set<AdditionalOption>().ToListAsync();
         }
     }
 }
