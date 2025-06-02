@@ -8,13 +8,7 @@ namespace resortlibrary.Builders
 
         public BookingBuilder() 
         {
-            _booking = new Booking
-            {
-                TimeOfBooking = DateTime.Now,
-                AmountPaid = 0,
-                Active = true,
-                CancellationDate = null
-            };
+            _booking = new Booking();
         }
         public BookingBuilder AddCheckIn(DateTime checkIn)
         {
@@ -128,10 +122,6 @@ namespace resortlibrary.Builders
 
         public Booking Build()
         {
-            if(_booking.TimeOfBooking == default(DateTime))
-            {
-                _booking.TimeOfBooking = DateTime.Now;
-            }
             return _booking;
         }
     }

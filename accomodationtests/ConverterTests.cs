@@ -111,7 +111,7 @@ public class ConverterTests
 
         dto.CheckIn = obj.CheckIn;
         dto.CheckOut = obj.CheckOut;
-        //dto.Cost = obj.Cost;
+
         dto.Guests = dtoguests;
         dto.AccomodationId = obj.AccomodationId;    
 
@@ -140,6 +140,7 @@ public class ConverterTests
         //var conv = new BookingConverter();
         //var testList = conv.FromObjecttoDTO_Collection(bookingList).ToList();
         
+
         //foreach(var b in bookingList)
         //{
         //    foreach(var g in b.Guests)
@@ -171,6 +172,7 @@ public class ConverterTests
         //Assert.AreEqual(expected, dtoList.Count);
         ////CollectionAssert.AreEqual(bookingList[1].Guests.ToList(), testList[1].Guests.ToList());
         //Assert.AreEqual(bookingList[1].Guests.ToList()[1].FirstName, testList[1].Guests.ToList()[1].FirstName);
+
 
     }
 

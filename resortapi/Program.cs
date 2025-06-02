@@ -21,6 +21,19 @@ namespace resortapi
 
             var builder = WebApplication.CreateBuilder(args);
 
+            // Configure CORS to allow requests from the frontend
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+            });
+
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -79,6 +92,8 @@ namespace resortapi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowFrontend");
 
             app.UseAuthorization();
 
