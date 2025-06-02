@@ -15,14 +15,16 @@ namespace resortapi.Converters
 
         public Customer FromDTOtoObject(CreateCustomerRequestDTO entity)
         {
-            return _builder
-                .AddType(entity.Type)
-                .AddFirstName(entity.FirstName)
-                .AddLastName(entity.LastName)
-                .AddPhone(entity.PhoneNumber)
-                .AddEmail(entity.Email)
-                .AddPaymentMethod(entity.PaymentMethod)
-                .Build();
+            var customer=   _builder
+                            .AddType(entity.Type)
+                            .AddFirstName(entity.FirstName)
+                            .AddLastName(entity.LastName)
+                            .AddPhone(entity.PhoneNumber)
+                            .AddEmail(entity.Email)
+                            .AddPaymentMethod(entity.PaymentMethod)
+                            .Build();
+
+            return customer;
         }
 
         public ICollection<Customer> FromDTOtoObject_Collection(ICollection<CreateCustomerRequestDTO> collection)

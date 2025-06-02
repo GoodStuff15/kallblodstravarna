@@ -16,7 +16,9 @@ namespace resortapi.Repositories
         public  async Task CreateAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
-            _context.SaveChanges();
+
+            await _context.SaveChangesAsync();
+
         }
 
         // Read

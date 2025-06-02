@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using resortapi.Converters;
 using resortapi.Repositories;
+using resortapi.Services;
 using resortdtos;
 using resortlibrary.Models;
 
@@ -13,10 +14,13 @@ namespace resortapi.Controllers
         private readonly IRepository<Customer> _repo;
         private readonly IConverter<Customer, CreateCustomerRequestDTO> _converter;
 
+        private readonly CustomerService service;
+
         public CustomerController(IRepository<Customer> repo, IConverter<Customer, CreateCustomerRequestDTO> converter)
         {
             _repo = repo;
             _converter = converter;
+            service = new CustomerService(repo, converter); // **
         }
 
         [HttpPost("{newCustomer}", Name = "Add New Customer")]
@@ -32,6 +36,19 @@ namespace resortapi.Controllers
             await _repo.CreateAsync(customer);
 
             return Ok($"{customer.FirstName} {customer.LastName} was added to Database successfully");
+        }
+
+        [HttpPost("{newCustomer}", Name = "Add New Customer")]
+        public async Task<ActionResult> AddCustomerViaService(CreateCustomerRequestDTO newCustomer)
+        {
+            if(service.CreateCustomer(newCustomer))
+            {
+                return Ok($"{newCustomer.FirstName} {newCustomer.LastName} was added to Database successfully");
+            }
+            else
+            {
+                return BadRequest("Error adding new customer to database");
+            }
         }
 
     }
