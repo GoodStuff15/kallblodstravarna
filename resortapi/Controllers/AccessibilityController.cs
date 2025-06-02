@@ -51,5 +51,27 @@ namespace resortapi.Controllers
             var newAcc = _converter.FromObjecttoDTO(accessibility);
             return CreatedAtRoute("Get Accessibility by Id", new { id = newAcc.Id }, newAcc);
         }
+        [HttpPut("{id}", Name = "Update Accessibility by Id")]
+        public async Task<ActionResult> UpdateAccessibility(int id, [FromBody] AccessibilityDto updatedAccessibility)
+        {
+            var existingAccessibility = await _repo.GetByIdAsync(id);
+            if (existingAccessibility == null)
+            {
+                return NotFound($"Accessibility with Id {id} can not be found");
+            }
+            existingAccessibility.Name = updatedAccessibility.Name;
+            existingAccessibility.Description = updatedAccessibility.Description;
+            existingAccessibility.Accomodations.Clear();
+            //foreach (var accomodationId in updatedAccessibility.AccomodationIds)
+            //{
+            //    var accomodation = await _repo.GetAccomodationByIdAsync(accomodationId);
+            //    if (accomodation != null)
+            //    {
+            //        existingAccessibility.Accomodations.Add(accomodation);
+            //    }
+            //}
+            await _repo.UpdateAsync(existingAccessibility);
+            return Ok($"Accessibility with Id {id} has been updated");
+        }
     }
 }
