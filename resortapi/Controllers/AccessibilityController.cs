@@ -39,5 +39,17 @@ namespace resortapi.Controllers
             var dto = _converter.FromObjecttoDTO(accessibility);
             return Ok(dto);
         }
+        [HttpPost(Name = "Add new accessibility")]
+        public async Task<ActionResult> AddNewAccessibility([FromBody] AccessibilityDto newAccessibility)
+        {
+            var accessibility = _converter.FromDTOtoObject(newAccessibility);
+            if (accessibility == null)
+            {
+                return BadRequest("Invalid accessibility data.");
+            }
+            accessibility = await _repo.AddAsync(accessibility);
+            var newAcc = _converter.FromObjecttoDTO(accessibility);
+            return CreatedAtRoute("Get Accessibility by Id", new { id = newAcc.Id }, newAcc);
+        }
     }
 }
