@@ -79,6 +79,8 @@ namespace resortapi
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<AccomodationTypeRepo>();
             builder.Services.AddScoped<AccomodationTypeConverter>();
+            builder.Services.AddScoped<AccessibilityRepo>();
+            builder.Services.AddScoped<AccessibilityConverter>();
 
 
 
