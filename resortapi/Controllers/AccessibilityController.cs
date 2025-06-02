@@ -62,16 +62,19 @@ namespace resortapi.Controllers
             existingAccessibility.Name = updatedAccessibility.Name;
             existingAccessibility.Description = updatedAccessibility.Description;
             existingAccessibility.Accomodations.Clear();
-            //foreach (var accomodationId in updatedAccessibility.AccomodationIds)
-            //{
-            //    var accomodation = await _repo.GetAccomodationByIdAsync(accomodationId);
-            //    if (accomodation != null)
-            //    {
-            //        existingAccessibility.Accomodations.Add(accomodation);
-            //    }
-            //}
             await _repo.UpdateAsync(existingAccessibility);
             return Ok($"Accessibility with Id {id} has been updated");
+        }
+        [HttpDelete("{id}", Name = "Delete Accessibility by Id")]
+        public async Task<ActionResult> DeleteAccessibility(int id)
+        {
+            var existingAccessibility = await _repo.GetByIdAsync(id);
+            if (existingAccessibility == null)
+            {
+                return NotFound($"Accessibility with Id {id} can not be found");
+            }
+            await _repo.DeleteAsync(existingAccessibility);
+            return Ok($"Accessibility with Id {id} has been deleted");
         }
     }
 }
