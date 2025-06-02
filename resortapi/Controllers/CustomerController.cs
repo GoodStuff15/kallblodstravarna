@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using resortapi.Converters;
 using resortapi.Repositories;
+using resortapi.Services;
 using resortdtos;
 using resortlibrary.Models;
 
@@ -13,10 +14,13 @@ namespace resortapi.Controllers
         private readonly IRepository<Customer> _repo;
         private readonly IConverter<Customer, CreateCustomerRequestDTO> _converter;
 
+        private readonly CustomerService service;
+
         public CustomerController(IRepository<Customer> repo, IConverter<Customer, CreateCustomerRequestDTO> converter)
         {
             _repo = repo;
             _converter = converter;
+            service = new CustomerService(repo, converter); // **
         }
 
         [HttpGet("{id}")]
@@ -45,8 +49,6 @@ namespace resortapi.Controllers
 
             return CreatedAtAction(nameof(GetCustomerById), new { id = customer.Id }, customerDtoResponse);
         }
-
-
 
 
     }
