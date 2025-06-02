@@ -12,11 +12,11 @@ namespace resortapi.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IRepository<Booking> _repo;
-        private readonly BookingConverter _converter;
-        public BookingController(IRepository<Booking> repo)
+        private readonly IBookingConverter _converter;
+        public BookingController(IRepository<Booking> repo, IBookingConverter converter)
         {
             _repo = repo;
-            _converter = new BookingConverter();
+            _converter = converter;
         }
 
         [HttpGet("{id}")]
