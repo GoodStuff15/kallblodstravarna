@@ -30,7 +30,11 @@ namespace resortapi.Converters
 
         public ICollection<AccessibilityDto> FromObjecttoDTO_Collection(ICollection<Accessibility> collection)
         {
-            throw new NotImplementedException();
+            return collection.Select(acc => new AccessibilityDto
+            {
+                Name = acc.Name,
+                Description = acc.Description
+            }).ToList();
         }
     }
 }
