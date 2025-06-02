@@ -12,24 +12,31 @@ namespace resortapi.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IRepository<Booking> _repo;
+        private readonly IBookingRepository _repo2;
         private readonly IBookingConverter _converter;
 
-        public BookingController(IRepository<Booking> repo, IBookingConverter converter)
+        public BookingController(IRepository<Booking> repo, IBookingConverter converter, IBookingRepository repo2)
         {
             _repo = repo;
+            _repo2 = repo2;
             _converter = converter;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<BookingDto>> GetBookingById(int id)
+        public async Task<ActionResult<BookingDetailsDto>> GetBooking(int id)
         {
-            var booking = await _repo.GetAsync(id);
+            var booking = await _repo2.GetByIdWithIncludesAsync(id);
             if (booking == null)
+            {
                 return NotFound();
+            }
 
-            var bookingDTO = _converter.FromObjecttoDTO(booking);
-            return Ok(bookingDTO);
+            var dto = _converter.FromObjectToDetailedDTO(booking);
+            return Ok(dto);
         }
+
+
+
 
         [Authorize(Roles = "Staff, Admin")]
         [HttpPost(Name = "Add New Booking")]

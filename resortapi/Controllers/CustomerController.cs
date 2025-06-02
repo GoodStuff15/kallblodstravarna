@@ -29,7 +29,9 @@ namespace resortapi.Controllers
             var customer = await _repo.GetAsync(id);
 
             if (customer == null)
+            {
                 return NotFound();
+            }
 
             var customerDTO = _converter.FromObjecttoDTO(customer);
             return Ok(customerDTO);
@@ -45,8 +47,6 @@ namespace resortapi.Controllers
 
             var customer = _converter.FromDTOtoObject(newCustomer);
             await _repo.CreateAsync(customer);  // här ska Id vara satt efter await
-
-            await _repo.CreateAsync(customer);  // här ska Id vara satt efter awaitAdd commentMore actions
 
             var customerDtoResponse = (_converter as CustomerConverter).FromObjectToCustomerDTO(customer);
 
