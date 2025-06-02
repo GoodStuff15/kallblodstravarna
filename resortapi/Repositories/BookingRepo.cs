@@ -90,6 +90,22 @@ namespace resortapi.Repositories
                          .Where(b => b.Active == true)
                          .ToListAsync();
         }
+        public async Task<Booking?> GetAsync(int customerId)
+        {
+            return await _context.Set<Booking>()
+                .Include(g => g.Guests)
+                .Include(a => a.Accomodation)
+                .Include(o => o.AdditionalOptions)
+                .Include(c => c.Customer)
+                .FirstOrDefaultAsync(b => b.Id == customerId);
+        }
+        public async Task<Booking> UpdateAsync(Booking booking)
+        {
+            _context.Set<Booking>().Update(booking);
+            await _context.SaveChangesAsync();
+            return booking;
+        }
+
     }
 
     
