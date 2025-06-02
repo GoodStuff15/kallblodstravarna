@@ -1,0 +1,9 @@
+﻿Klass/Testfallnamn													Rad:			Beskrivning								Förväntat resultat
+-AccomodationServiceTests-
+AccomodationService_GetAllAvailableRooms_ReturnsAListOfDtos()						Service takes request, returns dtos		A list with available room dtos is returned
+
+-CustomerServiceTests-
+CustomerService_CreateCustomer_ShouldReturnTrue()									Service recieves a Customer,			Method returns true 
+																					process, returns true		
+CustomerService_GetACustomer														Service receives a id,					A customer is returned
+																					returns a customer

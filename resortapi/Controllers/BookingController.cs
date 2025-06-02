@@ -12,11 +12,23 @@ namespace resortapi.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IRepository<Booking> _repo;
-        private readonly BookingConverter _converter;
-        public BookingController(IRepository<Booking> repo)
+        private readonly IBookingConverter _converter;
+
+        public BookingController(IRepository<Booking> repo, IBookingConverter converter)
         {
             _repo = repo;
-            _converter = new BookingConverter();
+            _converter = converter;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BookingDto>> GetBookingById(int id)
+        {
+            var booking = await _repo.GetAsync(id);
+            if (booking == null)
+                return NotFound();
+
+            var bookingDTO = _converter.FromObjecttoDTO(booking);
+            return Ok(bookingDTO);
         }
 
         [Authorize(Roles = "Staff, Admin")]
@@ -37,20 +49,20 @@ namespace resortapi.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("detailed", Name = "Get all bookings with details included")]
-        public async Task<ActionResult<ICollection<BookingDto>>> GetAllBookingsWithGuestInfo()
+        [HttpGet("overview", Name = "Get bookings overview")]
+        public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetBookingsOverview()
         {
-            var bookings = await _repo.GetAllWithIncludesAsync();
+            var bookings = await _repo.GetAllAsync();
 
             if (!bookings.Any())
             {
                 return NoContent();
             }
 
-            var dtos = _converter.FromObjecttoDTO_Collection(bookings);
+            var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
 
             return Ok(dtos);
-
+        
         }
 
         [HttpPut("{cancelById}", Name = "Cancel booking")]
@@ -83,6 +95,7 @@ namespace resortapi.Controllers
             return Ok("Booking removed from database");
 
         }
+
 
     }
 }
