@@ -28,5 +28,16 @@ namespace resortapi.Controllers
             var available = _converter.FromObjecttoDTO_Collection(accessibilities);
             return Ok(available);
         }
+        [HttpGet("{id}", Name = "Get Accessibility by Id")]
+        public async Task<ActionResult<AccessibilityDto>> GetAccessibilityById(int id)
+        {
+            var accessibility = await _repo.GetByIdAsync(id);
+            if (accessibility == null)
+            {
+                return NotFound($"Accessibility with Id {id} can not be found");
+            }
+            var dto = _converter.FromObjecttoDTO(accessibility);
+            return Ok(dto);
+        }
     }
 }
