@@ -92,7 +92,7 @@ namespace resortapi.Services
         {
             if(booking.CheckOut <= booking.CheckIn)
             {
-                throw new ArgumentException("Booking check out must be later date than check in")
+                throw new ArgumentException("Booking check out must be later date than check in");
             }
             if(booking.Guests.Count <= 0)
             {

@@ -11,5 +11,7 @@ namespace resortapi.Services
         public Customer ConvertToCustomer(CreateCustomerRequestDTO dto);
     
         public bool CreateCustomer(CreateCustomerRequestDTO dto);
+
+        public Customer GetCustomer(int id);
     }
 }

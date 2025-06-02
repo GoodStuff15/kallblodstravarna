@@ -20,7 +20,7 @@ namespace resortapi.Controllers
         {
             _repo = repo;
             _converter = converter;
-            service = new CustomerService(repo); // **
+            service = new CustomerService(repo, converter); // **
         }
 
         [HttpPost("{newCustomer}", Name = "Add New Customer")]

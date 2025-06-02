@@ -63,6 +63,11 @@ namespace resortapi.Services
 
         }
 
+        public Customer GetCustomer(int id)
+        {
+            return _repo.GetAsync(id).Result;
+        }
+
          
     }
 }
