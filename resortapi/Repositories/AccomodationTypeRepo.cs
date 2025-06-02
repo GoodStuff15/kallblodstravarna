@@ -33,5 +33,10 @@ namespace resortapi.Repositories
             await _context.SaveChangesAsync();
             return accomodationType;
         }
+        public async Task DeleteAsync(AccomodationType accomodationType)
+        {
+            _context.Set<AccomodationType>().Remove(accomodationType);
+            await _context.SaveChangesAsync();
+        }
     }
 }

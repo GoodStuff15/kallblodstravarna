@@ -71,11 +71,20 @@ namespace resortapi.Controllers
             existingAccoType.Description = updatedAccomodationType.Description;
             existingAccoType.BasePrice = updatedAccomodationType.BasePrice;
 
-
-
             await _repo.UpdateAsync(existingAccoType);
             return Ok($"AccomodationType {id} updated successfully");
             //return NoContent();
+        }
+        [HttpDelete("{id}", Name = "Delete AccomodationType by Id")]
+        public async Task<ActionResult> DeleteAccomodationType(int id)
+        {
+            var existingAccoType = await _repo.GetByIdAsync(id);
+            if (existingAccoType == null)
+            {
+                return NotFound($"Accomodation type with Id {id} does not exist.");
+            }
+            await _repo.DeleteAsync(existingAccoType);
+            return Ok($"AccomodationType {id} deleted successfully");
         }
     }
 }
