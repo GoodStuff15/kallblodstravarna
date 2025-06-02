@@ -15,4 +15,11 @@ Accomodation_WithBookings_ShouldNotContainNull							87		Create accomodation wit
 Accomodation_Bookings_ShouldContainMinOneGuest							102		Create accomodation with min 1 guest					Min 1 guest within booking
 
 -AccomodationTypeBuilder-
+CreateAccomodationType_ValidData_ShouldReturnAccomodationType			14		Create accomodationtype with valid data					AccomodationType-object should be created with correct values
+CreateAccomodationType_InvalidName_ShouldThrow							24		Create accomodationtype with invalid name				ArgumentException should be thrown with message
+CreateAccomodationType_InvalidPrice_ShouldThrow							32		Create accomodationtype with invalid price				ArgumentException should be thrown with message
 
+-AdditionalOptionBuilder-
+CreateAdditionalOption_ValidData_ShouldReturnAddedOption				13		Create additionaloption with valid data					AdditionalOption-object should be created with correct values
+CreateAdditionalOption_InvalidName_ShouldThrow							27		Create additionaloption with invalid name				ArgumentException should be thrown with message
+CreateAdditionalOption_InvalidPrice_ShouldThrow							35		Create additionaloption with invalid price				ArgumentOutOfRangeException should be thrown with message
