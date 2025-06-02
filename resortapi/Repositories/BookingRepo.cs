@@ -104,8 +104,13 @@ namespace resortapi.Repositories
                 .FirstOrDefaultAsync(b => b.Id == id);
         }
 
+        public async Task<ICollection<Booking>> GetAllWithCustomerAsync()
+        {
+            return await _context.Bookings
+                .Include(b => b.Customer)
+                .ToListAsync();
+        }
+
     }
 
-
 }
-

@@ -122,6 +122,8 @@ namespace resortapi.Converters
                     CheckOut = b.CheckOut,
                     AccomodationId = b.AccomodationId,
                     CustomerId = b.CustomerId,
+                    CustomerFirstName = b.Customer?.FirstName,
+                    CustomerLastName = b.Customer?.LastName,
                     Active = b.Active
                 };
                 overview.Add(dto);

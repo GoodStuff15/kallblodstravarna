@@ -59,7 +59,7 @@ namespace resortapi.Controllers
         [HttpGet("overview", Name = "Get bookings overview")]
         public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetBookingsOverview()
         {
-            var bookings = await _repo.GetAllAsync();
+            var bookings = await _repo2.GetAllWithCustomerAsync();
 
             if (!bookings.Any())
             {
@@ -69,8 +69,8 @@ namespace resortapi.Controllers
             var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
 
             return Ok(dtos);
-        
         }
+
 
         [HttpPut("{cancelById}", Name = "Cancel booking")]
         public async Task<ActionResult> CancelBooking(int cancelById)
