@@ -42,5 +42,18 @@ namespace resortapi.Controllers
             return Ok(dto);
 
         }
+        [HttpPost(Name = "Add new accomodationType")]
+        public async Task<ActionResult> AddNewAccomodationType([FromBody] AccomodationTypeDto newAccomodationType)
+        {
+            var accomodationType = _converter.FromDtoToObject(newAccomodationType);
+            if (accomodationType == null)
+            {
+                return BadRequest("Invalid accomodation type data.");
+            }
+            accomodationType = await _repo.AddAsync(accomodationType);
+            var newaccomodationType = _converter.FromObjectToDto(accomodationType);
+            return CreatedAtRoute("Get AccomodationType by Id", new { id = newaccomodationType.Id }, newaccomodationType);
+
+        }
     }
 }
