@@ -10,7 +10,7 @@ using resortdtos;
 using resortlibrary.Models;
 
 [TestClass]
-public class ServiceTest
+public class CustomerServiceTest
 {
     private Mock<ICustomerService> _customerServiceMock;
     private Mock<IRepository<Customer>> _repositoryMock;
@@ -61,9 +61,13 @@ public class ServiceTest
 
     }
 
+
+
     [TestCleanup]
     public void Cleanup()
     {
-
+        _repositoryMock = null;
+        _customerServiceMock = null;
+        _converterMock = null;
     }
 }

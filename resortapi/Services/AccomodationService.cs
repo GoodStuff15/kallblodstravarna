@@ -7,10 +7,10 @@ namespace resortapi.Services
 {
     public class AccomodationService : IAccomodationService
     {
-        private readonly AccomodationRepo _repo;
+        private readonly IAccomodationRepo _repo;
         private readonly IConverter<Accomodation, AvailableRoomDto> _converter;
 
-        public AccomodationService(AccomodationRepo repo, IConverter<Accomodation, AvailableRoomDto> converter)
+        public AccomodationService(IAccomodationRepo repo, IConverter<Accomodation, AvailableRoomDto> converter)
         {
             _repo = repo;
             _converter = converter;
