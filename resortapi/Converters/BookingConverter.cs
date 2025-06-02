@@ -5,7 +5,7 @@ using resortlibrary.Models;
 
 namespace resortapi.Converters
 {
-    public class BookingConverter : IConverter<Booking, BookingDto>
+    public class BookingConverter : IBookingConverter
     {
 
         private readonly IRepository<Accomodation> _accomodationRepo;
