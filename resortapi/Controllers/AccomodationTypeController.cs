@@ -55,5 +55,27 @@ namespace resortapi.Controllers
             return CreatedAtRoute("Get AccomodationType by Id", new { id = newaccomodationType.Id }, newaccomodationType);
 
         }
+        [HttpPut("{id}", Name = "Update AccomodationType by Id")]
+        public async Task<ActionResult> UpdateAccomodationType(int id, [FromBody] AccomodationTypeDto updatedAccomodationType)
+        {
+            if (id != updatedAccomodationType.Id)
+            {
+                return BadRequest("Id mismatch.");
+            }
+            var existingAccoType = await _repo.GetByIdAsync(id);
+            if (existingAccoType == null)
+            {
+                return NotFound($"Accomodation type with Id {id} does not exist.");
+            }
+            existingAccoType.Name = updatedAccomodationType.Name;
+            existingAccoType.Description = updatedAccomodationType.Description;
+            existingAccoType.BasePrice = updatedAccomodationType.BasePrice;
+
+
+
+            await _repo.UpdateAsync(existingAccoType);
+            return Ok($"AccomodationType {id} updated successfully");
+            //return NoContent();
+        }
     }
 }

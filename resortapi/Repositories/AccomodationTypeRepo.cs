@@ -27,5 +27,11 @@ namespace resortapi.Repositories
             await _context.SaveChangesAsync();
             return accomodationType;
         }
+        public async Task<AccomodationType?> UpdateAsync(AccomodationType accomodationType)
+        {
+            _context.AccomodationTypes.Update(accomodationType);
+            await _context.SaveChangesAsync();
+            return accomodationType;
+        }
     }
 }
