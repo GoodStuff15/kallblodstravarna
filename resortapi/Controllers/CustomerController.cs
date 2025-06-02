@@ -44,6 +44,7 @@ namespace resortapi.Controllers
             }
 
             var customer = _converter.FromDTOtoObject(newCustomer);
+            await _repo.CreateAsync(customer);  // här ska Id vara satt efter await
 
             await _repo.CreateAsync(customer);  // här ska Id vara satt efter awaitAdd commentMore actions
 

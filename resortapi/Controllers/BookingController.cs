@@ -65,6 +65,23 @@ namespace resortapi.Controllers
         
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet("overview", Name = "Get bookings overview")]
+        public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetBookingsOverview()
+        {
+            var bookings = await _repo.GetAllAsync();
+
+            if (!bookings.Any())
+            {
+                return NoContent();
+            }
+
+            var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
+
+            return Ok(dtos);
+
+        }
+
         [HttpPut("{cancelById}", Name = "Cancel booking")]
         public async Task<ActionResult> CancelBooking(int cancelById)
         {
