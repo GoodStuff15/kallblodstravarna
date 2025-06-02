@@ -1,7 +1,18 @@
 ﻿Class/Test-case															Row		Description												Exceptected result
--Accessibility-
+-AccessibilityBuilder-
 CreateAccessibility_ValidData_ShouldReturnAccessibility					17		Create Accessibility with valid data					Accessibility-object should be created with correct values
 CreateAccessibility_InvalidData_ShouldReturnAccessibility				32		Create Accessibility with invalid name					ArgumentException should be thrown with message
 CreateAccessibility_NullDescription_ShouldThrow							43		Create Accessibility with null-value					ArgumentException should be thrown with message
 
--Accomodation-
+-AccomodationBuilder-
+CreateAccomodation_ValidInputs_ShouldReturnAccomodation					17		Create Accomodation with valid data						Accomodation-object should be created with correct values
+CreateAccomodation_MaxOccupancyZero_ShouldThrow							36		Create accomodation with 0 occupants					ArgumentException should be thrown with message
+CreateAccomodation_InvalidName_ShouldThrow								47		Create accomodation with invalid name					ArgumentException should be thrown with message
+CreateAccomodation_InvalidOccupancy_ShouldThrow							58		Create accomodation with 0 or negative occupants		ArgumentException should be thrown with message
+CreateAccomodation_NullAccomodationType_ShouldThrow						67		Create accomodation without accomodationType			ArgumentException should be thrown with message
+Accomodation_WithNoBooking_ShouldReturnEmptyList						76		Create accomodation without bookings					List is not null and its empty
+Accomodation_WithBookings_ShouldNotContainNull							87		Create accomodation with null-value	booking				Booking list dosnt contain null-values
+Accomodation_Bookings_ShouldContainMinOneGuest							102		Create accomodation with min 1 guest					Min 1 guest within booking
+
+-AccomodationTypeBuilder-
+
