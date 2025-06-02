@@ -4,6 +4,9 @@ using resortdtos;
 using resortapi.Converters;
 using resortlibrary.Models;
 using Microsoft.AspNetCore.Authorization;
+using resortapi.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace resortapi.Controllers
 {
@@ -14,11 +17,13 @@ namespace resortapi.Controllers
         private readonly IRepository<Booking> _repo;
         private readonly BookingConverter _converter;
         private readonly IRepository<AdditionalOption> _additionalOptionRepo;
-        public BookingController(IRepository<Booking> repo, IRepository<AdditionalOption> additionalOptionRepo)
+        private readonly ResortContext _context;
+        public BookingController(IRepository<Booking> repo, IRepository<AdditionalOption> additionalOptionRepo, ResortContext context)
         {
             _repo = repo;
             _converter = new BookingConverter();
             _additionalOptionRepo = additionalOptionRepo;
+            _context = context;
         }
 
         //[Authorize(Roles = "Staff, Admin")]
@@ -74,7 +79,7 @@ namespace resortapi.Controllers
 
         }
 
-        [HttpPut("{cancelById}", Name = "Cancel booking")]
+        [HttpPut("cancel/{cancelById}", Name = "Cancel booking")]
         public async Task<ActionResult> CancelBooking(int cancelById)
         {
             var cancelThis = _repo.GetAsync(cancelById).Result;
@@ -85,12 +90,86 @@ namespace resortapi.Controllers
             }
             cancelThis.Cancelled = true;
             cancelThis.Active = false;
+            cancelThis.CancellationDate = DateTime.Now;
             await _repo.UpdateAsync(cancelThis);
 
             return Ok($"Booking #{cancelById} has been cancelled");
         }
 
-        [Authorize(Roles = "Staff, Admin")]
+        [HttpPut("modify/{id}", Name = "Modify booking details")]
+        public async Task<ActionResult> ModifyBookingDetails(int id, [FromBody] ModifyBookingDto booking)
+        {
+            if (booking.BookingId != 0 && booking.BookingId != id)
+            {
+                return BadRequest("Booking details are not valid or do not match the booking ID");
+            }
+
+            var existingBooking = await _repo.GetAsync(id);
+            if (existingBooking == null)
+            {
+                return NotFound($"Booking with Id {id} does not exist");
+            }
+            await _context.Entry(existingBooking).Collection(b => b.Guests).LoadAsync();
+            await _context.Entry(existingBooking).Collection(b => b.AdditionalOptions).LoadAsync();
+
+            var newAdditionalOptionIds = booking.AdditionalOptionIds?.Distinct().ToList() ?? new List<int>();
+
+            var removeAoption = existingBooking.AdditionalOptions
+                .Where(o => !newAdditionalOptionIds.Contains(o.Id))
+                .ToList();
+            foreach (var option in removeAoption)
+            {
+                existingBooking.AdditionalOptions.Remove(option);
+            }
+            
+            foreach (var optionId in newAdditionalOptionIds)
+            {
+                if (!existingBooking.AdditionalOptions.Any(o => o.Id == optionId))
+                {
+                    var diffOption = await _additionalOptionRepo.GetAsync(optionId);
+                    if (diffOption == null)
+                    {
+                        return BadRequest($"Additional option with Id {optionId} does not exist");
+                    }
+                    existingBooking.AdditionalOptions.Add(diffOption);
+                }
+            }
+            existingBooking.Guests.Clear();
+
+            var newGuest = booking.Guests
+                .GroupBy(g => new { g.FirstName, g.LastName, g.Age })
+                .Select(g => g.First())
+                .ToList();
+
+            foreach (var g in newGuest)
+            {
+                var guestExist = await _context.Guests
+                     .FirstOrDefaultAsync(x => x.FirstName == g.FirstName && x.LastName == g.LastName && x.Age == g.Age);
+                if (guestExist != null)
+                {
+                    existingBooking.Guests.Add(guestExist);
+                }
+                else
+                {
+                    existingBooking.Guests.Add(new Guest
+                    {
+                        FirstName = g.FirstName,
+                        LastName = g.LastName,
+                        Age = g.Age
+                    });
+                }
+            }
+            
+            existingBooking.CheckIn = booking.CheckIn;
+            existingBooking.CheckOut = booking.CheckOut;
+            existingBooking.AccomodationId = booking.AccomodationId;
+
+            await _repo.UpdateAsync(existingBooking);
+            return Ok($"Booking #{id} has been modified");
+
+        }
+
+        //[Authorize(Roles = "Staff, Admin")]
         [HttpDelete("{deleteById}", Name = "Delete booking from database")]
         public async Task<ActionResult> RemoveBookingFromDb(int deleteById)
         {
