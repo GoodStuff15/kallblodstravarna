@@ -176,7 +176,7 @@ namespace resortapi.Converters
                     AccomodationId = b.AccomodationId,
                     CustomerId = b.CustomerId,
 
-                    Guests = guestConverter.FromObjecttoDTO_Collection(b.Guests),
+                    Guests = _guestConverter.FromObjecttoDTO_Collection(b.Guests),
                     AdditionalOptionIds = b.AdditionalOptions.Select(o => o.Id).ToList()
 
                 };
@@ -184,6 +184,22 @@ namespace resortapi.Converters
                 dtos.Add(dto);
             }
             return dtos;
+        }
+
+        public BookingsOverviewDto FromObjectToOverviewDTO(Booking booking)
+        {
+            return new BookingsOverviewDto()
+            {
+                BookingId = booking.Id,
+                CheckIn = booking.CheckIn,
+                CheckOut = booking.CheckOut,
+                AccomodationId = booking.AccomodationId,
+                CustomerId = booking.CustomerId,
+                CustomerFirstName = booking.Customer.FirstName,
+                CustomerLastName = booking.Customer.LastName,
+                Active = booking.Active,
+                Cost = booking.Cost
+            };
         }
 
         public Booking ModifyDtoToObject(ModifyBookingDto dto)

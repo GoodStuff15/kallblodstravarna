@@ -26,6 +26,30 @@ namespace resortapi.Services
             return _converter.FromObjecttoDTO(booking);
         }
 
+        public BookingsOverviewDto ConvertToOverview(Booking booking)
+        {
+            return _converter.FromObjectToOverviewDTO(booking);
+        }
+
+        public async Task<BookingsOverviewDto> GetBooking(int id)
+        {
+            var booking = await _repo.GetAsync(id);
+
+            if(!ValidateBooking(booking))
+            {
+                return ConvertToOverview(booking);
+            }
+            else
+            {
+                throw new Exception("Requested booking can't be validated");
+            }
+        }
+
+        public async Task RemoveBooking(int id)
+        {
+            await _repo.DeleteAsync(await _repo.GetAsync(id));
+        }
+
         public async Task<BookingDetailsDto> CreateBooking(BookingDto booking)
         {
             // Conversion
