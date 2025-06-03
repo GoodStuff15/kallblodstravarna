@@ -72,7 +72,7 @@ namespace resortapi.Converters
                 PhoneNumber = customer.Phone,
                 PaymentMethod = customer.PaymentMethod
 
-            }
+            };
         }
     }
 }

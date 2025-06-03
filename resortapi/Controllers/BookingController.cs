@@ -43,7 +43,7 @@ namespace resortapi.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet("overview", Name = "Get bookings overview")]
         public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetBookingsOverview()
         {

@@ -79,6 +79,8 @@ namespace resortapi.Services
                 // Adjust status and save to db
                 cancelThis.Cancelled = true;
                 cancelThis.Active = false;
+                cancelThis.CancellationDate = DateTime.Now;
+
                 await _repo.UpdateAsync(cancelThis);
 
                 return true;
@@ -143,7 +145,7 @@ namespace resortapi.Services
             // Validation
             foreach (var booking in objectCollection)
             {
-                if(ValidateBooking(booking))
+                if(!ValidateBooking(booking))
                 {
                     throw new Exception("Error validating booking in collection");
                 }

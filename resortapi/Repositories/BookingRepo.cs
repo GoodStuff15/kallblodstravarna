@@ -79,8 +79,12 @@ namespace resortapi.Repositories
             return await _context.Set<Booking>()
                          .Include(g => g.Guests)
                          .Include(a => a.Accomodation)
+                         .ThenInclude(at => at.AccomodationType)
+                         .Include(a => a.Accomodation)
+                         .ThenInclude(ac => ac.Accessibilities)
                          .Include(o => o.AdditionalOptions)
                          .Include(c => c.Customer)
+                         .Include(p => p.PriceChanges)
                          .ToListAsync();
         }
 
@@ -91,14 +95,18 @@ namespace resortapi.Repositories
                          .ToListAsync();
         }
 
-        public async Task<Booking?> GetAsync(int customerId)
+        public async Task<Booking?> GetAsync(int id)
         {
             return await _context.Set<Booking>()
-                .Include(g => g.Guests)
-                .Include(a => a.Accomodation)
-                .Include(o => o.AdditionalOptions)
-                .Include(c => c.Customer)
-                .FirstOrDefaultAsync(b => b.Id == customerId);
+                         .Include(g => g.Guests)
+                         .Include(a => a.Accomodation)
+                         .ThenInclude(at => at.AccomodationType)
+                         .Include(a => a.Accomodation)
+                         .ThenInclude(ac => ac.Accessibilities)
+                         .Include(o => o.AdditionalOptions)
+                         .Include(c => c.Customer)
+                         .Include(p => p.PriceChanges)
+                         .FirstOrDefaultAsync(b => b.Id == id);
         }
         public async Task<Booking> UpdateAsync(Booking booking)
         {
