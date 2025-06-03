@@ -52,6 +52,13 @@ namespace resortapi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Detailed overview", Name = "Detailed overview")]
+        public async Task<ActionResult<ICollection<BookingDetailsDto>>> GetDetailedOverview()
+        {
+            var result = await _service.GetDetailedOverview();
+
+            return Ok(result);
+        }
 
 
         [HttpPut("{cancelById}", Name = "Cancel booking")]
