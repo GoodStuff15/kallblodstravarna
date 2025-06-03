@@ -50,5 +50,31 @@ namespace resortapi.Controllers
             var newPriceChangeDto = _converter.FromObjecttoDTO(priceChange);
             return CreatedAtRoute("Get PriceChange by Id", new { id = newPriceChangeDto.Id }, newPriceChangeDto);
         }
+        [HttpPut("{id}", Name = "Update PriceChange by Id")]
+        public async Task<ActionResult> UpdatePriceChange(int id, [FromBody] PriceChangesDto updatedPriceChange)
+        {
+            var existingPriceChange = await _repo.GetByIdAsync(id);
+            if (existingPriceChange == null)
+            {
+                return NotFound($"Price change with Id {id} can not be found");
+            }
+            existingPriceChange.PriceChange = updatedPriceChange.PriceChange;
+            existingPriceChange.Type = updatedPriceChange.Type;
+
+            existingPriceChange.Id = id;
+            await _repo.UpdateAsync(existingPriceChange);
+            return Ok($"Price change with Id {id} updated successfully");
+        }
+        [HttpDelete("{id}", Name = "Delete PriceChange by Id")]
+        public async Task<ActionResult> DeletePriceChange(int id)
+        {
+            var existingPriceChange = await _repo.GetByIdAsync(id);
+            if (existingPriceChange == null)
+            {
+                return NotFound($"Price change with Id {id} can not be found");
+            }
+            await _repo.DeleteAsync(existingPriceChange);
+            return Ok($"Price change with Id {id} deleted successfully");
+        }
     }
 }
