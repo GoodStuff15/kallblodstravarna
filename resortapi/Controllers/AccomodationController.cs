@@ -26,7 +26,6 @@ namespace resortapi.Controllers
 
         // [FromBody] kan/bör ändras till [FromQuery] om vi vill skicka in datumen som query-parametrar istället för i body
 
-        [Authorize(Roles = "Staff, Admin")]
         [HttpGet("availableReceptionist")]
         public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodations(
             [FromQuery] DateTime checkIn,

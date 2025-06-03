@@ -1,34 +1,69 @@
-﻿Klass/Testfallnamn													Rad:			Beskrivning								Förväntat resultat
--CustomerFactoryTests-
-CreateCustomer_ValidData_ReturnsCustomer							17				Skapa kund med giltig data				Kundobjekt skapas med rätt värden
-CreateCustomer_InvalidInputs_ShouldThrowException					55				Skapa kund med null, tomma eller		ArgumentException kastas
-																					whitespace i något av fälten
+﻿Class/Test-case															Row		Description												Exceptected result
+-AccessibilityBuilder-
+CreateAccessibility_ValidData_ShouldReturnAccessibility					17		Create Accessibility with valid data					Accessibility-object should be created with correct values
+CreateAccessibility_InvalidData_ShouldReturnAccessibility				32		Create Accessibility with invalid name					ArgumentException should be thrown with message
+CreateAccessibility_NullDescription_ShouldThrow							43		Create Accessibility with null-value					ArgumentException should be thrown with message
 
--AccomodationFactoryTests-
-CreateAccomodation_ValidInputs_ShouldReturnAccomodation				18				Skapa boende med giltig data			Boendeobjekt skapas med rätt värden
-CreateAccomodation_MaxOccupancyZero_ShouldThrow						35				Skapa boende med maxOccupancy = 0		ArgumentException kastas med meddelande
-CreateAccomodation_InvalidName_ShouldThrow							48				Skapa boende med null, tom eller		ArgumentException kastas med meddelande
-																					whitespace-namn.
-CreateAccomodation_InvalidOccupancy_ShouldThrow						59				Skapa boende med negativt eller			ArgumentException kastas med meddelande
-																					0 gäster.		
-CreateAccomodation_NullAccomodationType_ShouldThrow					68				Skapa boende utan boendetyp				ArgumentException kastas med meddelande
+-AccomodationBuilder-
+CreateAccomodation_ValidInputs_ShouldReturnAccomodation					17		Create Accomodation with valid data						Accomodation-object should be created with correct values
+CreateAccomodation_MaxOccupancyZero_ShouldThrow							36		Create accomodation with 0 occupants					ArgumentException should be thrown with message
+CreateAccomodation_InvalidName_ShouldThrow								47		Create accomodation with invalid name					ArgumentException should be thrown with message
+CreateAccomodation_InvalidOccupancy_ShouldThrow							58		Create accomodation with 0 or negative occupants		ArgumentException should be thrown with message
+CreateAccomodation_NullAccomodationType_ShouldThrow						67		Create accomodation without accomodationType			ArgumentException should be thrown with message
+Accomodation_WithNoBooking_ShouldReturnEmptyList						76		Create accomodation without bookings					List is not null and its empty
+Accomodation_WithBookings_ShouldNotContainNull							87		Create accomodation with null-value	booking				Booking list dosnt contain null-values
+Accomodation_Bookings_ShouldContainMinOneGuest							102		Create accomodation with min 1 guest					Min 1 guest within booking
 
--BookingFactoryTests-
-CreateBooking_ValidInputs_ShouldReturnBooking						17				Skapa bokning med giltig data			Bokningsobjekt skapas med rätt värden																			
-CreateBooking_CheckOutBeforeCheckIn_ShouldThrow						33				Skapa bokning där utcheckning			ArgumentException kastas med meddelande
-																					sker före incheckning.
-CreateBooking_NullCustomer_ShouldThrow								45				Skapa bokning utan kund					ArgumentException kastas med meddelande
-CreateBooking_NullAccomodation_ShouldThrow							56				Skapa bokning utan boende				ArgumentException kastas med meddelande																			
-CreateBooking_CheckInSameAsCheckOut_ShouldThrow						68				Skapa bokning med samma datum			ArgumentException kastas med meddelande
-																					för in- och utcheckning.
-CreateBooking_CheckInPastDate_ShouldSucceed							79				Skapa boende utan att ange				ArgumentException kastas med meddelande
-																					boendetyp.
+-AccomodationTypeBuilder-
+CreateAccomodationType_ValidData_ShouldReturnAccomodationType			14		Create accomodationtype with valid data					AccomodationType-object should be created with correct values
+CreateAccomodationType_InvalidName_ShouldThrow							24		Create accomodationtype with invalid name				ArgumentException should be thrown with message
+CreateAccomodationType_InvalidPrice_ShouldThrow							32		Create accomodationtype with invalid price				ArgumentException should be thrown with message
 
+-AdditionalOptionBuilder-
+CreateAdditionalOption_ValidData_ShouldReturnAddedOption				13		Create additionaloption with valid data					AdditionalOption-object should be created with correct values
+CreateAdditionalOption_InvalidName_ShouldThrow							27		Create additionaloption with invalid name				ArgumentException should be thrown with message
+CreateAdditionalOption_InvalidPrice_ShouldThrow							35		Create additionaloption with invalid price				ArgumentOutOfRangeException should be thrown with message
 
--AccomodationTypeFactoryTests-
-CreateAccomodationType_ValidData_ShouldReturnAccomodationType		18				Skapa boende-typ med giltig data		Boende-typobjekt skapas med rätt värden
-CreateAccomodationType_InvalidName_ShouldThrow						30				Skapa boende-typ med ogiltigt namn,		ArgumentException kastas med meddelande
-																					(null, "", " ").
-CreateAccomodationType_InvalidPrice_ShouldThrow						39				Skapa boende-typ med ogiltigt pris,		ArgumentOutOfRangeException kastas
-																					(0 eller negativt).		
+-BookingBuilder-
+CreateBooking_ValidInputs_ShouldReturnBooking							13		Create booking with valid data							Booking-object should be created with correct values
+CreateBooking_CheckoutBeforeCheckIn_ShouldThrow							24		Attempt to create booking where checkOut is				ArgumentException should be thrown with message
+																				before checkIn
+CreateBooking_NullAccomodation_ShouldThrow								47		Create booking with null accomodation					ArgumentException should be thrown with message
+CreateBooking_CheckInSameAsCheckOut_ShouldThrow							58		Create booking where checkIn equals checkOut			ArgumentException should be thrown with message
+CreateBooking_CheckInPastDate_ShouldThrow								70		Create booking with checkIn-date in the past			ArgumentException should be thrown with message
+CreateBooking_WithoutTimeOfBooking_ShouldBeCurrentTime					79		Create booking and set TimeOfBooking during build		TimeOfBooking should be within time of build
+CreateBooking_WithOutAmountPaid_ShouldBeZero							94		Create booking without setting amount paid				Amount should be 0
+CreateBooking_WithOutActiveBooking_ShouldBeTrue							103		Create booking without setting active					Active should be true by default
+CreateBooking_WithOutCancelationDate_ShouldBeNull						112		Create booking without cancellation date				CancellationDate should be null as default
+CreateBooking_WithOutGuest_ShouldThrow									121		Create booking without guests							ArgumentException should be thrown with message
+
+-CustomerBuilder-
+CreateCustomer:WithValidData_ReturnsCustomer							17		Create customer with valid data							Customer-object should be created with correct values
+CreateCustomer_InvalidInouts:ShouldThrowException						38		Tests null, empty and whitespace values for all			ArgumentException should be thrown
+																				required field
+AddEmail_ValidEmailAddress_ShouldSetEmail								57		Validates accepted email-inputs							Email should be set correctly
+AddEmail_InvalidEmailAddress_ShouldThrow								63		Should throw error for invalid email-address			ArgumentException should be thrown with message
+AddPhone_ValidPhoneNumber_ShouldSetPhone								75		Validates accepted phone-inputs							Phone should be set correctly
+AddPhone_InvalidPhoneNumber_ShouldThrow									83		Should throw error for invalid phone number				ArgumentException should be thrown with message
+
+-GuestBuilder-
+CreateGuest_ValidData_ShouldReturnGuest									9		Create a guest with valid first and last name			Guest-object should be created with correct name-values
+CreateGuest_InvalidFirstName_ShouldThrow								19		Tests invalid values such as null, whitespace			ArgumentException should be thrown with message
+																				and blank for first name
+CreateGuest_InvalidLastName_ShouldThrow									27		Tests invalid values such as null, whitespace			ArgumentException should be thrown with message		
+																				and blank for last name
+CreateGuest_InvalidAge_ShouldThrow										35		Tests negative ages										ArgumentException should be thrown with message
+CreateGuest_NullBooking_ShouldThrow										42		Tries to assign null-booking to a guest					ArgumentException should be thrown with message
+
+-PriceChangesBuilder-
+CreatePriceChange_ValidData_ShouldReturnPriceChange						9		Create price change with valid data						PriceChange-object should be created with correct values
+CreatePriceChange_InvalidType_ShouldThrow								18		Tests invalid types such as null, empty and whitespace	ArgumentException should be thrown with message
+
+-UserBuilderTest-
+Build_WithValidData_ShouldReturnUser									11		Create a user with valid values and link to customer	User-object should be created with correct values
+Build_MissingRequriedFields_ShouldThrowInvalidOperationException		38		Tests missing input fields								InvalidOperationException should be thrown
+WithUserName_InvalidValues_ShouldThrowArgumentException					59		Tests invalid Username inputs such as null, empty		ArgumentException should be thrown with message
+																				and whitespace	
+WithPasswordHash_InvalidValues_ShouldThrowArgumentException				66		Tests invalid password values							ArgumentException should be thrown with message
+WithRole_InvalidValues_ShouldThrowArgumentException						73		Tests invalid role values								ArgumentException should be thrown with message
 

@@ -58,10 +58,14 @@ namespace resortlibrary.Builders
         {
             if (bookings == null)
             {
-                throw new ArgumentNullException(nameof(bookings), "Bokningar kan inte vara null.");
+                _accomodation.Bookings = new List<Booking>();
             }
+            else
+            {
+                var filteredBookings = bookings.Where(b => b != null).ToList();
 
-            _accomodation.Bookings = bookings;
+                _accomodation.Bookings = filteredBookings;
+            }
             return this;
         }
 

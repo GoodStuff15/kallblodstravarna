@@ -35,6 +35,10 @@ namespace resortlibrary.Builders
 
         public GuestBuilder AddAge(int age)
         {
+            if(age <= 0)
+            {
+                throw new ArgumentException("Ålder måste vara högre än 0");
+            }
             _guest.Age = age;
             return this;
         }
@@ -64,14 +68,7 @@ namespace resortlibrary.Builders
 
         public Guest Build()
         {
-            if (_guest.Age < 12 && _guest.Age != null)
-            {
-                _guest.IsChild = true;
-            }
-            else
-            {
-                _guest.IsChild = false;
-            }
+            _guest.IsChild = _guest.Age < 12;
 
             return _guest;
         }

@@ -4,7 +4,7 @@ using resortlibrary.Models;
 
 namespace resortapi.Repositories
 {
-    public class AccomodationRepo : AbstractRepo<Accomodation>
+    public class AccomodationRepo : AbstractRepo<Accomodation>, IAccomodationRepo
     {
         public AccomodationRepo(ResortContext context) : base(context)
         {

@@ -4,9 +4,9 @@ using resortdtos;
 using resortapi.Converters;
 using resortlibrary.Models;
 using Microsoft.AspNetCore.Authorization;
-using resortapi.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+
+using resortapi.Services;
+
 
 namespace resortapi.Controllers
 {
@@ -14,16 +14,27 @@ namespace resortapi.Controllers
     [ApiController]
     public class BookingController : ControllerBase
     {
-        private readonly IRepository<Booking> _repo;
-        private readonly BookingConverter _converter;
-        private readonly IRepository<AdditionalOption> _additionalOptionRepo;
-        private readonly ResortContext _context;
-        public BookingController(IRepository<Booking> repo, IRepository<AdditionalOption> additionalOptionRepo, ResortContext context)
+
+
+        private readonly IBookingService _service;
+        public BookingController(IRepository<Booking> repo, IBookingConverter converter, IBookingService service)
+
         {
             _repo = repo;
-            _converter = new BookingConverter();
-            _additionalOptionRepo = additionalOptionRepo;
-            _context = context;
+            _converter = converter;
+            _service = service;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BookingDto>> GetBookingById(int id)
+        {
+            var booking = await _repo.GetAsync(id);
+            if (booking == null)
+                return NotFound();
+            
+            var bookingDTO = _converter.FromObjecttoDTO(booking);
+            return Ok(bookingDTO);
+
         }
 
         //[Authorize(Roles = "Staff, Admin")]
@@ -59,24 +70,27 @@ namespace resortapi.Controllers
             newBooking.TimeOfBooking = DateTime.Now;
             await _repo.CreateAsync(newBooking);
 
+            await _service.CreateBooking(booking);
+
             return Ok($"Booking added to Database successfully");
         }
 
-        //[Authorize(Roles = "Admin")]
-        [HttpGet("detailed", Name = "Get all bookings with details included")]
-        public async Task<ActionResult<ICollection<BookingDto>>> GetAllBookingsWithGuestInfo()
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("overview", Name = "Get bookings overview")]
+        public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetBookingsOverview()
         {
-            var bookings = await _repo.GetAllWithIncludesAsync();
+            var bookings = await _repo.GetAllAsync();
 
             if (!bookings.Any())
             {
                 return NoContent();
             }
 
-            var dtos = _converter.FromObjecttoDTO_Collection(bookings);
+            var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
 
             return Ok(dtos);
-
+        
         }
 
         [HttpPut("cancel/{cancelById}", Name = "Cancel booking")]
@@ -183,6 +197,7 @@ namespace resortapi.Controllers
             return Ok("Booking removed from database");
 
         }
+
 
     }
 }

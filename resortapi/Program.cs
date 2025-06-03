@@ -73,7 +73,9 @@ namespace resortapi
             // Adding services for repo dependency injection
             builder.Services.AddScoped<IRepository<Customer>, CustomerRepo>();
             builder.Services.AddScoped<IRepository<Booking>, BookingRepo>();
-            builder.Services.AddScoped<AccomodationRepo>();
+            builder.Services.AddScoped<IRepository<Accomodation>, AccomodationRepo>();
+            builder.Services.AddScoped<IRepository<AdditionalOption>, AdditionalOptionsRepo>();
+            builder.Services.AddScoped<IRepository<AccomodationType>, AccomodationTypeRepo>();
             builder.Services.AddScoped<CustomerBuilder>();
             builder.Services.AddScoped<AccomodationConverter>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -86,8 +88,16 @@ namespace resortapi
 
 
 
+            builder.Services.AddScoped<AccomodationRepo>();
+
+
             // Adding services for DTO conversion
+            builder.Services.AddScoped<IBookingConverter, BookingConverter>();
+            builder.Services.AddScoped<IConverter<Guest, GuestDto>, GuestConverter>();
             builder.Services.AddTransient<IConverter<Customer, CreateCustomerRequestDTO>, CustomerConverter>();
+
+            // Adding services for services
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
 
             var app = builder.Build();
 
