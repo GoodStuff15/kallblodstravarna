@@ -12,7 +12,6 @@ namespace resortapi.Converters
         {
             _builder = builder;
         }
-
         public CustomerDto FromObjectToCustomerDTO(Customer entity)
         {
             return new CustomerDto

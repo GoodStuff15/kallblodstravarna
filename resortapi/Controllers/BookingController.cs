@@ -12,11 +12,10 @@ namespace resortapi.Controllers
     [ApiController]
     public class BookingController : ControllerBase
     {
-        private readonly IRepository<Booking> _repo;
-        private readonly IBookingConverter _converter;
 
         private readonly IBookingService _service;
         public BookingController(IRepository<Booking> repo, IBookingConverter converter, IBookingService service)
+
         {
             _repo = repo;
             _converter = converter;
@@ -54,23 +53,6 @@ namespace resortapi.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("detailed", Name = "Get all bookings with details included")]
-        public async Task<ActionResult<ICollection<BookingDto>>> GetAllBookingsWithGuestInfo()
-        {
-            var bookings = await _repo.GetAllWithIncludesAsync();
-
-            if (!bookings.Any())
-            {
-                return NoContent();
-            }
-
-            var dtos = _converter.FromObjecttoDTO_Collection(bookings);
-
-            return Ok(dtos);
-
-        }
-
-        [Authorize(Roles = "Admin")]
         [HttpGet("overview", Name = "Get bookings overview")]
         public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetBookingsOverview()
         {
@@ -84,7 +66,7 @@ namespace resortapi.Controllers
             var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
 
             return Ok(dtos);
-
+        
         }
 
         [HttpPut("{cancelById}", Name = "Cancel booking")]
