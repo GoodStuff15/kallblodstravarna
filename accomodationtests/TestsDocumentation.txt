@@ -56,5 +56,14 @@ CreateGuest_InvalidAge_ShouldThrow										35		Tests negative ages										Arg
 CreateGuest_NullBooking_ShouldThrow										42		Tries to assign null-booking to a guest					ArgumentException should be thrown with message
 
 -PriceChangesBuilder-
+CreatePriceChange_ValidData_ShouldReturnPriceChange						9		Create price change with valid data						PriceChange-object should be created with correct values
+CreatePriceChange_InvalidType_ShouldThrow								18		Tests invalid types such as null, empty and whitespace	ArgumentException should be thrown with message
 
+-UserBuilderTest-
+Build_WithValidData_ShouldReturnUser									11		Create a user with valid values and link to customer	User-object should be created with correct values
+Build_MissingRequriedFields_ShouldThrowInvalidOperationException		38		Tests missing input fields								InvalidOperationException should be thrown
+WithUserName_InvalidValues_ShouldThrowArgumentException					59		Tests invalid Username inputs such as null, empty		ArgumentException should be thrown with message
+																				and whitespace	
+WithPasswordHash_InvalidValues_ShouldThrowArgumentException				66		Tests invalid password values							ArgumentException should be thrown with message
+WithRole_InvalidValues_ShouldThrowArgumentException						73		Tests invalid role values								ArgumentException should be thrown with message
 
