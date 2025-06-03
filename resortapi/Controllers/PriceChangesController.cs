@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using resortapi.Converters;
 using resortapi.Repositories;
+using resortdtos;
 
 namespace resortapi.Controllers
 {

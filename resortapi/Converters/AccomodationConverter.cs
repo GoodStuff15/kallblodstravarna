@@ -46,15 +46,15 @@ namespace resortapi.Converters
 
             };
         }
-        
-        public AvailableRoomDto FromObject_ToAvailableRoomDto(Accomodation)
+
+        public AvailableRoomDto FromObject_ToAvailableRoomDto(Accomodation obj)
         {
-        return new AvailableRoomDto()
+            return new AvailableRoomDto()
             {
                 Id = obj.Id,
                 Name = obj.Name,
-                AccomodationType = obj.AccomodationType?.Name ?? "", 
-                Description = obj.AccomodationType?.Description ?? "", 
+                AccomodationType = obj.AccomodationType?.Name ?? "",
+                Description = obj.AccomodationType?.Description ?? "",
                 MaxOccupancy = obj.MaxOccupancy,
                 BasePrice = obj.AccomodationType?.BasePrice ?? 0,
                 Accessibility = obj.Accessibilities?.Select(acc => new AccessibilityDto
@@ -62,7 +62,9 @@ namespace resortapi.Converters
                     Name = acc.Name,
                     Description = acc.Description
                 }).ToList() ?? new List<AccessibilityDto>()
-        }
+            }; 
+            
+            }
 
         public ICollection<AccomodationDto> FromObjecttoDTO_Collection(ICollection<Accomodation> collection)
         {

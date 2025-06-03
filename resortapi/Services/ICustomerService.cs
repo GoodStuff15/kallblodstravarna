@@ -10,8 +10,8 @@ namespace resortapi.Services
 
         public Customer ConvertToCustomer(CreateCustomerRequestDTO dto);
     
-        public bool CreateCustomer(CreateCustomerRequestDTO dto);
+        public Task<CustomerDto> CreateCustomer(CreateCustomerRequestDTO dto);
 
-        public Customer GetCustomer(int id);
+        public Task<CustomerDto> GetCustomer(int id);
     }
 }
