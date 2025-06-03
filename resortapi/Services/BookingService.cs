@@ -90,6 +90,22 @@ namespace resortapi.Services
         
         }
 
+        public async Task<ICollection<BookingDetailsDto>> GetDetailedOverview()
+        {
+            var allBookings = await _repo.GetAllWithIncludesAsync();
+
+            // Convert
+            var dtos = new List<BookingDetailsDto>();
+
+            foreach(var booking in allBookings)
+            {
+                dtos.Add(_converter.FromObjectToDetailedDTO(booking));
+            }
+
+            return dtos;
+
+        }
+
         public async Task<BookingDto> ModifyBooking(ModifyBookingDto booking)
         {
             var modifyThis = await _repo.GetAsync(booking.BookingId);
