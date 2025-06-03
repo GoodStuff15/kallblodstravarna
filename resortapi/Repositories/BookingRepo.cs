@@ -106,9 +106,10 @@ namespace resortapi.Repositories
             await _context.SaveChangesAsync();
             return booking;
         }
-        public async Task<Booking?> GetByIdWithIncludesAsync(int id)
+        public async Task<ICollection<Booking>> GetByCustomerIdWithIncludesAsync(int id)
         {
             return await _context.Set<Booking>()
+                .Where(c => c.CustomerId == id)
                 .Include(b => b.Guests)
                 .Include(b => b.Accomodation)
                     .ThenInclude(a => a.AccomodationType)
@@ -116,7 +117,7 @@ namespace resortapi.Repositories
                     .ThenInclude(a => a.Accessibilities)
                 .Include(b => b.AdditionalOptions)
                 .Include(b => b.Customer)
-                .FirstOrDefaultAsync(b => b.Id == id);
+                .ToListAsync();
         }
 
         public async Task<ICollection<Booking>> GetAllWithCustomerAsync()

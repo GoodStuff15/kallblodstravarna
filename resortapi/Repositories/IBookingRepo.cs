@@ -4,7 +4,7 @@ namespace resortapi.Repositories
 {
     public interface IBookingRepository : IRepository<Booking>
     {
-        Task<Booking?> GetByIdWithIncludesAsync(int id);
+        public Task<ICollection<Booking>> GetByCustomerIdWithIncludesAsync(int id);
 
         Task<ICollection<Booking>> GetAllWithCustomerAsync();
     }

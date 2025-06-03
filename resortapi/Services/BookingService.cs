@@ -7,10 +7,10 @@ namespace resortapi.Services
 {
     public class BookingService : IBookingService
     {
-        private readonly IRepository<Booking> _repo;
+        private readonly IBookingRepository _repo;
         private readonly IBookingConverter _converter;
 
-        public BookingService(IBookingConverter converter, IRepository<Booking> repo)
+        public BookingService(IBookingConverter converter, IBookingRepository repo)
         {
             _converter = converter;
             _repo = repo;
@@ -155,6 +155,16 @@ namespace resortapi.Services
 
             return collection;
    
+        }
+
+        public async Task<ICollection<BookingsOverviewDto>> GetCustomerBookings(int id)
+        {
+            // Db operation
+            var bookings = await _repo.GetByCustomerIdWithIncludesAsync(id);
+
+            // Conversion
+            return _converter.FromObjectCollection_ToOverviewCollection(bookings);
+
         }
 
         public bool ValidateBooking(Booking booking)
