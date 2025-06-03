@@ -4,7 +4,7 @@ using resortlibrary.Models;
 
 namespace resortapi.Converters
 {
-    public class CustomerConverter : IConverter<Customer, CreateCustomerRequestDTO>
+    public class CustomerConverter : ICustomerConverter
     {
         private readonly CustomerBuilder _builder;
 
@@ -58,6 +58,11 @@ namespace resortapi.Converters
         }
 
         public ICollection<CreateCustomerRequestDTO> FromObjecttoDTO_Collection(ICollection<Customer> collection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CustomerDto FromObjectToCustomerDto(Customer customer)
         {
             throw new NotImplementedException();
         }
