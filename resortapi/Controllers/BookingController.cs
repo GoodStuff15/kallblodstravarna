@@ -24,12 +24,12 @@ namespace resortapi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BookingDetailsDto>> GetBooking(int id)
         {
-            var booking = _service.GetBooking(id);
+            var booking = await _service.GetBooking(id);
 
             return Ok(booking);
         }
 
-        [HttpGet("{customerId}", Name = "Get all bookings belonging to customer id")]
+        [HttpGet("customer/{customerId}", Name = "Get all bookings belonging to customer id")]
         public async Task<ActionResult<BookingDetailsDto>> GetCustomerBookings(int customerId)
         {
             var booking = await _service.GetCustomerBookings(customerId);
@@ -38,8 +38,7 @@ namespace resortapi.Controllers
         }
 
 
-        [Authorize(Roles = "Staff, Admin")]
-
+        //[Authorize(Roles = "Staff, Admin")]
         [HttpPost(Name = "Add New Booking")]
         public async Task<ActionResult<BookingDetailsDto>> AddBooking(BookingDto booking)
         {

@@ -84,6 +84,8 @@ namespace resortapi
             builder.Services.AddScoped<AccomodationTypeConverter>();
             builder.Services.AddScoped<AccessibilityRepo>();
             builder.Services.AddScoped<AccessibilityConverter>();
+            builder.Services.AddScoped<PriceChangesRepo>();
+            builder.Services.AddScoped<PriceChangesConverter>();
 
             builder.Services.AddScoped<AccomodationRepo>();
 
