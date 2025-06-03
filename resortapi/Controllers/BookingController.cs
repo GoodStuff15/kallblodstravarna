@@ -4,6 +4,7 @@ using resortdtos;
 using resortapi.Converters;
 using resortlibrary.Models;
 using Microsoft.AspNetCore.Authorization;
+using resortapi.Services;
 
 namespace resortapi.Controllers
 {
@@ -11,13 +12,14 @@ namespace resortapi.Controllers
     [ApiController]
     public class BookingController : ControllerBase
     {
-        private readonly IRepository<Booking> _repo;
-        private readonly IBookingConverter _converter;
 
-        public BookingController(IRepository<Booking> repo, IBookingConverter converter)
+        private readonly IBookingService _service;
+        public BookingController(IRepository<Booking> repo, IBookingConverter converter, IBookingService service)
+
         {
             _repo = repo;
             _converter = converter;
+            _service = service;
         }
 
         [HttpGet("{id}")]
@@ -26,7 +28,7 @@ namespace resortapi.Controllers
             var booking = await _repo.GetAsync(id);
             if (booking == null)
                 return NotFound();
-
+            
             var bookingDTO = _converter.FromObjecttoDTO(booking);
             return Ok(bookingDTO);
         }
@@ -44,6 +46,8 @@ namespace resortapi.Controllers
 
             newBooking.TimeOfBooking = DateTime.Now;
             await _repo.CreateAsync(newBooking);
+
+            await _service.CreateBooking(booking);
 
             return Ok($"Booking added to Database successfully");
         }

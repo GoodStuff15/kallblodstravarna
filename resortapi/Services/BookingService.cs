@@ -22,12 +22,21 @@ namespace resortapi.Services
             return _converter.FromDTOtoObject(booking);
         }
 
-        public bool CreateBooking(BookingDto booking)
+        public BookingDto ConvertFromBooking(Booking booking)
         {
+            return _converter.FromObjecttoDTO(booking);
+        }
+
+        public async Task<bool> CreateBooking(BookingDto booking)
+        {
+            // Conversion
             var newBooking = ConvertToBooking(booking);
-            if(ValidateBooking(newBooking))
+            
+            // Validating and setting time of booking
+
+            if (ValidateBooking(SetTimeOfBooking(newBooking)))
             {
-                _repo.CreateAsync(newBooking);
+                await _repo.CreateAsync(newBooking);
                 return true;
             }
             else
@@ -36,15 +45,18 @@ namespace resortapi.Services
             }
         }
 
-        public bool CancelBooking(int bookingId)
+        public async Task<bool> CancelBooking(int bookingId)
         {
-            var cancelThis = _repo.GetAsync(bookingId).Result;
+            // Get from database
+            var cancelThis = await _repo.GetAsync(bookingId);
 
+            // Validation
             if(ValidateBooking(cancelThis))
             {
+                // Adjust status and save to db
                 cancelThis.Cancelled = true;
                 cancelThis.Active = false;
-                _repo.UpdateAsync(cancelThis);
+                await _repo.UpdateAsync(cancelThis);
 
                 return true;
             }
@@ -55,12 +67,14 @@ namespace resortapi.Services
         
         }
 
-        public bool UpdateBooking(ModifyBookingDto booking)
+        public async Task<BookingDto> UpdateBooking(ModifyBookingDto booking)
         {
             var modifyThis = _repo.GetAsync(booking.BookingId).Result;
 
-            var updated = _converter.ModifyDtoToObject(booking);
+            // Converting to access guests and additional options
 
+            var updated = _converter.ModifyDtoToObject(booking);
+            
             // Updating here
 
             modifyThis.CheckIn = updated.CheckIn;
@@ -69,12 +83,18 @@ namespace resortapi.Services
             modifyThis.Guests = updated.Guests;
             modifyThis.AdditionalOptions = updated.AdditionalOptions;
 
-            _repo.UpdateAsync(modifyThis);
+            // Database action
+            await _repo.UpdateAsync(modifyThis);
 
-            return true;
+            return ConvertFromBooking(modifyThis);
 
         }
+        public Booking SetTimeOfBooking(Booking booking)
+        {
+            booking.TimeOfBooking = DateTime.Now;
 
+            return booking;
+        }
         public ICollection<BookingsOverviewDto> GetBookingsOverview()
         {
             
@@ -97,6 +117,10 @@ namespace resortapi.Services
             if(booking.Guests.Count <= 0)
             {
                 throw new ArgumentException("Booking must contain guests");
+            }
+            if(booking == null)
+            {
+                throw new ArgumentNullException("Booking is null");
             }
             // etc. 
             return true;
