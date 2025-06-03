@@ -4,7 +4,7 @@ using resortlibrary.Models;
 
 namespace resortapi.Repositories
 {
-    public class BookingRepo : AbstractRepo<Booking>
+    public class BookingRepo : AbstractRepo<Booking>, IBookingRepository
     {
         public BookingRepo(ResortContext context) : base(context)
         {
@@ -90,6 +90,7 @@ namespace resortapi.Repositories
                          .Where(b => b.Active == true)
                          .ToListAsync();
         }
+
         public async Task<Booking?> GetAsync(int customerId)
         {
             return await _context.Set<Booking>()
@@ -108,6 +109,27 @@ namespace resortapi.Repositories
 
     }
 
-    
-}
 
+        public async Task<Booking?> GetByIdWithIncludesAsync(int id)
+        {
+            return await _context.Set<Booking>()
+                .Include(b => b.Guests)
+                .Include(b => b.Accomodation)
+                    .ThenInclude(a => a.AccomodationType)
+                .Include(b => b.Accomodation)
+                    .ThenInclude(a => a.Accessibilities)
+                .Include(b => b.AdditionalOptions)
+                .Include(b => b.Customer)
+                .FirstOrDefaultAsync(b => b.Id == id);
+        }
+
+        public async Task<ICollection<Booking>> GetAllWithCustomerAsync()
+        {
+            return await _context.Bookings
+                .Include(b => b.Customer)
+                .ToListAsync();
+        }
+
+    }
+
+}

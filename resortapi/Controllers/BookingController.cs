@@ -15,10 +15,8 @@ namespace resortapi.Controllers
     public class BookingController : ControllerBase
     {
 
-
         private readonly IBookingService _service;
         public BookingController(IRepository<Booking> repo, IBookingConverter converter, IBookingService service)
-
         {
             _repo = repo;
             _converter = converter;
@@ -26,18 +24,24 @@ namespace resortapi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<BookingDto>> GetBookingById(int id)
+        public async Task<ActionResult<BookingDetailsDto>> GetBooking(int id)
         {
-            var booking = await _repo.GetAsync(id);
+            var booking = await _repo2.GetByIdWithIncludesAsync(id);
             if (booking == null)
+            {
                 return NotFound();
-            
-            var bookingDTO = _converter.FromObjecttoDTO(booking);
-            return Ok(bookingDTO);
 
+            }
+
+            var dto = _converter.FromObjectToDetailedDTO(booking);
+            return Ok(dto);
         }
 
-        //[Authorize(Roles = "Staff, Admin")]
+
+
+
+        [Authorize(Roles = "Staff, Admin")]
+
         [HttpPost(Name = "Add New Booking")]
         public async Task<ActionResult> AddBooking(BookingDto booking)
         {
@@ -80,7 +84,7 @@ namespace resortapi.Controllers
         [HttpGet("overview", Name = "Get bookings overview")]
         public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetBookingsOverview()
         {
-            var bookings = await _repo.GetAllAsync();
+            var bookings = await _repo2.GetAllWithCustomerAsync();
 
             if (!bookings.Any())
             {
@@ -90,10 +94,12 @@ namespace resortapi.Controllers
             var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
 
             return Ok(dtos);
-        
         }
 
-        [HttpPut("cancel/{cancelById}", Name = "Cancel booking")]
+
+
+        [HttpPut("{cancelById}", Name = "Cancel booking")]
+
         public async Task<ActionResult> CancelBooking(int cancelById)
         {
             var cancelThis = _repo.GetAsync(cancelById).Result;

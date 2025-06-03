@@ -1,4 +1,7 @@
-﻿using resortlibrary.Models;
+
+using resortdtos;
+using resortlibrary.Models;
+
 
 namespace resortapi.Converters
 {
@@ -6,6 +9,7 @@ namespace resortapi.Converters
     {
         public PriceChanges FromDTOtoObject(PriceChangesDto dto)
         {
+
             var obj = new PriceChanges
             {
                 Id = dto.Id,
@@ -14,20 +18,24 @@ namespace resortapi.Converters
             };
             return obj;
         }
+
         public ICollection<PriceChanges> FromDTOtoObject_Collection(ICollection<PriceChangesDto> collection)
         {
             throw new NotImplementedException();
         }
+
+
         public PriceChangesDto FromObjecttoDTO(PriceChanges obj)
         {
-            var dto = new PriceChangesDto
+            return new PriceChangesDto
             {
                 Id = obj.Id,
                 PriceChange = obj.PriceChange,
                 Type = obj.Type
             };
-            return dto;
+        
         }
+
         public ICollection<PriceChangesDto> FromObjecttoDTO_Collection(ICollection<PriceChanges> collection)
         {
             return collection.Select(pc => new PriceChangesDto
@@ -39,3 +47,4 @@ namespace resortapi.Converters
         }
     }
 }
+
