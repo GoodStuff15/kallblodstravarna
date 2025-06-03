@@ -11,9 +11,15 @@ namespace resortapi.Services
 
         public BookingDto ConvertFromBooking(Booking booking);
 
+        public BookingsOverviewDto ConvertToOverview(Booking booking);
+
         public Task<BookingDetailsDto> CreateBooking(BookingDto booking);
 
-        public Task<bool> CancelBooking(int bookingId);  
+        public Task<BookingsOverviewDto> GetBooking(int id);
+
+        public Task<bool> CancelBooking(int bookingId);
+
+        public Task RemoveBooking(int bookingId);
 
         public Task<ICollection<BookingsOverviewDto>> GetBookingsOverview();
 

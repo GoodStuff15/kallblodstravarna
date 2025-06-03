@@ -10,6 +10,6 @@
         public string CustomerFirstName { get; set; }
         public string CustomerLastName { get; set; }
         public bool Active { get; set; } = true;
-        public bool Cost { get; set; }
+        public decimal Cost { get; set; }
     }
 }

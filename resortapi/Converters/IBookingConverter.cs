@@ -9,6 +9,7 @@ namespace resortapi.Converters
 
         public Booking ModifyDtoToObject(ModifyBookingDto dto);
 
+        public BookingsOverviewDto FromObjectToOverviewDTO(Booking booking);
         BookingDetailsDto FromObjectToDetailedDTO(Booking booking);
 
     }
