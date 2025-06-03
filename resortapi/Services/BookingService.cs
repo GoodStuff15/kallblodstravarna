@@ -1,5 +1,4 @@
-﻿using Microsoft.Identity.Client;
-using resortapi.Converters;
+﻿using resortapi.Converters;
 using resortapi.Repositories;
 using resortdtos;
 using resortlibrary.Models;
@@ -67,9 +66,9 @@ namespace resortapi.Services
         
         }
 
-        public async Task<BookingDto> UpdateBooking(ModifyBookingDto booking)
+        public async Task<BookingDto> ModifyBooking(ModifyBookingDto booking)
         {
-            var modifyThis = _repo.GetAsync(booking.BookingId).Result;
+            var modifyThis = await _repo.GetAsync(booking.BookingId);
 
             // Converting to access guests and additional options
 
@@ -87,8 +86,8 @@ namespace resortapi.Services
             await _repo.UpdateAsync(modifyThis);
 
             return ConvertFromBooking(modifyThis);
-
         }
+
         public Booking SetTimeOfBooking(Booking booking)
         {
             booking.TimeOfBooking = DateTime.Now;
