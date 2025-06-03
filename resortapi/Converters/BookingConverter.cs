@@ -125,6 +125,7 @@ namespace resortapi.Converters
                     CustomerFirstName = b.Customer?.FirstName,
                     CustomerLastName = b.Customer?.LastName,
                     Active = b.Active
+                    
                 };
                 overview.Add(dto);
             }

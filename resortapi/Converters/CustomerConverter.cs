@@ -64,7 +64,15 @@ namespace resortapi.Converters
 
         public CustomerDto FromObjectToCustomerDto(Customer customer)
         {
-            throw new NotImplementedException();
+            return new CustomerDto()
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Email = customer.Email,
+                PhoneNumber = customer.Phone,
+                PaymentMethod = customer.PaymentMethod
+
+            }
         }
     }
 }
