@@ -45,3 +45,16 @@ AddEmail_ValidEmailAddress_ShouldSetEmail								57		Validates accepted email-in
 AddEmail_InvalidEmailAddress_ShouldThrow								63		Should throw error for invalid email-address			ArgumentException should be thrown with message
 AddPhone_ValidPhoneNumber_ShouldSetPhone								75		Validates accepted phone-inputs							Phone should be set correctly
 AddPhone_InvalidPhoneNumber_ShouldThrow									83		Should throw error for invalid phone number				ArgumentException should be thrown with message
+
+-GuestBuilder-
+CreateGuest_ValidData_ShouldReturnGuest									9		Create a guest with valid first and last name			Guest-object should be created with correct name-values
+CreateGuest_InvalidFirstName_ShouldThrow								19		Tests invalid values such as null, whitespace			ArgumentException should be thrown with message
+																				and blank for first name
+CreateGuest_InvalidLastName_ShouldThrow									27		Tests invalid values such as null, whitespace			ArgumentException should be thrown with message		
+																				and blank for last name
+CreateGuest_InvalidAge_ShouldThrow										35		Tests negative ages										ArgumentException should be thrown with message
+CreateGuest_NullBooking_ShouldThrow										42		Tries to assign null-booking to a guest					ArgumentException should be thrown with message
+
+-PriceChangesBuilder-
+
+
