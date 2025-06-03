@@ -8,9 +8,9 @@ namespace resortapi.Services
     public class CustomerService : ICustomerService
     {
         private IRepository<Customer> _repo;
-        private IConverter<Customer, CreateCustomerRequestDTO> _converter;
+        private ICustomerConverter _converter;
 
-        public CustomerService(IRepository<Customer> repo, IConverter<Customer, CreateCustomerRequestDTO> converter)
+        public CustomerService(IRepository<Customer> repo, ICustomerConverter converter)
         {
             _repo = repo;
             _converter = converter;
@@ -43,7 +43,12 @@ namespace resortapi.Services
             return _converter.FromDTOtoObject(requestDTO);
         }
 
-        public bool CreateCustomer(CreateCustomerRequestDTO requestDTO)
+        public CustomerDto ConvertToCustomerDto(Customer customer)
+        {
+            return _converter.FromObjectToCustomerDto(customer);
+        }
+
+        public async Task<CustomerDto> CreateCustomer(CreateCustomerRequestDTO requestDTO)
         {
             // Conversion
             var customer = ConvertToCustomer(requestDTO);
@@ -53,20 +58,30 @@ namespace resortapi.Services
             {
                 //Database action
                 _repo.CreateAsync(customer);
-            
-                return true;
+
+                return ConvertToCustomerDto(customer) ;
             }
             else
             {
-                return false;
+                throw new Exception("Customer could not be created");
             }
 
         }
 
         
-        public Customer GetCustomer(int id)
+        public async Task<CustomerDto> GetCustomer(int id)
         {
-            return _repo.GetAsync(id).Result;
+            // From db
+            var customer = await _repo.GetAsync(id);
+            // Validate
+            if(ValidateCustomer(customer))
+            {
+                return ConvertToCustomerDto(customer) ;
+            }
+            else
+            {
+                throw new Exception("Could not get customer");
+            }
         }
 
          

@@ -106,10 +106,6 @@ namespace resortapi.Repositories
             await _context.SaveChangesAsync();
             return booking;
         }
-
-    }
-
-
         public async Task<Booking?> GetByIdWithIncludesAsync(int id)
         {
             return await _context.Set<Booking>()

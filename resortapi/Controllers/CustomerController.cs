@@ -11,30 +11,18 @@ namespace resortapi.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly IRepository<Customer> _repo;
-        private readonly IConverter<Customer, CreateCustomerRequestDTO> _converter;
 
-        private readonly CustomerService service;
+        private readonly ICustomerService _service;
 
-        public CustomerController(IRepository<Customer> repo, IConverter<Customer, CreateCustomerRequestDTO> converter)
+        public CustomerController(ICustomerService service)
         {
-            _repo = repo;
-            _converter = converter;
-            service = new CustomerService(repo, converter); // **
+            _service = service;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDto>> GetCustomerById(int id)
-        {
-            var customer = await _repo.GetAsync(id);
-
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            var customerDTO = _converter.FromObjecttoDTO(customer);
-            return Ok(customerDTO);
+        { 
+            return Ok(_service.GetCustomer(id));
         }
 
         [HttpPost(Name = "Add New Customer")]
