@@ -16,10 +16,9 @@ namespace resortapi.Controllers
     {
 
         private readonly IBookingService _service;
-        public BookingController(IRepository<Booking> repo, IBookingConverter converter, IBookingService service)
+        public BookingController(IBookingService service)
         {
-            _repo = repo;
-            _converter = converter;
+
             _service = service;
         }
 
@@ -37,46 +36,19 @@ namespace resortapi.Controllers
             return Ok(dto);
         }
 
-
+   // WWWWW
 
 
         [Authorize(Roles = "Staff, Admin")]
 
         [HttpPost(Name = "Add New Booking")]
-        public async Task<ActionResult> AddBooking(BookingDto booking)
+        public async Task<ActionResult<BookingDetailsDto>> AddBooking(BookingDto booking)
         {
-            var getCustomer = await _repo.GetAsync(booking.CustomerId);
-            if (getCustomer == null)
-            {
-                return BadRequest($"Customer with Id {booking.CustomerId} does not exist");
-            }
 
-            var additionalOptions = new List<AdditionalOption>();
-            if (booking.AdditionalOptionIds != null && booking.AdditionalOptionIds.Any())
-            {
-                foreach (var optionId in booking.AdditionalOptionIds)
-                {
-                    var additionalOption = await _additionalOptionRepo.GetAsync(optionId);
-                    if (additionalOption == null)
-                    {
-                        return BadRequest($"Additional option with Id {optionId} does not exist");
-                    }
-                    additionalOptions.Add(additionalOption);
-                }
-            }
-            var newBooking = _converter.FromDTOtoObject(booking, additionalOptions);
+            var result = await _service.CreateBooking(booking);
 
-            if (booking == null)
-            {
-                return BadRequest("Adding booking failed (Booking does not exist)");
-            }
-
-            newBooking.TimeOfBooking = DateTime.Now;
-            await _repo.CreateAsync(newBooking);
-
-            await _service.CreateBooking(booking);
-
-            return Ok($"Booking added to Database successfully");
+            
+            return Ok(result);
         }
 
 
@@ -84,16 +56,9 @@ namespace resortapi.Controllers
         [HttpGet("overview", Name = "Get bookings overview")]
         public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetBookingsOverview()
         {
-            var bookings = await _repo2.GetAllWithCustomerAsync();
+            var result = await _service.GetBookingsOverview();
 
-            if (!bookings.Any())
-            {
-                return NoContent();
-            }
-
-            var dtos = _converter.FromObjectCollection_ToOverviewCollection(bookings);
-
-            return Ok(dtos);
+            return Ok(result);
         }
 
 
