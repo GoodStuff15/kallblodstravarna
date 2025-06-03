@@ -29,7 +29,13 @@ namespace resortapi.Controllers
             return Ok(booking);
         }
 
+        [HttpGet("{customerId}", Name = "Get all bookings belonging to customer id")]
+        public async Task<ActionResult<BookingDetailsDto>> GetCustomerBookings(int customerId)
+        {
+            var booking = await _service.GetCustomerBookings(customerId);
 
+            return Ok(booking);
+        }
 
 
         [Authorize(Roles = "Staff, Admin")]
