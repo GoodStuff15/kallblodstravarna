@@ -77,13 +77,21 @@ namespace resortapi
             builder.Services.AddScoped<IRepository<AdditionalOption>, AdditionalOptionsRepo>();
             builder.Services.AddScoped<IRepository<AccomodationType>, AccomodationTypeRepo>();
             builder.Services.AddScoped<IBookingRepository, BookingRepo>();
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            // Specific repos and converters
             builder.Services.AddScoped<CustomerBuilder>();
             builder.Services.AddScoped<AccomodationConverter>();
-            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
             builder.Services.AddScoped<AccomodationTypeRepo>();
             builder.Services.AddScoped<AccomodationTypeConverter>();
+
             builder.Services.AddScoped<AccessibilityRepo>();
             builder.Services.AddScoped<AccessibilityConverter>();
+
+            builder.Services.AddScoped<AdditionalOptionConverter>();
+
             builder.Services.AddScoped<PriceChangesRepo>();
             builder.Services.AddScoped<PriceChangesConverter>();
 
@@ -94,10 +102,15 @@ namespace resortapi
             builder.Services.AddScoped<IConverter<Guest, GuestDto>, GuestConverter>();
             builder.Services.AddTransient<ICustomerConverter, CustomerConverter>();
 
-            // Adding services for services
+            // Adding services for business logic/services
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
+            builder.Services.AddScoped<IAccomodationTypeService, AccomodationTypeService>();
+            builder.Services.AddScoped<IAccessibilityService, AccessibilityService>();
+            builder.Services.AddScoped<IPriceChangesService, PriceChangesService>();
+            builder.Services.AddScoped<IAdditionalOptionService, AdditionalOptionService>();
             //builder.Services.AddScoped<IAccomodationService, AccomodationService>();
+
 
             var app = builder.Build();
 
