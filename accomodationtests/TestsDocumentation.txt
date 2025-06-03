@@ -23,3 +23,18 @@ CreateAccomodationType_InvalidPrice_ShouldThrow							32		Create accomodationtyp
 CreateAdditionalOption_ValidData_ShouldReturnAddedOption				13		Create additionaloption with valid data					AdditionalOption-object should be created with correct values
 CreateAdditionalOption_InvalidName_ShouldThrow							27		Create additionaloption with invalid name				ArgumentException should be thrown with message
 CreateAdditionalOption_InvalidPrice_ShouldThrow							35		Create additionaloption with invalid price				ArgumentOutOfRangeException should be thrown with message
+
+-BookingBuilder-
+CreateBooking_ValidInputs_ShouldReturnBooking							13		Create booking with valid data							Booking-object should be created with correct values
+CreateBooking_CheckoutBeforeCheckIn_ShouldThrow							24		Attempt to create booking where checkOut is				ArgumentException should be thrown with message
+																				before checkIn
+CreateBooking_NullAccomodation_ShouldThrow								47		Create booking with null accomodation					ArgumentException should be thrown with message
+CreateBooking_CheckInSameAsCheckOut_ShouldThrow							58		Create booking where checkIn equals checkOut			ArgumentException should be thrown with message
+CreateBooking_CheckInPastDate_ShouldThrow								70		Create booking with checkIn-date in the past			ArgumentException should be thrown with message
+CreateBooking_WithoutTimeOfBooking_ShouldBeCurrentTime					79		Create booking and set TimeOfBooking during build		TimeOfBooking should be within time of build
+CreateBooking_WithOutAmountPaid_ShouldBeZero							94		Create booking without setting amount paid				Amount should be 0
+CreateBooking_WithOutActiveBooking_ShouldBeTrue							103		Create booking without setting active					Active should be true by default
+CreateBooking_WithOutCancelationDate_ShouldBeNull						112		Create booking without cancellation date				CancellationDate should be null as default
+CreateBooking_WithOutGuest_ShouldThrow									121		Create booking without guests							ArgumentException should be thrown with message
+
+
