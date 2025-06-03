@@ -35,7 +35,7 @@ namespace resortapi.Services
         {
             var booking = await _repo.GetAsync(id);
 
-            if(!ValidateBooking(booking))
+            if(ValidateBooking(booking))
             {
                 return ConvertToOverview(booking);
             }
