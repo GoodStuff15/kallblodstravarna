@@ -146,9 +146,5 @@ namespace resortapi.Controllers
             return Ok($"Accomodation {id} deleted successfully");
         }
 
-
-
-
-
     }
 }

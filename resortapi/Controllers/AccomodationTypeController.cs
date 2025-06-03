@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using resortapi.Converters;
-using resortapi.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
+using resortapi.Services;
 using resortdtos;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace resortapi.Controllers
 {
@@ -10,51 +10,42 @@ namespace resortapi.Controllers
     [ApiController]
     public class AccomodationTypeController : ControllerBase
     {
-        private readonly AccomodationTypeRepo _repo;
-        private readonly AccomodationTypeConverter _converter;
+        private readonly IAccomodationTypeService _service;
 
-        public AccomodationTypeController(AccomodationTypeRepo accomodationTypeRepo, AccomodationTypeConverter accomodationTypeConverter)
+        public AccomodationTypeController(IAccomodationTypeService service)
         {
-            _repo = accomodationTypeRepo;
-            _converter = accomodationTypeConverter;
+            _service = service;
         }
 
         [HttpGet("Get all accomodationType")]
         public async Task<ActionResult<ICollection<AccomodationTypeDto>>> GetAllAccomodationTypes()
         {
-            var accomodationTypes = await _repo.GetAllAsync();
-            if (accomodationTypes == null || !accomodationTypes.Any())
+            var accomodationTypes = await _service.GetAllAsync();
+            if (accomodationTypes == null || accomodationTypes.Count == 0)
             {
                 return NotFound("No accomodation types found.");
             }
-            var available = _converter.FromObjectCollection_ToOverviewCollection(accomodationTypes);
-            return Ok(available);
+            return Ok(accomodationTypes);
         }
+
         [HttpGet("{id}", Name = "Get AccomodationType by Id")]
         public async Task<ActionResult<AccomodationTypeDto>> GetAccomodationTypeById(int id)
         {
-            var accomodationType = await _repo.GetByIdAsync(id);
+            var accomodationType = await _service.GetByIdAsync(id);
             if (accomodationType == null)
             {
                 return NotFound($"Accomodation type with Id {id} can not be found");
             }
-            var dto = _converter.FromObjectToDto(accomodationType);
-            return Ok(dto);
-
+            return Ok(accomodationType);
         }
+
         [HttpPost(Name = "Add new accomodationType")]
         public async Task<ActionResult> AddNewAccomodationType([FromBody] AccomodationTypeDto newAccomodationType)
         {
-            var accomodationType = _converter.FromDtoToObject(newAccomodationType);
-            if (accomodationType == null)
-            {
-                return BadRequest("Invalid accomodation type data.");
-            }
-            accomodationType = await _repo.AddAsync(accomodationType);
-            var newaccomodationType = _converter.FromObjectToDto(accomodationType);
-            return CreatedAtRoute("Get AccomodationType by Id", new { id = newaccomodationType.Id }, newaccomodationType);
-
+            var added = await _service.AddAsync(newAccomodationType);
+            return CreatedAtRoute("Get AccomodationType by Id", new { id = added.Id }, added);
         }
+
         [HttpPut("{id}", Name = "Update AccomodationType by Id")]
         public async Task<ActionResult> UpdateAccomodationType(int id, [FromBody] AccomodationTypeDto updatedAccomodationType)
         {
@@ -62,28 +53,23 @@ namespace resortapi.Controllers
             {
                 return BadRequest("Id mismatch.");
             }
-            var existingAccoType = await _repo.GetByIdAsync(id);
-            if (existingAccoType == null)
+
+            var updated = await _service.UpdateAsync(id, updatedAccomodationType);
+            if (!updated)
             {
                 return NotFound($"Accomodation type with Id {id} does not exist.");
             }
-            existingAccoType.Name = updatedAccomodationType.Name;
-            existingAccoType.Description = updatedAccomodationType.Description;
-            existingAccoType.BasePrice = updatedAccomodationType.BasePrice;
-
-            await _repo.UpdateAsync(existingAccoType);
             return Ok($"AccomodationType {id} updated successfully");
-            //return NoContent();
         }
+
         [HttpDelete("{id}", Name = "Delete AccomodationType by Id")]
         public async Task<ActionResult> DeleteAccomodationType(int id)
         {
-            var existingAccoType = await _repo.GetByIdAsync(id);
-            if (existingAccoType == null)
+            var deleted = await _service.DeleteAsync(id);
+            if (!deleted)
             {
                 return NotFound($"Accomodation type with Id {id} does not exist.");
             }
-            await _repo.DeleteAsync(existingAccoType);
             return Ok($"AccomodationType {id} deleted successfully");
         }
     }
