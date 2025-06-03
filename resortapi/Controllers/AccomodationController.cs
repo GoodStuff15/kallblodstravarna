@@ -54,9 +54,11 @@ namespace resortapi.Controllers
 
 
         [HttpGet("availableGuest")]
-        public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodationsExclGuests([FromBody] AvailableRoomRequestExclGuests request)
+        public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodationsExclGuests(
+            [FromQuery] DateTime checkIn,
+            [FromQuery] DateTime checkOut)
         {
-            var accomodations = await _repo.GetAvailableAsync(request.CheckIn, request.CheckOut);
+            var accomodations = await _repo.GetAvailableAsync(checkIn, checkOut);
 
             var available = accomodations.Select(a => new AvailableRoomDto
             {

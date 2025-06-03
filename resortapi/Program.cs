@@ -85,12 +85,7 @@ namespace resortapi
             builder.Services.AddScoped<AccessibilityRepo>();
             builder.Services.AddScoped<AccessibilityConverter>();
 
-
-
-
-
             builder.Services.AddScoped<AccomodationRepo>();
-
 
             // Adding services for DTO conversion
             builder.Services.AddScoped<IBookingConverter, BookingConverter>();
@@ -100,7 +95,7 @@ namespace resortapi
             // Adding services for services
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
-            builder.Services.AddScoped<IAccomodationService, AccomodationService>();
+            //builder.Services.AddScoped<IAccomodationService, AccomodationService>();
 
             var app = builder.Build();
 
