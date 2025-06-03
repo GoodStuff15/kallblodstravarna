@@ -8,6 +8,7 @@ namespace resortapi.Converters
         public Accessibility FromDTOtoObject(AccessibilityDto dto)
         {
             var obj = new Accessibility();
+            obj.Id = dto.Id;
             obj.Name = dto.Name;
             obj.Description = dto.Description;
 
@@ -22,6 +23,7 @@ namespace resortapi.Converters
         public AccessibilityDto FromObjecttoDTO(Accessibility obj)
         {
             var dto = new AccessibilityDto();
+            dto.Id = obj.Id;
             dto.Name = obj.Name;
             dto.Description = obj.Description;
 
@@ -30,7 +32,12 @@ namespace resortapi.Converters
 
         public ICollection<AccessibilityDto> FromObjecttoDTO_Collection(ICollection<Accessibility> collection)
         {
-            throw new NotImplementedException();
+            return collection.Select(acc => new AccessibilityDto
+            {
+                Id = acc.Id,
+                Name = acc.Name,
+                Description = acc.Description
+            }).ToList();
         }
     }
 }

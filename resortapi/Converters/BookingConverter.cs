@@ -114,8 +114,10 @@ namespace resortapi.Converters
                     CheckOut = b.CheckOut,
                     AccomodationId = b.AccomodationId,
                     CustomerId = b.CustomerId,
-                    Guests = _guestConverter.FromObjecttoDTO_Collection(b.Guests),
-                    AdditionalOptionIds = null ////// !!!!!
+
+                    Guests = guestConverter.FromObjecttoDTO_Collection(b.Guests),
+                    AdditionalOptionIds = b.AdditionalOptions.Select(o => o.Id).ToList()
+
                 };
 
                 dtos.Add(dto);
@@ -148,6 +150,22 @@ namespace resortapi.Converters
             return booking;
         }
 
+        public Booking FromDTOtoObject(BookingDto dto, List<AdditionalOption> additionaloption)
+        {
+            var guestConverter = new GuestConverter();
+
+            var guestList = guestConverter.FromDTOtoObject_Collection(dto.Guests);
+
+            var booking = new BookingBuilder().AddCheckIn(dto.CheckIn)
+                                              .AddCheckOut(dto.CheckOut)
+                                              .AddAccomodationId(dto.AccomodationId)
+                                              .AddCustomerId(dto.CustomerId)
+                                              .AddGuestList(guestList)
+                                              .AdditionalOptions(additionaloption)
+                                              .Build();
+
+            return booking;
+        }
 
     }
 }
