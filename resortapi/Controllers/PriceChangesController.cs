@@ -38,5 +38,17 @@ namespace resortapi.Controllers
             var dto = _converter.FromObjecttoDTO(priceChange);
             return Ok(dto);
         }
+        [HttpPost(Name = "Add new price change")]
+        public async Task<ActionResult> AddNewPriceChange([FromBody] PriceChangesDto newPriceChange)
+        {
+            var priceChange = _converter.FromDTOtoObject(newPriceChange);
+            if (priceChange == null)
+            {
+                return BadRequest("Invalid price change data.");
+            }
+            priceChange = await _repo.AddAsync(priceChange);
+            var newPriceChangeDto = _converter.FromObjecttoDTO(priceChange);
+            return CreatedAtRoute("Get PriceChange by Id", new { id = newPriceChangeDto.Id }, newPriceChangeDto);
+        }
     }
 }
