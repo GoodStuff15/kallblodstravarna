@@ -8,6 +8,8 @@ namespace resortapi.Converters
         public ICollection<BookingsOverviewDto> FromObjectCollection_ToOverviewCollection(ICollection<Booking> collection);
 
         public Booking ModifyDtoToObject(ModifyBookingDto dto);
+
         BookingDetailsDto FromObjectToDetailedDTO(Booking booking);
+
     }
 }

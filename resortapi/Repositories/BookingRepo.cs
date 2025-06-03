@@ -16,11 +16,11 @@ namespace resortapi.Repositories
 
             // Checking if accomodation is booked
 
-            var accomodation = _context.Set<Accomodation>()
-                              .Where(a => a.Id == newBooking.Accomodation.Id)
-                              .FirstOrDefault();
+            var accomodation = await _context.Set<Accomodation>()
+                         .Include(a => a.Bookings)
+                         .FirstOrDefaultAsync(a => a.Id == newBooking.Accomodation.Id);
 
-            foreach(var b in accomodation.Bookings)
+            foreach (var b in accomodation.Bookings)
 
             if (newBooking.CheckIn < b.CheckOut && b.CheckIn < newBooking.CheckOut)
             {
@@ -90,6 +90,25 @@ namespace resortapi.Repositories
                          .Where(b => b.Active == true)
                          .ToListAsync();
         }
+
+        public async Task<Booking?> GetAsync(int customerId)
+        {
+            return await _context.Set<Booking>()
+                .Include(g => g.Guests)
+                .Include(a => a.Accomodation)
+                .Include(o => o.AdditionalOptions)
+                .Include(c => c.Customer)
+                .FirstOrDefaultAsync(b => b.Id == customerId);
+        }
+        public async Task<Booking> UpdateAsync(Booking booking)
+        {
+            _context.Set<Booking>().Update(booking);
+            await _context.SaveChangesAsync();
+            return booking;
+        }
+
+    }
+
 
         public async Task<Booking?> GetByIdWithIncludesAsync(int id)
         {
