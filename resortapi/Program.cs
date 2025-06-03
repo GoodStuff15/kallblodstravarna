@@ -95,10 +95,12 @@ namespace resortapi
             // Adding services for DTO conversion
             builder.Services.AddScoped<IBookingConverter, BookingConverter>();
             builder.Services.AddScoped<IConverter<Guest, GuestDto>, GuestConverter>();
-            builder.Services.AddTransient<IConverter<Customer, CreateCustomerRequestDTO>, CustomerConverter>();
+            builder.Services.AddTransient<ICustomerConverter, CustomerConverter>();
 
             // Adding services for services
             builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<IBookingService, BookingService>();
+            builder.Services.AddScoped<IAccomodationService, AccomodationService>();
 
             var app = builder.Build();
 

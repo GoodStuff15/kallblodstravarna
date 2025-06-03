@@ -176,7 +176,7 @@ namespace resortapi.Converters
                     AccomodationId = b.AccomodationId,
                     CustomerId = b.CustomerId,
 
-                    Guests = guestConverter.FromObjecttoDTO_Collection(b.Guests),
+                    Guests = _guestConverter.FromObjecttoDTO_Collection(b.Guests),
                     AdditionalOptionIds = b.AdditionalOptions.Select(o => o.Id).ToList()
 
                 };
