@@ -26,7 +26,7 @@ namespace resortapi.Services
             return _converter.FromObjecttoDTO(booking);
         }
 
-        public async Task<bool> CreateBooking(BookingDto booking)
+        public async Task<BookingDetailsDto> CreateBooking(BookingDto booking)
         {
             // Conversion
             var newBooking = ConvertToBooking(booking);
@@ -36,11 +36,11 @@ namespace resortapi.Services
             if (ValidateBooking(SetTimeOfBooking(newBooking)))
             {
                 await _repo.CreateAsync(newBooking);
-                return true;
+                return _converter.FromObjectToDetailedDTO(newBooking);
             }
             else
             {
-                return false; 
+                throw new Exception("Error creating booking"); 
             }
         }
 
@@ -94,17 +94,27 @@ namespace resortapi.Services
 
             return booking;
         }
-        public ICollection<BookingsOverviewDto> GetBookingsOverview()
-        {
-            
-            var collection = _converter.FromObjectCollection_ToOverviewCollection
-                             (_repo.GetAllWithIncludesAsync().Result);
 
-            // Validation??
+        public async Task<ICollection<BookingsOverviewDto>> GetBookingsOverview()
+        {
+            // Db operation
+            var objectCollection = await _repo.GetAllWithIncludesAsync();
+
+            // Validation
+            foreach (var booking in objectCollection)
+            {
+                if(ValidateBooking(booking))
+                {
+                    throw new Exception("Error validating booking in collection");
+                }
+            }
+
+            // Conversion
+            var collection = _converter.FromObjectCollection_ToOverviewCollection
+                             (objectCollection);
 
             return collection;
-         
-            
+   
         }
 
         public bool ValidateBooking(Booking booking)
