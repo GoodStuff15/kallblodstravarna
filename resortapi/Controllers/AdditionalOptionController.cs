@@ -20,7 +20,9 @@ namespace resortapi.Controllers
         {
             var options = await _service.GetAllAsync();
             if (!options.Any())
+            {
                 return NoContent();
+            }
 
             return Ok(options);
         }
@@ -30,7 +32,9 @@ namespace resortapi.Controllers
         {
             var option = await _service.GetByIdAsync(id);
             if (option == null)
+            {
                 return NotFound($"AdditionalOption with Id {id} not found");
+            }
 
             return Ok(option);
         }
@@ -47,7 +51,9 @@ namespace resortapi.Controllers
         {
             var updated = await _service.UpdateAsync(id, dto);
             if (!updated)
+            {
                 return NotFound($"AdditionalOption with Id {id} not found");
+            }
 
             return Ok($"AdditionalOption with Id {id} updated successfully");
         }
@@ -57,7 +63,9 @@ namespace resortapi.Controllers
         {
             var deleted = await _service.DeleteAsync(id);
             if (!deleted)
+            {
                 return NotFound($"AdditionalOption with Id {id} not found");
+            }
 
             return Ok($"AdditionalOption with Id {id} deleted successfully");
         }

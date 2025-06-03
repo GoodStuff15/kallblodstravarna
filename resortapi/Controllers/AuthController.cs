@@ -74,7 +74,9 @@ namespace resortapi.Controllers
             var user = await authService.GetUserByUsernameAsync(username!);
 
             if (user == null)
+            {
                 return NotFound();
+            }
 
             await authService.ClearRefreshTokenAsync(user);
 
@@ -88,12 +90,16 @@ namespace resortapi.Controllers
             var userToDelete = await authService.GetUserByIdAsync(id);
 
             if (userToDelete is null)
+            {
                 return NotFound("User not found.");
+            }
 
             var success = await authService.DeleteUserAsync(id);
 
             if (!success)
+            {
                 return StatusCode(500, "Failed to delete user.");
+            }
 
             return Ok($"User '{userToDelete.Username}' was deleted by admin '{User.Identity?.Name}'.");
         }

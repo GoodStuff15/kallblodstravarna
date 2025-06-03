@@ -28,7 +28,9 @@ namespace resortapi.Services
         {
             var accomodationType = await _repo.GetByIdAsync(id);
             if (accomodationType == null)
+            {
                 return null;
+            }
 
             return _converter.FromObjectToDto(accomodationType);
         }
@@ -43,11 +45,15 @@ namespace resortapi.Services
         public async Task<bool> UpdateAsync(int id, AccomodationTypeDto updatedAccomodationType)
         {
             if (id != updatedAccomodationType.Id)
+            {
                 return false;
+            }
 
             var existingAccoType = await _repo.GetByIdAsync(id);
             if (existingAccoType == null)
+            {
                 return false;
+            }
 
             existingAccoType.Name = updatedAccomodationType.Name;
             existingAccoType.Description = updatedAccomodationType.Description;
@@ -61,7 +67,9 @@ namespace resortapi.Services
         {
             var existingAccoType = await _repo.GetByIdAsync(id);
             if (existingAccoType == null)
+            {
                 return false;
+            }
 
             await _repo.DeleteAsync(existingAccoType);
             return true;
