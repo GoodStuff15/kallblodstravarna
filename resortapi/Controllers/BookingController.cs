@@ -16,10 +16,8 @@ namespace resortapi.Controllers
     {
 
         private readonly IBookingService _service;
-        public BookingController(IRepository<Booking> repo, IBookingConverter converter, IBookingService service)
-        {
-            _repo = repo;
-            _converter = converter;
+        public BookingController(IBookingService service)
+        { 
             _service = service;
         }
 
@@ -119,73 +117,62 @@ namespace resortapi.Controllers
         [HttpPut("modify/{id}", Name = "Modify booking details")]
         public async Task<ActionResult> ModifyBookingDetails(int id, [FromBody] ModifyBookingDto booking)
         {
-            if (booking.BookingId != 0 && booking.BookingId != id)
-            {
-                return BadRequest("Booking details are not valid or do not match the booking ID");
-            }
+            var modified = await _service.ModifyBooking(booking);
 
-            var existingBooking = await _repo.GetAsync(id);
-            if (existingBooking == null)
-            {
-                return NotFound($"Booking with Id {id} does not exist");
-            }
-            await _context.Entry(existingBooking).Collection(b => b.Guests).LoadAsync();
-            await _context.Entry(existingBooking).Collection(b => b.AdditionalOptions).LoadAsync();
-
-            var newAdditionalOptionIds = booking.AdditionalOptionIds?.Distinct().ToList() ?? new List<int>();
-
-            var removeAoption = existingBooking.AdditionalOptions
-                .Where(o => !newAdditionalOptionIds.Contains(o.Id))
-                .ToList();
-            foreach (var option in removeAoption)
-            {
-                existingBooking.AdditionalOptions.Remove(option);
-            }
-            
-            foreach (var optionId in newAdditionalOptionIds)
-            {
-                if (!existingBooking.AdditionalOptions.Any(o => o.Id == optionId))
-                {
-                    var diffOption = await _additionalOptionRepo.GetAsync(optionId);
-                    if (diffOption == null)
-                    {
-                        return BadRequest($"Additional option with Id {optionId} does not exist");
-                    }
-                    existingBooking.AdditionalOptions.Add(diffOption);
-                }
-            }
-            existingBooking.Guests.Clear();
-
-            var newGuest = booking.Guests
-                .GroupBy(g => new { g.FirstName, g.LastName, g.Age })
-                .Select(g => g.First())
-                .ToList();
-
-            foreach (var g in newGuest)
-            {
-                var guestExist = await _context.Guests
-                     .FirstOrDefaultAsync(x => x.FirstName == g.FirstName && x.LastName == g.LastName && x.Age == g.Age);
-                if (guestExist != null)
-                {
-                    existingBooking.Guests.Add(guestExist);
-                }
-                else
-                {
-                    existingBooking.Guests.Add(new Guest
-                    {
-                        FirstName = g.FirstName,
-                        LastName = g.LastName,
-                        Age = g.Age
-                    });
-                }
-            }
-            
-            existingBooking.CheckIn = booking.CheckIn;
-            existingBooking.CheckOut = booking.CheckOut;
-            existingBooking.AccomodationId = booking.AccomodationId;
-
-            await _repo.UpdateAsync(existingBooking);
             return Ok($"Booking #{id} has been modified");
+
+            //var removeAoption = existingBooking.AdditionalOptions
+            //    .Where(o => !newAdditionalOptionIds.Contains(o.Id))
+            //    .ToList();
+            //foreach (var option in removeAoption)
+            //{
+            //    existingBooking.AdditionalOptions.Remove(option);
+            //}
+
+            //foreach (var optionId in newAdditionalOptionIds)
+            //{
+            //    if (!existingBooking.AdditionalOptions.Any(o => o.Id == optionId))
+            //    {
+            //        var diffOption = await _additionalOptionRepo.GetAsync(optionId);
+            //        if (diffOption == null)
+            //        {
+            //            return BadRequest($"Additional option with Id {optionId} does not exist");
+            //        }
+            //        existingBooking.AdditionalOptions.Add(diffOption);
+            //    }
+            //}
+            //existingBooking.Guests.Clear();
+
+            //var newGuest = booking.Guests
+            //    .GroupBy(g => new { g.FirstName, g.LastName, g.Age })
+            //    .Select(g => g.First())
+            //    .ToList();
+
+            //foreach (var g in newGuest)
+            //{
+            //    var guestExist = await _context.Guests
+            //         .FirstOrDefaultAsync(x => x.FirstName == g.FirstName && x.LastName == g.LastName && x.Age == g.Age);
+            //    if (guestExist != null)
+            //    {
+            //        existingBooking.Guests.Add(guestExist);
+            //    }
+            //    else
+            //    {
+            //        existingBooking.Guests.Add(new Guest
+            //        {
+            //            FirstName = g.FirstName,
+            //            LastName = g.LastName,
+            //            Age = g.Age
+            //        });
+            //    }
+            //}
+
+            //existingBooking.CheckIn = booking.CheckIn;
+            //existingBooking.CheckOut = booking.CheckOut;
+            //existingBooking.AccomodationId = booking.AccomodationId;
+
+            //await _repo.UpdateAsync(existingBooking);
+
 
         }
 
