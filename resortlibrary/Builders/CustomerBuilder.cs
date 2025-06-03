@@ -64,7 +64,7 @@ namespace resortlibrary.Builders
 
         public CustomerBuilder AddPhone(string phone)
         {
-            var pattern = @"^(\+46|0)(7[0236]\d{7}|[1-9]\d{1,2}[\d\s-]{5,10})$";
+            var pattern = @"^(\+46|0)?\s*(\(?\d{2,4}\)?)[\s-]*\d{2,3}[\s-]*\d{2}[\s-]*\d{2}$";
             var regex = new Regex(pattern);
 
             if (string.IsNullOrWhiteSpace(phone) || !regex.IsMatch(phone))
