@@ -37,4 +37,11 @@ CreateBooking_WithOutActiveBooking_ShouldBeTrue							103		Create booking withou
 CreateBooking_WithOutCancelationDate_ShouldBeNull						112		Create booking without cancellation date				CancellationDate should be null as default
 CreateBooking_WithOutGuest_ShouldThrow									121		Create booking without guests							ArgumentException should be thrown with message
 
-
+-CustomerBuilder-
+CreateCustomer:WithValidData_ReturnsCustomer							17		Create customer with valid data							Customer-object should be created with correct values
+CreateCustomer_InvalidInouts:ShouldThrowException						38		Tests null, empty and whitespace values for all			ArgumentException should be thrown
+																				required field
+AddEmail_ValidEmailAddress_ShouldSetEmail								57		Validates accepted email-inputs							Email should be set correctly
+AddEmail_InvalidEmailAddress_ShouldThrow								63		Should throw error for invalid email-address			ArgumentException should be thrown with message
+AddPhone_ValidPhoneNumber_ShouldSetPhone								75		Validates accepted phone-inputs							Phone should be set correctly
+AddPhone_InvalidPhoneNumber_ShouldThrow									83		Should throw error for invalid phone number				ArgumentException should be thrown with message
