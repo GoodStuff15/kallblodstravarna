@@ -15,7 +15,9 @@ namespace resortapi.Services
             int numberOfNights = (booking.CheckOut - booking.CheckIn).Days;
 
             if (numberOfNights <= 0)
+            {
                 throw new ArgumentException("CheckOut måste vara senare än CheckIn");
+            }
 
             // Boendets grundpris per natt
             totalPrice += booking.Accomodation.AccomodationType.BasePrice * numberOfNights;

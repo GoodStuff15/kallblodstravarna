@@ -40,7 +40,9 @@ namespace resortapi.Services
         {
             var existing = await _repo.GetAsync(id);
             if (existing == null)
+            {
                 return false;
+            }
 
             existing.Name = dto.Name;
             existing.Description = dto.Description;
@@ -56,7 +58,9 @@ namespace resortapi.Services
         {
             var existing = await _repo.GetAsync(id);
             if (existing == null)
+            {
                 return false;
+            }
 
             await _repo.DeleteAsync(existing);
             return true;

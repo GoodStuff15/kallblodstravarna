@@ -76,7 +76,9 @@ namespace resortapi.Services
             var user = await ValidateRefreshTokenAsync(request.UserId, request.RefreshToken);
 
             if (user == null)
+            {
                 return null;
+            }
 
             return await CreateTokenResponse(user);
         }
@@ -163,7 +165,9 @@ namespace resortapi.Services
             var user = await context.Users.FindAsync(userId);
 
             if (user == null)
+            {
                 return false;
+            }
 
             context.Users.Remove(user);
             await context.SaveChangesAsync();
@@ -174,26 +178,40 @@ namespace resortapi.Services
         {
             // Användarnamn: 3-15 tecken, bara bokstäver, siffror och underscore
             if (string.IsNullOrWhiteSpace(request.Username) || request.Username.Length < 3 || request.Username.Length > 15)
+            {
                 return false;
+            }
 
             if (!System.Text.RegularExpressions.Regex.IsMatch(request.Username, @"^[a-zA-Z0-9_]+$"))
+            {
                 return false;
+            }
 
             // Lösenord: Minst 8 tecken, minst en stor bokstav, en liten bokstav, en siffra och ett specialtecken
             if (string.IsNullOrWhiteSpace(request.Password) || request.Password.Length < 8)
+            {
                 return false;
+            }
 
             if (!System.Text.RegularExpressions.Regex.IsMatch(request.Password, @"[A-Z]"))
+            {
                 return false;
+            }
 
             if (!System.Text.RegularExpressions.Regex.IsMatch(request.Password, @"[a-z]"))
+            {
                 return false;
+            }
 
             if (!System.Text.RegularExpressions.Regex.IsMatch(request.Password, @"[0-9]"))
+            {
                 return false;
+            }
 
             if (!System.Text.RegularExpressions.Regex.IsMatch(request.Password, @"[\W_]"))
+            {
                 return false;
+            }
 
             return true;
         }

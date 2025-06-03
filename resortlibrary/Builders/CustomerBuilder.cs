@@ -52,11 +52,15 @@ namespace resortlibrary.Builders
         public CustomerBuilder AddEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
+            {
                 throw new ArgumentException("Invalid email address");
+            }
 
             var pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             if (!Regex.IsMatch(email, pattern))
+            {
                 throw new ArgumentException("Invalid email address");
+            }
 
             _customer.Email = email;
             return this;

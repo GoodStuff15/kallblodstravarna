@@ -30,7 +30,10 @@ namespace resortapi.Services
         public async Task<PriceChangesDto?> AddAsync(PriceChangesDto dto)
         {
             var entity = _converter.FromDTOtoObject(dto);
-            if (entity == null) return null;
+            if (entity == null)
+            {
+                return null;
+            }
 
             var added = await _repo.AddAsync(entity);
             return _converter.FromObjecttoDTO(added);
@@ -39,7 +42,10 @@ namespace resortapi.Services
         public async Task<bool> UpdateAsync(int id, PriceChangesDto dto)
         {
             var existing = await _repo.GetByIdAsync(id);
-            if (existing == null) return false;
+            if (existing == null)
+            {
+                return false;
+            }
 
             existing.PriceChange = dto.PriceChange;
             existing.Type = dto.Type;
@@ -51,7 +57,10 @@ namespace resortapi.Services
         public async Task<bool> DeleteAsync(int id)
         {
             var existing = await _repo.GetByIdAsync(id);
-            if (existing == null) return false;
+            if (existing == null)
+            {
+                return false;
+            }
 
             await _repo.DeleteAsync(existing);
             return true;
