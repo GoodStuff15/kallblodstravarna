@@ -66,6 +66,7 @@ namespace resortapi.Converters
         {
             return new CustomerDto()
             {
+                Id = customer.Id,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Email = customer.Email,
