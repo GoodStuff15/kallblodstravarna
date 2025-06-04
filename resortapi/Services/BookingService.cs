@@ -9,11 +9,15 @@ namespace resortapi.Services
     {
         private readonly IBookingRepository _repo;
         private readonly IBookingConverter _converter;
+        private readonly IPdfService _pdfService;
+        private readonly IEmailService _emailService;
 
-        public BookingService(IBookingConverter converter, IBookingRepository repo)
+        public BookingService(IBookingConverter converter, IBookingRepository repo, IPdfService pdfService, IEmailService emailService)
         {
             _converter = converter;
             _repo = repo;
+            _pdfService = pdfService;
+            _emailService = emailService;
         }
 
         public Booking ConvertToBooking(BookingDto booking)
@@ -31,18 +35,18 @@ namespace resortapi.Services
             return _converter.FromObjectToOverviewDTO(booking);
         }
 
-public async Task<BookingDetailsDto> GetBooking(int id)
-{
-    var booking = await _repo.GetAsync(id);
-    if (ValidateBooking(booking))
-    {
-        return _converter.FromObjectToDetailedDTO(booking);
-    }
-    else
-    {
-        throw new Exception("Requested booking can't be validated");
-    }
-}
+        public async Task<BookingDetailsDto> GetBooking(int id)
+        {
+            var booking = await _repo.GetAsync(id);
+            if (ValidateBooking(booking))
+            {
+                return _converter.FromObjectToDetailedDTO(booking);
+            }
+            else
+            {
+                throw new Exception("Requested booking can't be validated");
+            }
+        }
 
 
         public async Task RemoveBooking(int id)
@@ -54,18 +58,27 @@ public async Task<BookingDetailsDto> GetBooking(int id)
         {
             // Conversion
             var newBooking = ConvertToBooking(booking);
-            
-            // Validating and setting time of booking
 
-            if (ValidateBooking(SetTimeOfBooking(newBooking)))
+            // Validating and setting time of booking
+            if (!ValidateBooking(SetTimeOfBooking(newBooking)))
             {
-                await _repo.CreateAsync(newBooking);
-                return _converter.FromObjectToDetailedDTO(newBooking);
+                throw new Exception("Error creating booking");
             }
-            else
+
+            await _repo.CreateAsync(newBooking);
+            var detailedDto = _converter.FromObjectToDetailedDTO(newBooking);
+
+            try
             {
-                throw new Exception("Error creating booking"); 
+                var pdfBytes = _pdfService.GenerateBookingPdf(detailedDto);
+                await _emailService.SendBookingConfirmationEmailAsync(detailedDto, pdfBytes);
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fel vid e-postutskick: {ex.Message}\nStackTrace: {ex.StackTrace}");
+            }
+
+            return detailedDto;
         }
 
         public async Task<bool> CancelBooking(int bookingId)
@@ -74,7 +87,7 @@ public async Task<BookingDetailsDto> GetBooking(int id)
             var cancelThis = await _repo.GetAsync(bookingId);
 
             // Validation
-            if(ValidateBooking(cancelThis))
+            if (ValidateBooking(cancelThis))
             {
                 // Adjust status and save to db
                 cancelThis.Cancelled = true;
@@ -89,7 +102,7 @@ public async Task<BookingDetailsDto> GetBooking(int id)
             {
                 return false;
             }
-        
+
         }
 
         public async Task<ICollection<BookingDetailsDto>> GetDetailedOverview()
@@ -99,7 +112,7 @@ public async Task<BookingDetailsDto> GetBooking(int id)
             // Convert
             var dtos = new List<BookingDetailsDto>();
 
-            foreach(var booking in allBookings)
+            foreach (var booking in allBookings)
             {
                 dtos.Add(_converter.FromObjectToDetailedDTO(booking));
             }
@@ -115,7 +128,7 @@ public async Task<BookingDetailsDto> GetBooking(int id)
             // Converting to access guests and additional options
 
             var updated = _converter.ModifyDtoToObject(booking);
-            
+
             // Updating here
 
             modifyThis.CheckIn = updated.CheckIn;
@@ -145,7 +158,7 @@ public async Task<BookingDetailsDto> GetBooking(int id)
             // Validation
             foreach (var booking in objectCollection)
             {
-                if(!ValidateBooking(booking))
+                if (!ValidateBooking(booking))
                 {
                     throw new Exception("Error validating booking in collection");
                 }
@@ -156,7 +169,7 @@ public async Task<BookingDetailsDto> GetBooking(int id)
                              (objectCollection);
 
             return collection;
-   
+
         }
 
         public async Task<ICollection<BookingsOverviewDto>> GetCustomerBookings(int id)
@@ -180,15 +193,15 @@ public async Task<BookingDetailsDto> GetBooking(int id)
 
         public bool ValidateBooking(Booking booking)
         {
-            if(booking.CheckOut <= booking.CheckIn)
+            if (booking.CheckOut <= booking.CheckIn)
             {
                 throw new ArgumentException("Booking check out must be later date than check in");
             }
-            if(booking.Guests.Count <= 0)
+            if (booking.Guests.Count <= 0)
             {
                 throw new ArgumentException("Booking must contain guests");
             }
-            if(booking == null)
+            if (booking == null)
             {
                 throw new ArgumentNullException("Booking is null");
             }

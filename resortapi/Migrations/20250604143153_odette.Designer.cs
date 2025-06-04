@@ -12,8 +12,8 @@ using resortapi.Data;
 namespace resortapi.Migrations
 {
     [DbContext(typeof(ResortContext))]
-    [Migration("20250531160449_innitinnit")]
-    partial class innitinnit
+    [Migration("20250604143153_odette")]
+    partial class odette
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
