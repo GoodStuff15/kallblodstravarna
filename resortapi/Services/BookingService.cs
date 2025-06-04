@@ -31,19 +31,19 @@ namespace resortapi.Services
             return _converter.FromObjectToOverviewDTO(booking);
         }
 
-        public async Task<BookingsOverviewDto> GetBooking(int id)
-        {
-            var booking = await _repo.GetAsync(id);
+public async Task<BookingDetailsDto> GetBooking(int id)
+{
+    var booking = await _repo.GetAsync(id);
+    if (ValidateBooking(booking))
+    {
+        return _converter.FromObjectToDetailedDTO(booking);
+    }
+    else
+    {
+        throw new Exception("Requested booking can't be validated");
+    }
+}
 
-            if(ValidateBooking(booking))
-            {
-                return ConvertToOverview(booking);
-            }
-            else
-            {
-                throw new Exception("Requested booking can't be validated");
-            }
-        }
 
         public async Task RemoveBooking(int id)
         {
