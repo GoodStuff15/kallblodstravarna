@@ -4,7 +4,7 @@ using resortlibrary.Models;
 
 namespace resortapi.Repositories
 {
-    public class AccomodationRepo : AbstractRepo<Accomodation>, IAccomodationRepo
+    public class AccomodationRepo : AbstractRepo<Accomodation>
     {
         public AccomodationRepo(ResortContext context) : base(context)
         {
@@ -31,7 +31,7 @@ namespace resortapi.Repositories
             var bookedIds = _context.Set<Booking>()
                 .Where(b => b.Active && !b.Cancelled && b.CheckIn < end && start < b.CheckOut)
                 .Select(b => b.AccomodationId);
-            
+
             // Filtrera boenden som inte är bokade och som klarar antal gäster
             var available = _context.Set<Accomodation>()
                 .Where(a => !bookedIds.Contains(a.Id) && a.MaxOccupancy >= noOfGuests)
