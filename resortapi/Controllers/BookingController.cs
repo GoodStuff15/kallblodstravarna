@@ -17,9 +17,10 @@ namespace resortapi.Controllers
 
         private readonly IBookingService _service;
         private readonly ICalculatorService _calculator;
-        public BookingController(IBookingService service)
+        public BookingController(IBookingService service, ICalculatorService calculator)
         { 
             _service = service;
+            _calculator = calculator;
         }
 
         [HttpGet("{id}")]
@@ -98,7 +99,7 @@ namespace resortapi.Controllers
             return Ok("Booking removed from db");
         }
 
-        [HttpGet("{priceRequest}", Name = "Get current price")]
+        [HttpGet("Pricerequest", Name = "Get current price")]
         public async Task<ActionResult<decimal>> GetCurrentPrice(PriceRequestDto priceRequest)
         {
             var price = await _calculator.CalculateCurrentPrice(priceRequest);
