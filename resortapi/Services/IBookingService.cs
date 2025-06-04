@@ -27,6 +27,9 @@ namespace resortapi.Services
         public Task<ICollection<BookingsOverviewDto>> GetBookingsOverview();
 
         public Task<BookingDto> ModifyBooking(ModifyBookingDto booking);
-        
+
+        Task<ICollection<BookingsOverviewDto>> GetCustomerBookingsByIdAndEmail(int customerId, string email);
+
+
     }
 }
