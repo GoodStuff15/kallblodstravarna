@@ -24,6 +24,10 @@ namespace resortapi.Converters
             throw new NotImplementedException();
         }
 
+        public ICollection<PriceChangesDto> FromObjectCollection_ToOverviewCollection(ICollection<PriceChanges> objects)
+        {
+            throw new NotImplementedException();
+        }
 
         public PriceChangesDto FromObjecttoDTO(PriceChanges obj)
         {

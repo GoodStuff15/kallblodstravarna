@@ -35,6 +35,11 @@ namespace resortapi.Converters
             return objCollection;
         }
 
+        public ICollection<GuestDto> FromObjectCollection_ToOverviewCollection(ICollection<Guest> objects)
+        {
+            throw new NotImplementedException();
+        }
+
         public GuestDto FromObjecttoDTO(Guest obj)
         {
             var dto = new GuestDto()

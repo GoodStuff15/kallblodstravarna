@@ -75,5 +75,10 @@ namespace resortapi.Converters
 
             };
         }
+
+        public ICollection<CreateCustomerRequestDTO> FromObjectCollection_ToOverviewCollection(ICollection<Customer> objects)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
