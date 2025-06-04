@@ -52,7 +52,6 @@ public class BookingConfirmationDocument : IDocument
                     col.Item().Text($"Incheckning: {_booking.CheckIn:yyyy-MM-dd}");
                     col.Item().Text($"Utcheckning: {_booking.CheckOut:yyyy-MM-dd}");
                     col.Item().Text($"Rum: {_booking.Accomodation?.Name ?? "Saknas"}");
-                    col.Item().Text($"Rumstyp: {_booking.Accomodation?.AccomodationTypeName ?? "Saknas"}");
 
                     col.Item().PaddingVertical(10).LineHorizontal(1);
 
@@ -74,13 +73,31 @@ public class BookingConfirmationDocument : IDocument
                         col.Item().PaddingTop(10).Text("Valda tillval:").Bold();
                         foreach (var opt in _booking.AdditionalOptions)
                         {
-                            col.Item().Text($"- {opt.Name}: {opt.Price:C}");
+                            string priceType = GetPriceTypeDescription(opt.PerNight, opt.PerGuest);
+                            col.Item().Text($"- {opt.Name}: {opt.Price:C} ({priceType})");
                         }
+
                     }
+
+                    col.Item().PaddingTop(10).Text("Kostnad:").Bold();
+                    col.Item().Text($"{_booking.Cost:C}");
 
                     col.Item().PaddingTop(20).Text("Tack för din bokning hos Kallblodstravarna Resort!")
                         .Italic();
                 });
         });
     }
+
+    private string GetPriceTypeDescription(bool perNight, bool perGuest)
+    {
+        if (perNight && perGuest)
+            return "per natt och per gäst";
+        else if (perNight)
+            return "per natt";
+        else if (perGuest)
+            return "per gäst";
+        else
+            return "per bokning";
+    }
+
 }

@@ -11,13 +11,15 @@ namespace resortapi.Services
         private readonly IBookingConverter _converter;
         private readonly IPdfService _pdfService;
         private readonly IEmailService _emailService;
+        private readonly ICalculatorService _calculatorService;
 
-        public BookingService(IBookingConverter converter, IBookingRepository repo, IPdfService pdfService, IEmailService emailService)
+        public BookingService(IBookingConverter converter, IBookingRepository repo, IPdfService pdfService, IEmailService emailService, ICalculatorService calculatorService)
         {
             _converter = converter;
             _repo = repo;
             _pdfService = pdfService;
             _emailService = emailService;
+            _calculatorService = calculatorService;
         }
 
         public Booking ConvertToBooking(BookingDto booking)
@@ -125,11 +127,7 @@ namespace resortapi.Services
         {
             var modifyThis = await _repo.GetAsync(booking.BookingId);
 
-            // Converting to access guests and additional options
-
             var updated = _converter.ModifyDtoToObject(booking);
-
-            // Updating here
 
             modifyThis.CheckIn = updated.CheckIn;
             modifyThis.CheckOut = updated.CheckOut;
@@ -137,11 +135,24 @@ namespace resortapi.Services
             modifyThis.Guests = updated.Guests;
             modifyThis.AdditionalOptions = updated.AdditionalOptions;
 
-            // Database action
+            int guestCount = modifyThis.Guests.Count;
+            int numberOfNights = (modifyThis.CheckOut - modifyThis.CheckIn).Days;
+
+            var priceRequest = new PriceRequestDto
+            {
+                AccomodationId = modifyThis.AccomodationId,
+                GuestCount = guestCount,
+                Duration = numberOfNights,
+                AdditonalOptionIds = modifyThis.AdditionalOptions.Select(o => o.Id).ToList()
+            };
+
+            modifyThis.Cost = await _calculatorService.CalculateCurrentPrice(priceRequest);
+
             await _repo.UpdateAsync(modifyThis);
 
             return ConvertFromBooking(modifyThis);
         }
+
 
         public Booking SetTimeOfBooking(Booking booking)
         {
