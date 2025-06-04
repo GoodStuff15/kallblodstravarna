@@ -20,6 +20,11 @@ namespace resortapi.Converters
             throw new NotImplementedException();
         }
 
+        public ICollection<AccessibilityDto> FromObjectCollection_ToOverviewCollection(ICollection<Accessibility> objects)
+        {
+            throw new NotImplementedException();
+        }
+
         public AccessibilityDto FromObjecttoDTO(Accessibility obj)
         {
             var dto = new AccessibilityDto();

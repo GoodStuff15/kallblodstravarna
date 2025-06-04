@@ -253,5 +253,9 @@ namespace resortapi.Converters
             return booking;
         }
 
+        ICollection<BookingDto> IConverter<Booking, BookingDto>.FromObjectCollection_ToOverviewCollection(ICollection<Booking> objects)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
