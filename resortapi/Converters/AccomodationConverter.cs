@@ -4,50 +4,45 @@ using resortlibrary.Models;
 
 namespace resortapi.Converters
 {
-    public class AccomodationConverter : IConverter<Accomodation, AccomodationDto>
+    public class AccomodationConverter : IConverter<Accomodation, AvailableRoomDto>
     {
-        public Accomodation FromDTOtoObject(AccomodationDto dto)
+        public Accomodation FromDTOtoObject(AvailableRoomDto dto)
         {
             throw new NotImplementedException();
         }
 
-        public ICollection<Accomodation> FromDTOtoObject_Collection(ICollection<AccomodationDto> collection)
+        public ICollection<Accomodation> FromDTOtoObject_Collection(ICollection<AvailableRoomDto> collection)
         {
             throw new NotImplementedException();
         }
 
-        public ICollection<AccomodationDto> FromObjectCollection_ToOverviewCollection(ICollection<Accomodation> accomodations)
+        public ICollection<AvailableRoomDto> FromObjectCollection_ToOverviewCollection(ICollection<Accomodation> accomodations)
         {
-            var overview = new List<AccomodationDto>();
+            var overview = new List<AvailableRoomDto>();
 
             foreach (var a in accomodations)
             {
-                var dto = new AccomodationDto()
+                var dto = new AvailableRoomDto()
                 {
                     Id = a.Id,
                     Name = a.Name,
-                    AccomodationTypeName = a.AccomodationType.Name
+                    AccomodationType = a.AccomodationType.Name,
+                    Description = a.AccomodationType.Description,
+                    MaxOccupancy = a.MaxOccupancy,
+                    BasePrice = a.AccomodationType.BasePrice,
+                    Accessibility = a.Accessibilities.Select(acc => new AccessibilityDto
+                    {
+                        Id = acc.Id,
+                        Name = acc.Name,
+                        Description = acc.Description
+                    }).ToList()
                 };
                 overview.Add(dto);
             }
-
             return overview;
         }
 
-        public AccomodationDto FromObjecttoDTO(Accomodation obj)
-        {
-
-            return new AccomodationDto()
-            {
-                Id = obj.Id,
-                Name = obj.Name,
-                MaxOccupancy = obj.MaxOccupancy,
-                AccomodationTypeName = obj.AccomodationType.Name
-
-            };
-        }
-
-        public AvailableRoomDto FromObject_ToAvailableRoomDto(Accomodation obj)
+        public AvailableRoomDto FromObjecttoDTO(Accomodation obj)
         {
             return new AvailableRoomDto()
             {
@@ -59,16 +54,16 @@ namespace resortapi.Converters
                 BasePrice = obj.AccomodationType?.BasePrice ?? 0,
                 Accessibility = obj.Accessibilities?.Select(acc => new AccessibilityDto
                 {
+                    Id = acc.Id,
                     Name = acc.Name,
                     Description = acc.Description
                 }).ToList() ?? new List<AccessibilityDto>()
-            }; 
-            
-            }
-
-        public ICollection<AccomodationDto> FromObjecttoDTO_Collection(ICollection<Accomodation> collection)
+            };
+        }
+        public ICollection<AvailableRoomDto> FromObjecttoDTO_Collection(ICollection<Accomodation> collection)
         {
-            return collection.Select(a => FromObjecttoDTO(a)).ToList();
+            throw new NotImplementedException();
+            //return collection.Select(a => FromObjecttoDTO(a)).ToList();
         }
         public Accomodation FromDTOtoObject(AccomodationDto dto, ResortContext context)
         {
