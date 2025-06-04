@@ -11,14 +11,14 @@ namespace resortapi.Converters
         private readonly IRepository<Accomodation> _accomodationRepo;
         private readonly IConverter<Guest, GuestDto> _guestConverter;
         private readonly IRepository<AdditionalOption> _additionalOptions;
-        private readonly IBookingRepository _bookingRepo;
+        private readonly IRepository<Customer> _customerRepo;
 
-        public BookingConverter(IRepository<Accomodation> repo, IConverter<Guest, GuestDto> converter, IRepository<AdditionalOption> options, IBookingRepository repo2)
+        public BookingConverter(IRepository<Accomodation> repo, IConverter<Guest, GuestDto> converter, IRepository<AdditionalOption> options, IRepository<Customer> customerRepo)
         {
             _accomodationRepo = repo;
             _guestConverter = converter;
             _additionalOptions = options;
-            _bookingRepo = repo2;
+            _customerRepo = customerRepo;
         }
 
         public BookingDetailsDto FromObjectToDetailedDTO(Booking booking)
@@ -95,6 +95,8 @@ namespace resortapi.Converters
 
             var optionsList = new List<AdditionalOption>();
 
+            var customer = _customerRepo.GetAsync(dto.CustomerId).Result;
+
             foreach (var option in dto.AdditionalOptionIds)
             {
                 optionsList.Add(_additionalOptions.GetAsync(option).Result);
@@ -105,6 +107,7 @@ namespace resortapi.Converters
                                               .AddAccomodationId(dto.AccomodationId)
                                               .AddAccomodation(accomodation)
                                               .AddCustomerId(dto.CustomerId)
+                                              .AddCustomer(customer)
                                               .AddGuestList(guestList)
                                               .AdditionalOptions(optionsList)
                                               .Build();

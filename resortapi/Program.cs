@@ -6,10 +6,12 @@ using resortapi.Converters;
 using resortapi.Data;
 using resortapi.Repositories;
 using resortapi.Services;
+using resortapi.Helpers;
 using resortdtos;
 using resortlibrary.Builders;
 using resortlibrary.Models;
 using Scalar.AspNetCore;
+using QuestPDF.Infrastructure;
 
 namespace resortapi
 {
@@ -20,6 +22,8 @@ namespace resortapi
         {
 
             var builder = WebApplication.CreateBuilder(args);
+
+            QuestPDF.Settings.License = LicenseType.Community;
 
             // Configure CORS to allow requests from the frontend
 
@@ -104,10 +108,11 @@ namespace resortapi
             builder.Services.AddTransient<ICustomerConverter, CustomerConverter>();
 
             // Adding services for business logic/services
+            builder.Services.AddScoped<IPdfService, PdfService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IAccomodationTypeService, AccomodationTypeService>();
-            builder.Services.AddScoped<IAccessibilityService, AccessibilityService>();
             builder.Services.AddScoped<IPriceChangesService, PriceChangesService>();
             builder.Services.AddScoped<IAdditionalOptionService, AdditionalOptionService>();
             builder.Services.AddScoped<IAccomodationService, AccomodationService>();
