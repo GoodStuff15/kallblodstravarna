@@ -63,7 +63,8 @@ namespace resortapi.Converters
                     {
                         FirstName = g.FirstName,
                         LastName = g.LastName,
-                        Age = g.Age
+                        Age = g.Age,
+                        IsChild = g.Age < 12
                     }).ToList() ?? new List<GuestDto>(),
                 AdditionalOptions = booking.AdditionalOptions?
                     .Select(o => new AdditionalOptionDto

@@ -67,8 +67,10 @@ public class BookingConfirmationDocument : IDocument
                     {
                         foreach (var guest in _booking.Guests)
                         {
-                            col.Item().Text($"- {guest.FirstName} {guest.LastName}, {guest.Age} år");
+                            var label = guest.IsChild ? "Barn" : "Vuxen";
+                            col.Item().Text($"{label}: {guest.FirstName} {guest.LastName}, {guest.Age} år");
                         }
+
                     }
 
                     if (_booking.AdditionalOptions?.Any() == true)
