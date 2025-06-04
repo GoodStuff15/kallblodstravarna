@@ -57,7 +57,7 @@ namespace resortapi.Services
             if(ValidateCustomer(customer))
             {
                 //Database action
-                _repo.CreateAsync(customer);
+                await _repo.CreateAsync(customer);
 
                 return ConvertToCustomerDto(customer) ;
             }

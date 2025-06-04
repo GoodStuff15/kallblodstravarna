@@ -39,6 +39,24 @@ namespace resortapi.Controllers
             return Ok(booking);
         }
 
+        [HttpGet("customersearch")]
+        public async Task<ActionResult<ICollection<BookingsOverviewDto>>> GetCustomerBookingsByIdAndEmail(
+    [FromQuery] int customerId,
+    [FromQuery] string email)
+        {
+            // Validering
+            if (string.IsNullOrEmpty(email))
+                return BadRequest("Email måste anges.");
+
+            var bookings = await _service.GetCustomerBookingsByIdAndEmail(customerId, email);
+
+            if (bookings == null || !bookings.Any())
+                return NotFound("Inga bokningar hittades med angivna uppgifter.");
+
+            return Ok(bookings);
+        }
+
+
 
         //[Authorize(Roles = "Staff, Admin")]
         [HttpPost(Name = "Add New Booking")]

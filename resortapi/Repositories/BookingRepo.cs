@@ -128,6 +128,21 @@ namespace resortapi.Repositories
                 .ToListAsync();
         }
 
+        public async Task<ICollection<Booking>> GetByCustomerIdAndEmailAsync(int customerId, string email)
+        {
+            return await _context.Set<Booking>()
+                .Where(b => b.CustomerId == customerId && b.Customer.Email.ToLower() == email.ToLower())
+                .Include(b => b.Guests)
+                .Include(b => b.Accomodation)
+                    .ThenInclude(a => a.AccomodationType)
+                .Include(b => b.Accomodation)
+                    .ThenInclude(a => a.Accessibilities)
+                .Include(b => b.AdditionalOptions)
+                .Include(b => b.Customer)
+                .ToListAsync();
+        }
+
+
         public async Task<ICollection<Booking>> GetAllWithCustomerAsync()
         {
             return await _context.Bookings

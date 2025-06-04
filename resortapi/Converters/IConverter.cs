@@ -8,5 +8,6 @@
 
         public ICollection<V> FromObjecttoDTO_Collection(ICollection<T> collection);
         public ICollection<T> FromDTOtoObject_Collection(ICollection<V> collection);
+        public ICollection<V> FromObjectCollection_ToOverviewCollection(ICollection<T> objects);
     }
 }
