@@ -7,6 +7,9 @@ namespace resortapi.Repositories
         public Task<ICollection<Booking>> GetByCustomerIdWithIncludesAsync(int id);
 
         Task<ICollection<Booking>> GetAllWithCustomerAsync();
+
+        Task<ICollection<Booking>> GetByCustomerIdAndEmailAsync(int customerId, string email);
+
     }
 
 }

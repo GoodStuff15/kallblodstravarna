@@ -169,6 +169,15 @@ public async Task<BookingDetailsDto> GetBooking(int id)
 
         }
 
+        public async Task<ICollection<BookingsOverviewDto>> GetCustomerBookingsByIdAndEmail(int customerId, string email)
+        {
+            // Hämta bokningar där både customerId och e-post stämmer
+            var bookings = await _repo.GetByCustomerIdAndEmailAsync(customerId, email);
+
+            return _converter.FromObjectCollection_ToOverviewCollection(bookings);
+        }
+
+
         public bool ValidateBooking(Booking booking)
         {
             if(booking.CheckOut <= booking.CheckIn)
