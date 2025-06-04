@@ -15,7 +15,7 @@ namespace resortapi.Services
 
         public Task<BookingDetailsDto> CreateBooking(BookingDto booking);
 
-        public Task<BookingsOverviewDto> GetBooking(int id);
+        public Task<BookingDetailsDto> GetBooking(int id);
 
         public Task<ICollection<BookingsOverviewDto>> GetCustomerBookings(int id);
 
