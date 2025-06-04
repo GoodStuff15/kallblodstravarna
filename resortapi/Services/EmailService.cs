@@ -16,8 +16,14 @@ public class EmailService : IEmailService
 
     public async Task SendBookingConfirmationEmailAsync(BookingDetailsDto booking, byte[] pdfBytes)
     {
-        if (booking == null) throw new ArgumentNullException(nameof(booking));
-        if (pdfBytes == null) throw new ArgumentNullException(nameof(pdfBytes));
+        if (booking == null)
+        {
+            throw new ArgumentNullException(nameof(booking));
+        }
+        if (pdfBytes == null)
+        {
+            throw new ArgumentNullException(nameof(pdfBytes));
+        }
 
         // Validate configuration
         var fromEmail = _config["Email:From"];

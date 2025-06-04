@@ -41,12 +41,16 @@ namespace resortapi.Controllers
         {
             // Validering
             if (string.IsNullOrEmpty(email))
+            {
                 return BadRequest("Email måste anges.");
+            }
 
             var bookings = await _service.GetCustomerBookingsByIdAndEmail(customerId, email);
 
             if (bookings == null || !bookings.Any())
+            {
                 return NotFound("Inga bokningar hittades med angivna uppgifter.");
+            }
 
             return Ok(bookings);
         }

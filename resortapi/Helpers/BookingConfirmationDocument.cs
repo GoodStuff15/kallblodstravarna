@@ -18,7 +18,10 @@ public class BookingConfirmationDocument : IDocument
 
     public void Compose(IDocumentContainer container)
     {
-        if (_booking == null) throw new ArgumentNullException(nameof(_booking));
+        if (_booking == null)
+        {
+            throw new ArgumentNullException(nameof(_booking));
+        }
 
         container.Page(page =>
         {
@@ -91,13 +94,21 @@ public class BookingConfirmationDocument : IDocument
     private string GetPriceTypeDescription(bool perNight, bool perGuest)
     {
         if (perNight && perGuest)
+        {
             return "per natt och per gäst";
+        }
         else if (perNight)
+        {
             return "per natt";
+        }
         else if (perGuest)
+        {
             return "per gäst";
+        }
         else
+        {
             return "per bokning";
+        }
     }
 
 }
