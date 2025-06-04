@@ -102,6 +102,8 @@ namespace resortapi.Converters
                 optionsList.Add(_additionalOptions.GetAsync(option).Result);
             }
 
+            Console.WriteLine($"DTO Cost: {dto.Cost}");
+
             var booking = new BookingBuilder().AddCheckIn(dto.CheckIn)
                                               .AddCheckOut(dto.CheckOut)
                                               .AddAccomodationId(dto.AccomodationId)
@@ -110,7 +112,10 @@ namespace resortapi.Converters
                                               .AddCustomer(customer)
                                               .AddGuestList(guestList)
                                               .AdditionalOptions(optionsList)
+                                              .AddCost(dto.Cost)
                                               .Build();
+
+            Console.WriteLine($"Booking Cost: {booking.Cost}");
 
             return booking;
         }

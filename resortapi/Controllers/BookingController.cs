@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using resortapi.Repositories;
-using resortdtos;
-using resortapi.Converters;
-using resortlibrary.Models;
-using Microsoft.AspNetCore.Authorization;
-
 using resortapi.Services;
+using resortdtos;
 
 
 namespace resortapi.Controllers
@@ -105,7 +100,6 @@ namespace resortapi.Controllers
             var modified = await _service.ModifyBooking(booking);
 
             return Ok($"Booking #{id} has been modified");
-
         }
 
         //[Authorize(Roles = "Staff, Admin")]
@@ -117,11 +111,11 @@ namespace resortapi.Controllers
             return Ok("Booking removed from db");
         }
 
-        [HttpGet("Pricerequest", Name = "Get current price")]
-        public async Task<ActionResult<decimal>> GetCurrentPrice(PriceRequestDto priceRequest)
+        [HttpPost("Pricerequest", Name = "Get current price")]
+        public async Task<ActionResult<decimal>> GetCurrentPrice([FromBody] PriceRequestDto priceRequest)
         {
             var price = await _calculator.CalculateCurrentPrice(priceRequest);
-        
+
             return Ok(price);
         }
 

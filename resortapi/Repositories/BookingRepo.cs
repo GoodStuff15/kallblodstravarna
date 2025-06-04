@@ -108,12 +108,14 @@ namespace resortapi.Repositories
                          .Include(p => p.PriceChanges)
                          .FirstOrDefaultAsync(b => b.Id == id);
         }
+
         public async Task<Booking> UpdateAsync(Booking booking)
         {
             _context.Set<Booking>().Update(booking);
             await _context.SaveChangesAsync();
             return booking;
         }
+
         public async Task<ICollection<Booking>> GetByCustomerIdWithIncludesAsync(int id)
         {
             return await _context.Set<Booking>()
