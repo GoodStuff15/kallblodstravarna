@@ -10,5 +10,6 @@ namespace resortdtos
         public string LastName { get; set; }
         [Required]
         public int Age { get; set; }
+        public bool IsChild { get; set; }
     }
 }
