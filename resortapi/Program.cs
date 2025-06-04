@@ -95,7 +95,8 @@ namespace resortapi
             builder.Services.AddScoped<PriceChangesRepo>();
             builder.Services.AddScoped<PriceChangesConverter>();
 
-            builder.Services.AddScoped<AccomodationRepo>();
+            //builder.Services.AddScoped<AccomodationRepo>();
+
 
             // Adding services for DTO conversion
             builder.Services.AddScoped<IBookingConverter, BookingConverter>();
@@ -109,7 +110,11 @@ namespace resortapi
             builder.Services.AddScoped<IAccessibilityService, AccessibilityService>();
             builder.Services.AddScoped<IPriceChangesService, PriceChangesService>();
             builder.Services.AddScoped<IAdditionalOptionService, AdditionalOptionService>();
-            //builder.Services.AddScoped<IAccomodationService, AccomodationService>();
+            builder.Services.AddScoped<IAccomodationService, AccomodationService>();
+            builder.Services.AddScoped<IAccomodationRepo, AccomodationRepo>();
+            builder.Services.AddScoped<IConverter<Accomodation, AvailableRoomDto>, AccomodationConverter>();
+
+
 
 
             var app = builder.Build();
