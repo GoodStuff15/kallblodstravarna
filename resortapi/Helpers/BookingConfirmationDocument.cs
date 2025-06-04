@@ -40,6 +40,7 @@ public class BookingConfirmationDocument : IDocument
                     }
                     else
                     {
+                        col.Item().Text($"Kundnr: {_booking.Customer.Id}");
                         col.Item().Text($"Namn: {_booking.Customer.FirstName} {_booking.Customer.LastName}");
                         col.Item().Text($"E-post: {_booking.Customer.Email ?? "Saknas"}");
                         col.Item().Text($"Telefon: {_booking.Customer.PhoneNumber ?? "Saknas"}");
