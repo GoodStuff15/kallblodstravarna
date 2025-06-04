@@ -26,6 +26,7 @@ namespace resortapi.Controllers
 
         // [FromBody] kan/bör ändras till [FromQuery] om vi vill skicka in datumen som query-parametrar istället för i body
 
+        //[Authorize(Roles = "Staff, Admin")]
         [HttpGet("availableReceptionist")]
         public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodations(
             [FromQuery] DateTime checkIn,
@@ -44,6 +45,7 @@ namespace resortapi.Controllers
                 BasePrice = a.AccomodationType.BasePrice,
                 Accessibility = a.Accessibilities?.Select(acc => new AccessibilityDto
                 {
+                    Id = acc.Id,
                     Name = acc.Name,
                     Description = acc.Description
                 }).ToList() ?? new List<AccessibilityDto>()
@@ -54,11 +56,9 @@ namespace resortapi.Controllers
 
 
         [HttpGet("availableGuest")]
-        public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodationsExclGuests(
-            [FromQuery] DateTime checkIn,
-            [FromQuery] DateTime checkOut)
+        public async Task<ActionResult<ICollection<AvailableRoomDto>>> GetAvailableAccomodationsExclGuests([FromBody] AvailableRoomRequestExclGuests request)
         {
-            var accomodations = await _repo.GetAvailableAsync(checkIn, checkOut);
+            var accomodations = await _repo.GetAvailableAsync(request.CheckIn, request.CheckOut);
 
             var available = accomodations.Select(a => new AvailableRoomDto
             {
@@ -70,6 +70,7 @@ namespace resortapi.Controllers
                 BasePrice = a.AccomodationType.BasePrice,
                 Accessibility = a.Accessibilities?.Select(acc => new AccessibilityDto
                 {
+                    Id = acc.Id,
                     Name = acc.Name,
                     Description = acc.Description
                 }).ToList() ?? new List<AccessibilityDto>()
@@ -145,6 +146,5 @@ namespace resortapi.Controllers
             await _repo.DeleteAsync(existingAccomodation);
             return Ok($"Accomodation {id} deleted successfully");
         }
-
     }
 }
