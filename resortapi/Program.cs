@@ -110,12 +110,10 @@ namespace resortapi
             builder.Services.AddScoped<IAccessibilityService, AccessibilityService>();
             builder.Services.AddScoped<IPriceChangesService, PriceChangesService>();
             builder.Services.AddScoped<IAdditionalOptionService, AdditionalOptionService>();
+            builder.Services.AddTransient<ICalculatorService, CalculatorService>();
             builder.Services.AddScoped<IAccomodationService, AccomodationService>();
             builder.Services.AddScoped<IAccomodationRepo, AccomodationRepo>();
             builder.Services.AddScoped<IConverter<Accomodation, AvailableRoomDto>, AccomodationConverter>();
-
-
-
 
             var app = builder.Build();
 
