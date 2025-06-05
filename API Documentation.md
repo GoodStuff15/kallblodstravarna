@@ -99,6 +99,7 @@ Token
 
 ## Type: Accessibility
 
+```
 GET
 Get All
 https://localhost:7064/api/Accessibility/Get all accessibilities```
