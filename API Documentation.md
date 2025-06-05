@@ -199,6 +199,7 @@ Get By Id
 https://localhost:7064/api/Accomodation/2
 
 ```
+```
 PUT
 Modify By Id
 https://localhost:7064/api/Accomodation/3
