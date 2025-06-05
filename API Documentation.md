@@ -48,6 +48,7 @@ json
   "refreshToken": "xWs9wdVmphT/ifS4X0H4nxEn++dYr8ZWIUG1tcC3EdE="
 }
 ```
+```
 GET
 Test Auth (Auth)
 https://localhost:7064/api/auth
@@ -57,6 +58,8 @@ Authorization
 Bearer Token
 Token
 <token>
+```
+```
 POST
 Logout (Auth)
 https://localhost:7064/api/auth/logout
@@ -66,6 +69,8 @@ Authorization
 Bearer Token
 Token
 <token>
+```
+```
 GET
 Test Admin (Admin)
 https://localhost:7064/api/auth/admin-only
@@ -75,6 +80,8 @@ Authorization
 Bearer Token
 Token
 <token>
+```
+```
 GET
 Get All Users (Admin)
 https://localhost:7064/api/auth/GetAllUsers
@@ -84,6 +91,8 @@ Authorization
 Bearer Token
 Token
 <token>
+```
+```
 DELETE
 Delete User (Admin)
 https://localhost:7064/api/auth/1
@@ -93,20 +102,21 @@ Authorization
 Bearer Token
 Token
 <token>
-
+```
 
 ## Type: Accessibility
-﻿
+
+ ```
 GET
 Get All
 https://localhost:7064/api/Accessibility/Get all accessibilities
-﻿
-
+﻿```
+```
 GET
 Get By Id
 https://localhost:7064/api/Accessibility/3
-﻿
-
+﻿```
+```
 PUT
 Modify By Id
 https://localhost:7064/api/Accessibility/2
@@ -119,11 +129,13 @@ json
     "name": "Hörselhjälpmedel",
     "description": "Utrustning för hörselskadade"
 }
+```
+```
 DELETE
 Delete By Id
 https://localhost:7064/api/Accessibility/2
-﻿
-
+﻿```
+```
 POST
 Add
 https://localhost:7064/api/Accessibility/
@@ -135,11 +147,11 @@ json
     "name": "Hörselhjälpmedel",
     "description": "Utrustning för hörselskadade"
 }
-
+```
 
 ## Type: Accomodation
 ﻿
-
+```
 GET
 Available Receptionist (incl. noOfGuests)
 https://localhost:7064/api/Accomodation/availableReceptionist
@@ -157,6 +169,8 @@ json
     "end": "2025-06-12T00:00:00",
     "noOfGuests": 2
 }
+```
+```
 GET
 Available Guest (excl. noOfGuests)
 https://localhost:7064/api/Accomodation/availableGuest
@@ -173,20 +187,22 @@ json
   "start": "2025-06-10T00:00:00",
   "end": "2025-06-12T00:00:00"
 }
+```
+```
 GET
 Get All
 https://localhost:7064/api/Accomodation/Get all Accomodations
-﻿
-
+﻿```
+```
 GET
 Get By Id
 https://localhost:7064/api/Accomodation/2
-﻿
-
+﻿```
+```
 PUT
 Modify By Id
 https://localhost:7064/api/Accomodation/3
-﻿
+
 
 Body
 raw (json)
@@ -197,15 +213,17 @@ json
     "accomodationTypeId": 1,
     "accessibilityIds": [1]
 }
+```
+```
 DELETE
 Delete By Id
 https://localhost:7064/api/Accomodation/2
-﻿
-
+﻿```
+```
 POST
 Add
 https://localhost:7064/api/Accomodation
-﻿
+
 
 Body
 raw (json)
@@ -216,25 +234,25 @@ json
     "accomodationTypeId": 1,
     "accessibilityIds": [1]
 }
-
+```
 
 ## Type:  AccomodationType
 ﻿
-
+```
 GET
 Get All
 https://localhost:7064/api/AccomodationType/Get all accomodationType
-﻿
-
+﻿```
+```
 GET
 Get By Id
 https://localhost:7064/api/AccomodationType/1
-﻿
-
+﻿```
+```
 PUT
 Modify By Id
 https://localhost:7064/api/AccomodationType/1
-﻿
+
 
 Body
 raw (json)
@@ -245,11 +263,13 @@ json
     "description": "Ett rum med en säng",
     "basePrice": 850.00
 }
+```
+```
 DELETE
 Delete By Id
 https://localhost:7064/api/AccomodationType/1
-﻿
-
+﻿```
+```
 POST
 Add
 https://localhost:7064/api/AccomodationType/
@@ -263,24 +283,24 @@ json
   "description": "Ett enkelt rum",
   "basePrice": 1000
 }
-
+```
 ## Type: AdditionalOption
 ﻿
-
+```
 GET
 Get All
 https://localhost:7064/api/AdditionalOption
-﻿
-
+﻿```
+```
 GET
 Get By Id
 https://localhost:7064/api/AdditionalOption/1
-﻿
-
+﻿```
+```
 PUT
 Modify By Id
 https://localhost:7064/api/AdditionalOption/4
-﻿
+
 
 Body
 raw (json)
@@ -292,11 +312,13 @@ json
     "perGuest": true,
     "perNight": true
 }
+```
+```
 DELETE
 Delete By Id
 https://localhost:7064/api/AdditionalOption/1
-﻿
-
+﻿```
+```
 POST
 Add
 https://localhost:7064/api/AdditionalOption
@@ -312,11 +334,11 @@ json
     "perGuest": true,
     "perNight": false
 }
-
+```
 
 ## Type: Booking
 ﻿
-
+```
 GET
 Get All Bookings Overview
 https://localhost:7064/api/booking/overview
@@ -326,6 +348,8 @@ Authorization
 Bearer Token
 Token
 <token>
+```
+```
 GET
 Get All Bookings Detailed
 https://localhost:7064/api/booking/Detailed overview
@@ -335,11 +359,13 @@ Authorization
 Bearer Token
 Token
 <token>
+```
+```
 GET
 Get Customers Bookings By Id
 https://localhost:7064/api/Booking/customer/17
-﻿
-
+﻿```
+```
 GET
 Get By Customer Id And Customer Email
 https://localhost:7064/api/booking/customersearch?customerId=1&email=anna@example.com
@@ -348,6 +374,8 @@ https://localhost:7064/api/booking/customersearch?customerId=1&email=anna@exampl
 Query Params
 customerId
 email
+```
+```
 GET
 Get By Id
 https://localhost:7064/api/Booking/21
@@ -357,11 +385,13 @@ Authorization
 Bearer Token
 Token
 <token>
+```
+```
 PUT
 Cancel By Id
 https://localhost:7064/api/booking/11
-﻿
-
+﻿```
+```
 PUT
 Modify By Id
 https://localhost:7064/api/booking/modify/21
@@ -391,6 +421,8 @@ json
         ],
         "additionalOptionsId": [2,3,4]
     }
+```
+```
 DELETE
 Delete By Id
 https://localhost:7064/api/booking/11
@@ -400,6 +432,8 @@ Authorization
 Bearer Token
 Token
 <token>
+```
+```
 POST
 Add
 https://localhost:7064/api/booking/
@@ -430,12 +464,12 @@ json
     1,2,3
   ]
 }
-
+```
 
 
 ## Type: PriceRequest
 https://localhost:7064/api/booking/Pricerequest
-﻿
+﻿```
 POST
 Body
 raw (json)
@@ -446,15 +480,15 @@ json
   "Duration": 2,
   "AdditonalOptionIds": [1, 2]
 }
-
+```
 ## Type: Customer
 ﻿
-
+```
 GET
 Get By Id
 https://localhost:7064/api/Customer/1
-﻿
-
+﻿```
+```
 POST
 New Customer
 https://localhost:7064/api/Customer
@@ -475,19 +509,20 @@ json
   "phoneNumber": "0700001234",
   "paymentMethod": "Cash"
 }
-PriceChanges
+```
+## Type: PriceChanges
 ﻿
-
+```
 GET
 Get All
 https://localhost:7064/api/PriceChanges/Get all price changes
-﻿
-
+﻿```
+```
 GET
 Get By Id
 https://localhost:7064/api/PriceChanges/2
-﻿
-
+﻿```
+```
 PUT
 Modify By Id
 https://localhost:7064/api/PriceChanges/2
@@ -500,11 +535,13 @@ json
     "priceChange": 0.8,
     "type": "Kompis till chefen"
 }
+```
+```
 DELETE
 Delete By Id
 https://localhost:7064/api/PriceChanges/2
-﻿
-
+﻿```
+```
 POST
 Add
 https://localhost:7064/api/PriceChanges/
@@ -516,3 +553,5 @@ json
 {
     "priceChange": 0.8,
     "type": "Kompis till chefen"
+}
+```
