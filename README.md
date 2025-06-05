@@ -35,6 +35,6 @@
     
   ###  - Dokumentation av API-endpoints
 
-    [Länk till dokumentationen](https://github.com/GoodStuff15/kallblodstravarna/blob/main/API%20Documentation)
+    [Länk till dokumentationen](https://github.com/GoodStuff15/kallblodstravarna/blob/main/API%20Documentation.md)
     
   ###  - Beskrivning av teststrategi och resultat
