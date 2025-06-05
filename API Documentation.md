@@ -220,7 +220,7 @@ DELETE
 Delete By Id
 https://localhost:7064/api/Accomodation/2
 ﻿```
-```
+
 POST
 Add
 https://localhost:7064/api/Accomodation
