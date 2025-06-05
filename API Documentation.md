@@ -97,7 +97,7 @@ Token
 
 ## Type: Accessibility
 
-```GET
+GET
 Get All
 https://localhost:7064/api/Accessibility/Get all accessibilities```
 
@@ -424,7 +424,6 @@ json
 
 
 ## Type: PriceRequest
-https://localhost:7064/api/booking/Pricerequest
 
 ```POST
 Body
