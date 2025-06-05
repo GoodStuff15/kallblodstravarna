@@ -192,12 +192,12 @@ json
 GET
 Get All
 https://localhost:7064/api/Accomodation/Get all Accomodations
-﻿```
+```
 ```
 GET
 Get By Id
 https://localhost:7064/api/Accomodation/2
-﻿```
+
 ```
 PUT
 Modify By Id
@@ -284,6 +284,7 @@ json
   "basePrice": 1000
 }
 ```
+
 ## Type: AdditionalOption
 ﻿
 ```
