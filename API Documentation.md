@@ -134,7 +134,7 @@ json
 DELETE
 Delete By Id
 https://localhost:7064/api/Accessibility/2
-﻿```
+```
 ```
 POST
 Add
