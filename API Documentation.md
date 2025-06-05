@@ -119,11 +119,14 @@ Get All
 https://localhost:7064/api/Accessibility/Get all accessibilities
 ```
 
-```GET
+```
+GET
 Get By Id
-https://localhost:7064/api/Accessibility/3```
+https://localhost:7064/api/Accessibility/3
+```
 
-```PUT
+```
+PUT
 Modify By Id
 https://localhost:7064/api/Accessibility/2
 ﻿
@@ -134,13 +137,17 @@ json
 {
     "name": "Hörselhjälpmedel",
     "description": "Utrustning för hörselskadade"
-}```
+}
+```
 
-```DELETE
+```
+DELETE
 Delete By Id
-https://localhost:7064/api/Accessibility/2```
+https://localhost:7064/api/Accessibility/2
+```
 
-```POST
+```
+POST
 Add
 https://localhost:7064/api/Accessibility/
 
@@ -150,11 +157,13 @@ json
 {
     "name": "Hörselhjälpmedel",
     "description": "Utrustning för hörselskadade"
-}```
+}
+```
 
 ## Type: Accomodation
 ﻿
-```GET
+```
+GET
 Available Receptionist (incl. noOfGuests)
 https://localhost:7064/api/Accomodation/availableReceptionist
 ﻿
@@ -170,9 +179,11 @@ json
     "start": "2025-06-10T00:00:00",
     "end": "2025-06-12T00:00:00",
     "noOfGuests": 2
-}```
+}
+```
 
-```GET
+```
+GET
 Available Guest (excl. noOfGuests)
 https://localhost:7064/api/Accomodation/availableGuest
 ﻿
@@ -187,17 +198,23 @@ json
 {
   "start": "2025-06-10T00:00:00",
   "end": "2025-06-12T00:00:00"
-}```
+}
+```
 
-```GET
+```
+GET
 Get All
-https://localhost:7064/api/Accomodation/Get all Accomodations```
+https://localhost:7064/api/Accomodation/Get all Accomodations
+```
 
-```GET
+```
+GET
 Get By Id
-https://localhost:7064/api/Accomodation/2```
+https://localhost:7064/api/Accomodation/2
+```
 
-```PUT
+```
+PUT
 Modify By Id
 https://localhost:7064/api/Accomodation/3
 
@@ -210,13 +227,17 @@ json
     "maxOccupancy": 2,
     "accomodationTypeId": 1,
     "accessibilityIds": [1]
-}```
+}
+```
 
-```DELETE
+```
+DELETE
 Delete By Id
-https://localhost:7064/api/Accomodation/2```
+https://localhost:7064/api/Accomodation/2
+```
 
-```POST
+```
+POST
 Add
 https://localhost:7064/api/Accomodation
 
@@ -229,19 +250,25 @@ json
     "maxOccupancy": 2,
     "accomodationTypeId": 1,
     "accessibilityIds": [1]
-}```
+}
+```
 
 ## Type:  AccomodationType
 
-```GET
+```
+GET
 Get All
-https://localhost:7064/api/AccomodationType/Get all accomodationType```
+https://localhost:7064/api/AccomodationType/Get all accomodationType
+```
 
-```GET
+```
+GET
 Get By Id
-https://localhost:7064/api/AccomodationType/1```
+https://localhost:7064/api/AccomodationType/1
+```
 
-```PUT
+```
+PUT
 Modify By Id
 https://localhost:7064/api/AccomodationType/1
 
@@ -254,13 +281,17 @@ json
     "name": "Enkelrum",
     "description": "Ett rum med en säng",
     "basePrice": 850.00
-}```
+}
+```
 
-```DELETE
+```
+DELETE
 Delete By Id
-https://localhost:7064/api/AccomodationType/1```
+https://localhost:7064/api/AccomodationType/1
+```
 
-```POST
+```
+POST
 Add
 https://localhost:7064/api/AccomodationType/
 ﻿
@@ -272,19 +303,25 @@ json
   "name": "Enkelrum",
   "description": "Ett enkelt rum",
   "basePrice": 1000
-}```
+}
+```
 
 ## Type: AdditionalOption
 ﻿
-```GET
+```
+GET
 Get All
-https://localhost:7064/api/AdditionalOption```
+https://localhost:7064/api/AdditionalOption
+```
 
-```GET
+```
+GET
 Get By Id
-https://localhost:7064/api/AdditionalOption/1```
+https://localhost:7064/api/AdditionalOption/1
+```
 
-```PUT
+```
+PUT
 Modify By Id
 https://localhost:7064/api/AdditionalOption/4
 
@@ -298,13 +335,17 @@ json
     "price": 120.00,
     "perGuest": true,
     "perNight": true
-}```
+}
+```
 
-```DELETE
+```
+DELETE
 Delete By Id
-https://localhost:7064/api/AdditionalOption/1```
+https://localhost:7064/api/AdditionalOption/1
+```
 
-```POST
+```
+POST
 Add
 https://localhost:7064/api/AdditionalOption
 
@@ -318,11 +359,13 @@ json
     "price": 120.00,
     "perGuest": true,
     "perNight": false
-}``` 
+}
+``` 
 
 ## Type: Booking
 ﻿
-```GET
+```
+GET
 Get All Bookings Overview
 https://localhost:7064/api/booking/overview
 ﻿
@@ -330,9 +373,11 @@ https://localhost:7064/api/booking/overview
 Authorization
 Bearer Token
 Token
-<token>```
+<token>
+```
 
-```GET
+```
+GET
 Get All Bookings Detailed
 https://localhost:7064/api/booking/Detailed overview
 ﻿
@@ -340,22 +385,28 @@ https://localhost:7064/api/booking/Detailed overview
 Authorization
 Bearer Token
 Token
-<token>```
+<token>
+```
 
-```GET
+```
+GET
 Get Customers Bookings By Id
-https://localhost:7064/api/Booking/customer/17﻿```
+https://localhost:7064/api/Booking/customer/17
+﻿```
 
-```GET
+```
+GET
 Get By Customer Id And Customer Email
 https://localhost:7064/api/booking/customersearch?customerId=1&email=anna@example.com
 ﻿
 
 Query Params
 customerId
-email```
+email
+```
 
-```GET
+```
+GET
 Get By Id
 https://localhost:7064/api/Booking/21
 ﻿
@@ -363,13 +414,17 @@ https://localhost:7064/api/Booking/21
 Authorization
 Bearer Token
 Token
-<token>```
+<token>
+```
 
-```PUT
+```
+PUT
 Cancel By Id
-https://localhost:7064/api/booking/11```
+https://localhost:7064/api/booking/11
+```
 
-```PUT
+```
+PUT
 Modify By Id
 https://localhost:7064/api/booking/modify/21
 ﻿
@@ -397,9 +452,11 @@ json
             }
         ],
         "additionalOptionsId": [2,3,4]
-    }```
+    }
+```
 
-```DELETE
+```
+DELETE
 Delete By Id
 https://localhost:7064/api/booking/11
 ﻿
@@ -407,9 +464,11 @@ https://localhost:7064/api/booking/11
 Authorization
 Bearer Token
 Token
-<token>```
+<token>
+```
 
-```POST
+```
+POST
 Add
 https://localhost:7064/api/booking/
 ﻿
@@ -443,7 +502,8 @@ json
 
 ## Type: PriceRequest
 
-```POST
+```
+POST
 Body
 raw (json)
 json
@@ -452,15 +512,19 @@ json
   "GuestCount": 2,
   "Duration": 2,
   "AdditonalOptionIds": [1, 2]
-}```
+}
+```
 
 ## Type: Customer
 ﻿
-```GET
+```
+GET
 Get By Id
-https://localhost:7064/api/Customer/1```
+https://localhost:7064/api/Customer/1
+```
 
-```POST
+```
+POST
 New Customer
 https://localhost:7064/api/Customer
 ﻿
@@ -479,19 +543,25 @@ json
   "email": "asdassd@asdasd.com",
   "phoneNumber": "0700001234",
   "paymentMethod": "Cash"
-}```
+}
+```
 
 ## Type: PriceChanges
 ﻿
-```GET
+```
+GET
 Get All
-https://localhost:7064/api/PriceChanges/Get all price changes```
+https://localhost:7064/api/PriceChanges/Get all price changes
+```
 
-```GET
+```
+GET
 Get By Id
-https://localhost:7064/api/PriceChanges/2```
+https://localhost:7064/api/PriceChanges/2
+```
 
-```PUT
+```
+PUT
 Modify By Id
 https://localhost:7064/api/PriceChanges/2
 ﻿
@@ -502,13 +572,17 @@ json
 {
     "priceChange": 0.8,
     "type": "Kompis till chefen"
-}```
+}
+```
 
-```DELETE
+```
+DELETE
 Delete By Id
-https://localhost:7064/api/PriceChanges/2```
+https://localhost:7064/api/PriceChanges/2
+```
 
-```POST
+```
+POST
 Add
 https://localhost:7064/api/PriceChanges/
 
@@ -519,4 +593,5 @@ json
 {
     "priceChange": 0.8,
     "type": "Kompis till chefen"
-}```
+}
+```
