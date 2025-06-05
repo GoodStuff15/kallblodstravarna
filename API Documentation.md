@@ -544,7 +544,8 @@ json
   "email": "asdassd@asdasd.com",
   "phoneNumber": "0700001234",
   "paymentMethod": "Cash"
-}```
+}
+```
 
 ## Type: PriceChanges
 ﻿
