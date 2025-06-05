@@ -221,6 +221,7 @@ Delete By Id
 https://localhost:7064/api/Accomodation/2
 ﻿```
 
+```
 POST
 Add
 https://localhost:7064/api/Accomodation
@@ -235,7 +236,7 @@ json
     "accomodationTypeId": 1,
     "accessibilityIds": [1]
 }
-```
+
 
 ## Type:  AccomodationType
 ﻿
