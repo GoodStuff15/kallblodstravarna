@@ -17,9 +17,11 @@ json
   "username": "Peterr",
   "password": "Parker123#",
   "role": "Admin"
-}```
+}
+```
 
-```POST
+```
+POST
 Login
 https://localhost:7064/api/auth/login
 ﻿
@@ -31,9 +33,11 @@ json
   "username": "Peterr",
   "password": "Parker123#",
   "role": null
-}```
+}
+```
 
-```POST
+```
+POST
 Refresh Token
 https://localhost:7064/api/auth/refresh-token
 ﻿
@@ -44,9 +48,11 @@ json
 {
   "userId": 3,
   "refreshToken": "xWs9wdVmphT/ifS4X0H4nxEn++dYr8ZWIUG1tcC3EdE="
-}```
+}
+```
 
-```GET
+```
+GET
 Test Auth (Auth)
 https://localhost:7064/api/auth
 ﻿
@@ -54,9 +60,11 @@ https://localhost:7064/api/auth
 Authorization
 Bearer Token
 Token
-<token>```
+<token>
+```
 
-```POST
+```
+POST
 Logout (Auth)
 https://localhost:7064/api/auth/logout
 ﻿
@@ -64,9 +72,11 @@ https://localhost:7064/api/auth/logout
 Authorization
 Bearer Token
 Token
-<token>```
+<token>
+```
 
-```GET
+```
+GET
 Test Admin (Admin)
 https://localhost:7064/api/auth/admin-only
 ﻿
@@ -74,9 +84,11 @@ https://localhost:7064/api/auth/admin-only
 Authorization
 Bearer Token
 Token
-<token>```
+<token>
+```
 
-```GET
+```
+GET
 Get All Users (Admin)
 https://localhost:7064/api/auth/GetAllUsers
 ﻿
@@ -84,9 +96,11 @@ https://localhost:7064/api/auth/GetAllUsers
 Authorization
 Bearer Token
 Token
-<token>```
+<token>
+```
 
-```DELETE
+```
+DELETE
 Delete User (Admin)
 https://localhost:7064/api/auth/1
 ﻿
