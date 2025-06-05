@@ -102,7 +102,8 @@ Token
 ```
 GET
 Get All
-https://localhost:7064/api/Accessibility/Get all accessibilities```
+https://localhost:7064/api/Accessibility/Get all accessibilities
+```
 
 ```GET
 Get By Id
