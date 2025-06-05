@@ -4,7 +4,8 @@
 
 ## Type: Authentication
 
-```POST
+```
+POST
 Register
 https://localhost:7064/api/auth/register
 ﻿
