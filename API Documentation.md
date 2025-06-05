@@ -5,8 +5,8 @@
 ## Type: Authentication
 
 > POST
-Register
-https://localhost:7064/api/auth/register
+> Register
+> https://localhost:7064/api/auth/register
 ﻿
 
 Body
