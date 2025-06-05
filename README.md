@@ -24,7 +24,7 @@ Kallblodstravarnas Resort
 
     Applikationen tillämpar ett service-repository pattern, där businesslogiken är separerad från API-requests och databas-operationer.
 
-    Informationsflödet ser ut på följande sätt:
+    Informations/dataflödet ser ut på följande sätt:
 
     User <-> Api Controller <-> Service <-> Repository <-> Databas
 
