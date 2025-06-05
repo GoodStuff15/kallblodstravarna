@@ -497,7 +497,8 @@ json
   "additionalOptionIds": [
     1,2,3
   ]
-}```
+}
+```
 
 
 ## Type: PriceRequest
