@@ -1,8 +1,8 @@
-Kallblodstravarna API Documentation
+# Kallblodstravarna API Documentation
 
-=========================================
 
-Type: Authentication
+
+## Type: Authentication
 
 POST
 Register
@@ -87,9 +87,10 @@ Authorization
 Bearer Token
 Token
 <token>
-Accessibility
-﻿
 
+
+## Type: Accessibility
+﻿
 GET
 Get All
 https://localhost:7064/api/Accessibility/Get all accessibilities
@@ -120,7 +121,6 @@ https://localhost:7064/api/Accessibility/2
 POST
 Add
 https://localhost:7064/api/Accessibility/
-﻿
 
 Body
 raw (json)
@@ -129,9 +129,9 @@ json
     "name": "Hörselhjälpmedel",
     "description": "Utrustning för hörselskadade"
 }
-----------------------
 
-Type: Accomodation
+
+## Type: Accomodation
 ﻿
 
 GET
@@ -211,8 +211,8 @@ json
     "accessibilityIds": [1]
 }
 
------------------------
-Type:  AccomodationType
+
+## Type:  AccomodationType
 ﻿
 
 GET
@@ -258,7 +258,7 @@ json
   "basePrice": 1000
 }
 
-Type: AdditionalOption
+## Type: AdditionalOption
 ﻿
 
 GET
@@ -307,8 +307,8 @@ json
     "perNight": false
 }
 
---------------------------
-Type: Booking
+
+## Type: Booking
 ﻿
 
 GET
@@ -424,13 +424,13 @@ json
     1,2,3
   ]
 }
-POST
 
--------------------
-Type: PriceRequest
+
+
+## Type: PriceRequest
 https://localhost:7064/api/booking/Pricerequest
 ﻿
-
+POST
 Body
 raw (json)
 json
@@ -441,8 +441,7 @@ json
   "AdditonalOptionIds": [1, 2]
 }
 
----------------------
-Type: Customer
+## Type: Customer
 ﻿
 
 GET
