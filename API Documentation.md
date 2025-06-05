@@ -391,7 +391,8 @@ Token
 ```
 GET
 Get Customers Bookings By Id
-https://localhost:7064/api/Booking/customer/17﻿```
+https://localhost:7064/api/Booking/customer/17
+```
 
 ```
 GET
@@ -542,8 +543,7 @@ json
   "email": "asdassd@asdasd.com",
   "phoneNumber": "0700001234",
   "paymentMethod": "Cash"
-}
-```
+}```
 
 ## Type: PriceChanges
 ﻿
