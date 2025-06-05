@@ -38,3 +38,20 @@
   "https://github.com/GoodStuff15/kallblodstravarna/blob/main/API%20Documentation.md"
     
   ###  - Beskrivning av teststrategi och resultat
+
+   Vår teststrategi har innefattat en omfattande testdriven utveckling under uppbyggnadsfasen av applikationen.
+   Vid framtagning av i stort sett alla klasser har enhetstestning skett i MsTest för att sen gå vidare och skapa
+   klasserna efter testresultaten, enligt TDD. 
+   
+   Vid testning av relationer mellan olika delar av applikationen (se dataflödet ovan) så har detta frångåtts till viss del. 
+   Testning har i sådana fall skett i efterhand med hjälp av Entity Framework Cores inbyggda In Memory Database samt 
+   med mock-biblioteket Moq.
+
+   Mitt under utvecklingen refaktorerade vi vårt class library för att använda builder classes istället för
+   factories. Detta innebar att vi också skrev om de tester som redan skapats. 
+   Efter det refaktorerade vi även API:et till att använda ett Service-lager. Service-funktionerna har testats, 
+   men på grund av tidsbrist inte lika omfattande som de tidigare framtagna delarna av systemet. 
+
+   Sammanfattningsvis har vi en solid testgrund att stå på och många av delarna av applikationen står på egna ben - 
+   det vill säga att de dels följer single responsibility, och dels är så pass gediget testade att de enkelt
+   skulle kunna portas till andra applikationer.
