@@ -94,7 +94,8 @@ https://localhost:7064/api/auth/1
 Authorization
 Bearer Token
 Token
-<token>```
+<token>
+```
 
 ## Type: Accessibility
 
