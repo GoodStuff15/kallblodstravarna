@@ -4,9 +4,10 @@
 
 ## Type: Authentication
 
-> POST
-> Register
-> https://localhost:7064/api/auth/register
+```
+POST
+Register
+https://localhost:7064/api/auth/register
 ﻿
 
 Body
@@ -17,6 +18,8 @@ json
   "password": "Parker123#",
   "role": "Admin"
 }
+```
+```
 POST
 Login
 https://localhost:7064/api/auth/login
@@ -30,6 +33,8 @@ json
   "password": "Parker123#",
   "role": null
 }
+```
+```
 POST
 Refresh Token
 https://localhost:7064/api/auth/refresh-token
@@ -42,6 +47,7 @@ json
   "userId": 3,
   "refreshToken": "xWs9wdVmphT/ifS4X0H4nxEn++dYr8ZWIUG1tcC3EdE="
 }
+```
 GET
 Test Auth (Auth)
 https://localhost:7064/api/auth
