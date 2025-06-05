@@ -1,5 +1,18 @@
 ## Kallblodstravarnas Resort
+   Ett projektarbete i C# .NET för SUT24.
 
+   Entity Framework Core
+   MySQL
+   OpenAPI
+   Postman
+   MSTest
+
+   **Medverkande:**
+   Egzon "Frontend" Jashari
+   Shokran B
+   ICA-Johan
+   IGustav<T>
+   
    ### - Projektbeskrivning och arkitekturöversikt
 
     Projektet består av ett API för att boka boende och aktiviteter på en vacker paradisresort. 
