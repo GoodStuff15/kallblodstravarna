@@ -1,6 +1,6 @@
-Kallblodstravarnas Resort
+## Kallblodstravarnas Resort
 
-    - Projektbeskrivning och arkitekturöversikt
+   ### - Projektbeskrivning och arkitekturöversikt
 
     Projektet består av ett API för att boka boende och aktiviteter på en vacker paradisresort. 
 
@@ -33,7 +33,8 @@ Kallblodstravarnas Resort
     I Repository-lagret sker databashantering.
 
     
-    - Dokumentation av API-endpoints
+  ###  - Dokumentation av API-endpoints
 
+    [Länk till dokumentationen](https://github.com/GoodStuff15/kallblodstravarna/blob/main/API%20Documentation)
     
-    - Beskrivning av teststrategi och resultat
+  ###  - Beskrivning av teststrategi och resultat
