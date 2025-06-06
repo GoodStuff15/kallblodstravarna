@@ -15,8 +15,8 @@ public class BookingBuilderTests
     [TestMethod]
     public void CreateBooking_ValidInputs_ShouldReturnBooking()
     {
-        var customer = new Customer { Id = 1, FirstName = "Testperson" };
-        var accomodation = new Accomodation { Id = 1, Name = "Rum" };
+        var customer = new Customer { Id = 1, FirstName = "Test person" };
+        var accomodation = new Accomodation { Id = 1, Name = "Room" };
         var checkIn = new DateTime(2025, 7, 1);
         var checkOut = new DateTime(2025, 7, 5);
 
@@ -49,7 +49,7 @@ public class BookingBuilderTests
                       .AddCheckOut(checkOut)
                       .Build());
 
-        Assert.AreEqual("Utcheckning måste vara efter incheckning.", ex.Message);
+        Assert.AreEqual("CheckOut must be after checkIn.", ex.Message);
     }
     [TestMethod]
     public void CreateBooking_NullCustomer_ShouldThrow()
@@ -60,7 +60,7 @@ public class BookingBuilderTests
 
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.AddCustomer(null));
-        Assert.AreEqual("Kund måste anges.", ex.Message);
+        Assert.AreEqual("Customer must be entered.", ex.Message);
     }
     [TestMethod]
     public void CreateBooking_NullAccomodation_ShouldThrow()
@@ -72,7 +72,7 @@ public class BookingBuilderTests
 
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.AddAccomodation(accomodation));
-        Assert.AreEqual("Boende måste anges.", ex.Message);
+        Assert.AreEqual("Accomodation must be entered.", ex.Message);
     }
     [TestMethod]
     public void CreateBooking_CheckInSameAsCheckOut_ShouldThrow()
@@ -88,7 +88,7 @@ public class BookingBuilderTests
                       .AddCheckIn(checkInOut)
                       .AddCheckOut(checkInOut)
                       .Build());
-        Assert.AreEqual("Utcheckning måste vara efter incheckning.", ex.Message);
+        Assert.AreEqual("CheckOut must be after checkIn.", ex.Message);
     }
     [TestMethod]
     public void CreateBooking_CheckInPastDate_ShouldThrow()
@@ -99,7 +99,7 @@ public class BookingBuilderTests
         var ex = Assert.ThrowsException<ArgumentException> (() =>
         _builder.AddCheckIn(checkIn));
 
-        Assert.AreEqual("Incheckning kan inte vara i då-tid.", ex.Message);
+        Assert.AreEqual("CheckIn cant be in the past.", ex.Message);
     }
     [TestMethod]
     public void CreateBooking_WithoutTimeOfBooking_ShouldBeCurrentTime()
@@ -175,6 +175,6 @@ public class BookingBuilderTests
             .AddGuestList(new List<Guest>())
             .Build());
 
-        Assert.AreEqual("Minst en gäst måste anges.", ex.Message);
+        Assert.AreEqual("Min one guest must be entered.", ex.Message);
     }
 }
