@@ -85,7 +85,7 @@ public class UserBuilderTests
     public void WithUsername_InvalidValues_ShouldThrowArgumentException(string username)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() => _builder.WithUsername(username));
-        Assert.AreEqual("Användarnamn måste anges.", ex.Message);
+        Assert.AreEqual("Username must be entered.", ex.Message);
     }
 
     [DataTestMethod]
@@ -95,7 +95,7 @@ public class UserBuilderTests
     public void WithPasswordHash_InvalidValues_ShouldThrowArgumentException(string passwordHash)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() => _builder.WithPasswordHash(passwordHash));
-        Assert.AreEqual("Lösenord måste anges.", ex.Message);
+        Assert.AreEqual("Password must be entered.", ex.Message);
     }
 
     [DataTestMethod]
@@ -105,7 +105,7 @@ public class UserBuilderTests
     public void WithRole_InvalidValues_ShouldThrowArgumentException(string role)
     {
         var ex = Assert.ThrowsException<ArgumentException>(() => _builder.WithRole(role));
-        Assert.AreEqual("Roll måste anges.", ex.Message);
+        Assert.AreEqual("Role must be entered.", ex.Message);
     }
     
 }
