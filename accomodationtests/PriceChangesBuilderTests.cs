@@ -34,6 +34,6 @@ public class PriceChangesBuilderTests
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.AddType(type));
 
-        StringAssert.StartsWith(ex.Message, "Typ måste anges");
+        StringAssert.StartsWith(ex.Message, "Type must be entered.");
     }
 }
