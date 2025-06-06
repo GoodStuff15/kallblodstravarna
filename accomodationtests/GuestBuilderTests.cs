@@ -32,7 +32,7 @@ public class GuestBuilderTests
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.AddFirstName(firstName));
 
-        Assert.AreEqual("Förnamn måste anges.", ex.Message);
+        Assert.AreEqual("First name is required.", ex.Message);
     }
 
     [DataTestMethod]
@@ -44,7 +44,7 @@ public class GuestBuilderTests
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.AddLastName(lastName));
 
-        Assert.AreEqual("Efternamn måste anges.", ex.Message);
+        Assert.AreEqual("Last name is required.", ex.Message);
     }
     [DataTestMethod]
     [DataRow(0)]
@@ -54,13 +54,13 @@ public class GuestBuilderTests
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.AddAge(invalidAge));
 
-        Assert.AreEqual("Ålder måste vara högre än 0", ex.Message);
+        Assert.AreEqual("Age must be greater than 0.", ex.Message);
     }
     [TestMethod]
     public void CreateGuest_NullBooking_ShouldThrow()
     {
         var ex = Assert.ThrowsException<ArgumentNullException>(() =>
         _builder.WithBooking(null));
-        Assert.AreEqual("Bokning måste anges. (Parameter 'booking')", ex.Message);
+        Assert.AreEqual("Booking must be entered. (Parameter 'booking')", ex.Message);
     }
 }
