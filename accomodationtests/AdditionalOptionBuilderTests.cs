@@ -15,14 +15,14 @@ public class AdditionalOptionBuilderTests
     [TestMethod]
     public void CreateAdditionalOption_ValidData_ShouldReturnAddedOption()
     {
-        var option = _builder.AddName("Frukost")
-                    .AddDescription("Buffé")
+        var option = _builder.AddName("Breakfast")
+                    .AddDescription("Buffet")
                     .AddPrice(100m)
                     .Build();
 
         Assert.IsNotNull(option);
-        Assert.AreEqual("Frukost", option.Name);
-        Assert.AreEqual("Buffé", option.Description);
+        Assert.AreEqual("Breakfast", option.Name);
+        Assert.AreEqual("Buffet", option.Description);
         Assert.AreEqual(100m, option.Price);
         Assert.IsNotNull(option.Bookings);
         Assert.AreEqual(0, option.Bookings.Count);
@@ -35,10 +35,10 @@ public class AdditionalOptionBuilderTests
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.AddName(name));
-        Assert.AreEqual("Namn måste anges.", ex.Message);
+        Assert.AreEqual("Name is required.", ex.Message);
     }
 
-    [DataTestMethod]//Check convert to double
+    [DataTestMethod]
     [DataRow(-0.1)]
     [DataRow(-99.99)]
     public void CreateAdditionalOption_InvalidPrice_ShouldThrow(double inputPrice)
