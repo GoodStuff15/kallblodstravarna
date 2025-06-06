@@ -16,40 +16,40 @@ namespace resortlibrary.Builders
             };
         }
 
-        public CustomerBuilder AddType(string type)
+        public CustomerBuilder AddType(string type)//Set customer type. Cant be empty or whitespace
         {
             if (string.IsNullOrWhiteSpace(type))
             {
-                throw new ArgumentException("Fyll i kundtyp");
+                throw new ArgumentException("Enter customer type.");
             }
 
             _customer.Type = type;
             return this;
         }
 
-        public CustomerBuilder AddFirstName(string firstName)
+        public CustomerBuilder AddFirstName(string firstName)//Set customer first name. Cant be empty or whitespace
         {
             if (string.IsNullOrWhiteSpace(firstName))
             {
-                throw new ArgumentException("Fyll i förnamn");
+                throw new ArgumentException("Enter first name.");
             }
 
             _customer.FirstName = firstName;
             return this;
         }
 
-        public CustomerBuilder AddLastName(string lastName)
+        public CustomerBuilder AddLastName(string lastName)//Set customer last name. Cant be empty or whitespace
         {
             if (string.IsNullOrWhiteSpace(lastName))
             {
-                throw new ArgumentException("Fyll i efternamn");
+                throw new ArgumentException("Enter last name.");
             }
 
             _customer.LastName = lastName;
             return this;
         }
 
-        public CustomerBuilder AddEmail(string email)
+        public CustomerBuilder AddEmail(string email)//Set customer email. Cant be empty or whitespace
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -66,7 +66,7 @@ namespace resortlibrary.Builders
             return this;
         }
 
-        public CustomerBuilder AddPhone(string phone)
+        public CustomerBuilder AddPhone(string phone)//Set customer phone. Must match swedish phone number pattern
         {
             var pattern = @"^(\+46|0)?\s*(\(?\d{2,4}\)?)[\s-]*\d{2,3}[\s-]*\d{2}[\s-]*\d{2}$";
             var regex = new Regex(pattern);
@@ -80,29 +80,29 @@ namespace resortlibrary.Builders
             return this;
         }
 
-        public CustomerBuilder AddPaymentMethod(string paymentMethod)
+        public CustomerBuilder AddPaymentMethod(string paymentMethod)//Set customer payment method. Cant be empty or whitespace
         {
             if (string.IsNullOrWhiteSpace(paymentMethod))
             {
-                throw new ArgumentException("Fyll i betalningsmetod");
+                throw new ArgumentException("Enter payment method.");
             }
 
             _customer.PaymentMethod = paymentMethod;
             return this;
         }
 
-        public CustomerBuilder AddBookings(ICollection<Booking> bookings)
+        public CustomerBuilder AddBookings(ICollection<Booking> bookings)//Set customer bookings. Must contain at leaste one booking.
         {
             if (bookings == null || bookings.Count == 0)
             {
-                throw new ArgumentException("Kund måste ha minst en bokning.");
+                throw new ArgumentException("Customer must have min one reservation.");
             }
 
             _customer.Bookings = bookings;
             return this;
         }
 
-        public Customer Build()
+        public Customer Build()//Build customer-object
         {
             return _customer;
         }
