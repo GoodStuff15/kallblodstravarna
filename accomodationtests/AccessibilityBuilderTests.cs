@@ -36,7 +36,7 @@ public class AccessibilityBuilderTests
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.WithName(invalidName));
 
-        Assert.AreEqual("Namn måste anges.", ex.Message);
+        Assert.AreEqual("Name is required.", ex.Message);
     }
 
     [TestMethod]
@@ -45,7 +45,7 @@ public class AccessibilityBuilderTests
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.WithDescription(null));
 
-        Assert.AreEqual("Beskrivning måste anges.", ex.Message);
+        Assert.AreEqual("Description is reguired.", ex.Message);
     }
     
 }
