@@ -32,7 +32,7 @@ public class AccomodationTypeBuilderTests
     {
         var ex = Assert.ThrowsException<ArgumentException>(() =>
         _builder.AddName(name));
-        Assert.AreEqual("Namn måste anges.", ex.Message);
+        Assert.AreEqual("Name is required.", ex.Message);
     }
     [DataTestMethod]
     [DataRow(0.0)]
