@@ -7,3 +7,21 @@ CustomerService_CreateCustomer_ShouldReturnTrue()									Service recieves a Cus
 																					process, returns true		
 CustomerService_GetACustomer														Service receives a id,					A customer is returned
 																					returns a customer
+
+
+Klass/Testfallnamn													Rad:			Beskrivning								Förväntat resultat	
+BookingController_HttpGet_FindsAllBookings_WithAllInfoNeeded()						Controllers gets all info needed		Returns all bookings, including guest,
+																					to process request						accomodation, price changes,
+																															additional options
+
+FromAccessibility_ToAccessibilityDTO ()												Receives an object, converts and		Returns a dto with description and name
+																					returns a DTO with only requested		matching the the properties of the object that it was given.
+																					information.
+
+FromAccessibilityDTO_ToAccessibility()												Receives a DTO, converts and			Returns an object with description and name
+																					returns an object with dto info			matching the properties of the DTO that it was given.
+																					plus placeholders for other props.		Other properties null or default values.
+
+FromGuestCollection_ToGuestDTOCollection()											Receives a collection of objects,		Returns a collection of guest dtos with names an ages.
+																					converts and returns a collection
+																					of correct dtos.
