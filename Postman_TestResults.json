@@ -1,0 +1,1431 @@
+{
+	"id": "01df65e0-099a-4238-8dec-52df0ee1ed23",
+	"name": "Kallblodstravarna Tests",
+	"timestamp": "2025-06-06T19:49:01.507Z",
+	"collection_id": "44303897-e72b1d1b-4225-4c34-a702-4d57bb8277b2",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 64,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-06-06T19:48:56.248Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "88762c2f-cba9-4237-bd63-0df78cdbae22",
+			"name": "Register User",
+			"url": "https://localhost:7064/api/auth/register",
+			"time": 59,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				59
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true
+				}
+			]
+		},
+		{
+			"id": "9d30dd76-7e8a-43a8-ab2a-eb265014bbce",
+			"name": "Login User",
+			"url": "https://localhost:7064/api/auth/login",
+			"time": 62,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has accessToken": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has accessToken": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				62
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has accessToken": true
+				}
+			]
+		},
+		{
+			"id": "6aec2100-d5ce-40ca-aeb4-d3838cfc3164",
+			"name": "Add Accessibility",
+			"url": "https://localhost:7064/api/Accessibility/",
+			"time": 3,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has id": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has id": true
+				}
+			]
+		},
+		{
+			"id": "7ff4aa33-a9d6-42d6-8721-918040a6b3f7",
+			"name": "Get Accessibility by ID",
+			"url": "https://localhost:7064/api/Accessibility/14",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has correct name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has correct name": true
+				}
+			]
+		},
+		{
+			"id": "5065f69d-0d65-4022-819e-17e5b527f137",
+			"name": "Modify Accessibility by ID",
+			"url": "https://localhost:7064/api/Accessibility/14",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "43cfd05f-d324-44cf-ba48-a16484926462",
+			"name": "Delete Accessibility by ID",
+			"url": "https://localhost:7064/api/Accessibility/14",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "885535ea-be47-4e51-8d1c-4c141a8a3dbb",
+			"name": "Get All Accessibilities",
+			"url": "https://localhost:7064/api/Accessibility/Get all accessibilities",
+			"time": 45,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				45
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "da4c2064-cf7f-4d54-828e-6275b163c435",
+			"name": "Add Accomodation",
+			"url": "https://localhost:7064/api/Accomodation",
+			"time": 97,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has id": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				97
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has id": true
+				}
+			]
+		},
+		{
+			"id": "a2740928-2ec9-4f41-8fbb-19b3c8a1e15c",
+			"name": "Get Accomodation by ID",
+			"url": "https://localhost:7064/api/Accomodation/15",
+			"time": 101,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has correct name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				101
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has correct name": true
+				}
+			]
+		},
+		{
+			"id": "12aef4a5-2292-408c-b23a-4ada46979901",
+			"name": "Modify Accomodation by ID",
+			"url": "https://localhost:7064/api/Accomodation/15",
+			"time": 58,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				58
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "a70207cd-f24b-44f4-9d72-4c5c67a03704",
+			"name": "Delete Accomodation by ID",
+			"url": "https://localhost:7064/api/Accomodation/15",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "0d857364-638c-4f2a-a741-cfdd5c2d747b",
+			"name": "Get All Accomodations",
+			"url": "https://localhost:7064/api/Accomodation/Get all Accomodations",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "f5104d8e-8d01-4e18-aae9-bbcbbca8dbeb",
+			"name": "Available Receptionist",
+			"url": "https://localhost:7064/api/Accomodation/availableReceptionist",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "e0bc98f3-727a-4ded-9006-493ee22fd9a8",
+			"name": "Available Guest",
+			"url": "https://localhost:7064/api/Accomodation/availableGuest",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "07f0a1a7-d5d3-4247-ad44-e02e7e902f28",
+			"name": "Add AccomodationType",
+			"url": "https://localhost:7064/api/AccomodationType/",
+			"time": 3,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has id": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has id": true
+				}
+			]
+		},
+		{
+			"id": "e272a9c4-ed55-4295-9ce7-258ef26d3e66",
+			"name": "Get AccomodationType by ID",
+			"url": "https://localhost:7064/api/AccomodationType/15",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has correct name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has correct name": true
+				}
+			]
+		},
+		{
+			"id": "35abd912-a13a-44c7-9458-010ecbfd20dc",
+			"name": "Modify AccomodationType by ID",
+			"url": "https://localhost:7064/api/AccomodationType/15",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "48618a18-70b7-4dfa-87f8-f29bd02cfaaf",
+			"name": "Delete AccomodationType by ID",
+			"url": "https://localhost:7064/api/AccomodationType/15",
+			"time": 5,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "77b356f4-06b3-4b99-8a58-6af7443cd3d5",
+			"name": "Get All AccomodationTypes",
+			"url": "https://localhost:7064/api/AccomodationType/Get all accomodationType",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "e8012f96-bcad-42d6-a1fa-e8986bcedb36",
+			"name": "Add AdditionalOption",
+			"url": "https://localhost:7064/api/AdditionalOption",
+			"time": 3,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has id": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has id": true
+				}
+			]
+		},
+		{
+			"id": "bec1153e-92b6-402a-9716-76cdc3196aeb",
+			"name": "Get AdditionalOption by ID",
+			"url": "https://localhost:7064/api/AdditionalOption/15",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has correct name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has correct name": true
+				}
+			]
+		},
+		{
+			"id": "49fd4545-5245-49e8-b619-70d6818f7046",
+			"name": "Modify AdditionalOption by ID",
+			"url": "https://localhost:7064/api/AdditionalOption/15",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "4dae2634-22fa-4ec1-a9c9-af69ff0e5e88",
+			"name": "Delete AdditionalOption by ID",
+			"url": "https://localhost:7064/api/AdditionalOption/15",
+			"time": 5,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "956459cd-61a0-4cb0-982b-bcaf651c5876",
+			"name": "Get All AdditionalOptions",
+			"url": "https://localhost:7064/api/AdditionalOption",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "78a4ab03-ddd4-45b0-bd6c-3b3e8d739b60",
+			"name": "Add Booking",
+			"url": "https://localhost:7064/api/booking/",
+			"time": 1246,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"Response has bookingId": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has bookingId": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1246
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"Response has bookingId": true
+				}
+			]
+		},
+		{
+			"id": "6fe01f46-00c1-40c1-a64d-012d80c4e767",
+			"name": "Get Booking by ID",
+			"url": "https://localhost:7064/api/Booking/15",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "655ed289-c2ee-444b-aaa0-ae60cfeda469",
+			"name": "Modify Booking by ID",
+			"url": "https://localhost:7064/api/booking/modify/15",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true
+				}
+			]
+		},
+		{
+			"id": "faa8e54a-b903-4e35-9917-058e9419c47a",
+			"name": "Cancel Booking by ID",
+			"url": "https://localhost:7064/api/booking/15",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "e9c0c717-a9de-4739-a615-fca27f057367",
+			"name": "Delete Booking by ID",
+			"url": "https://localhost:7064/api/booking/15",
+			"time": 93,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				93
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "8b05f9cc-055e-4877-8710-aef039973aaa",
+			"name": "Get All Bookings Overview",
+			"url": "https://localhost:7064/api/booking/overview",
+			"time": 28,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				28
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "7ba61b28-3120-4e0f-b5d3-9d21ceeca39d",
+			"name": "Get All Bookings Detailed",
+			"url": "https://localhost:7064/api/booking/Detailed overview",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "625b5791-4a32-48c3-b0ce-45fc0072d6ee",
+			"name": "Get Customer Bookings by ID",
+			"url": "https://localhost:7064/api/Booking/customer/17",
+			"time": 50,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				50
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "b64ab9eb-bedb-4ca3-8ddd-e049b2a5db24",
+			"name": "Get Customer Bookings by ID and Email",
+			"url": "https://localhost:7064/api/booking/customersearch?customerId=1&email=anna@example.com",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "0aa678d0-9e7b-4374-8d04-77147c28e453",
+			"name": "Price Request",
+			"url": "https://localhost:7064/api/booking/Pricerequest",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "5e945115-9f95-4f29-b294-dd70949031ba",
+			"name": "Add Customer",
+			"url": "https://localhost:7064/api/Customer",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"Response has id": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"Response has id": true
+				}
+			]
+		},
+		{
+			"id": "4e8f7c86-02d2-4230-8c11-ec91f3ce0664",
+			"name": "Get Customer by ID",
+			"url": "https://localhost:7064/api/Customer/14",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has correct email": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct email": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has correct email": true
+				}
+			]
+		},
+		{
+			"id": "b026424d-9619-4178-96a1-b9773a0ba4a9",
+			"name": "Add PriceChange",
+			"url": "https://localhost:7064/api/PriceChanges/",
+			"time": 3,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has id": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has id": true
+				}
+			]
+		},
+		{
+			"id": "8bbbf73b-017b-41db-b47f-1e43e9ef7acb",
+			"name": "Get PriceChange by ID",
+			"url": "https://localhost:7064/api/PriceChanges/14",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has correct type": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct type": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has correct type": true
+				}
+			]
+		},
+		{
+			"id": "9d428e6f-8960-4c97-97e5-9a4410ba1e62",
+			"name": "Modify PriceChange by ID",
+			"url": "https://localhost:7064/api/PriceChanges/14",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "f3fb90e8-34df-4cf3-9999-a14383b9b430",
+			"name": "Delete PriceChange by ID",
+			"url": "https://localhost:7064/api/PriceChanges/14",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200 or 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 204": true
+				}
+			]
+		},
+		{
+			"id": "f04513f0-a350-4052-9c0b-3a2bc3982df7",
+			"name": "Get All PriceChanges",
+			"url": "https://localhost:7064/api/PriceChanges/Get all price changes",
+			"time": 2,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				2
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1966,
+	"collection": {
+		"requests": [
+			{
+				"id": "88762c2f-cba9-4237-bd63-0df78cdbae22",
+				"method": "POST"
+			},
+			{
+				"id": "9d30dd76-7e8a-43a8-ab2a-eb265014bbce",
+				"method": "POST"
+			},
+			{
+				"id": "6aec2100-d5ce-40ca-aeb4-d3838cfc3164",
+				"method": "POST"
+			},
+			{
+				"id": "7ff4aa33-a9d6-42d6-8721-918040a6b3f7",
+				"method": "GET"
+			},
+			{
+				"id": "5065f69d-0d65-4022-819e-17e5b527f137",
+				"method": "PUT"
+			},
+			{
+				"id": "43cfd05f-d324-44cf-ba48-a16484926462",
+				"method": "DELETE"
+			},
+			{
+				"id": "885535ea-be47-4e51-8d1c-4c141a8a3dbb",
+				"method": "GET"
+			},
+			{
+				"id": "da4c2064-cf7f-4d54-828e-6275b163c435",
+				"method": "POST"
+			},
+			{
+				"id": "a2740928-2ec9-4f41-8fbb-19b3c8a1e15c",
+				"method": "GET"
+			},
+			{
+				"id": "12aef4a5-2292-408c-b23a-4ada46979901",
+				"method": "PUT"
+			},
+			{
+				"id": "a70207cd-f24b-44f4-9d72-4c5c67a03704",
+				"method": "DELETE"
+			},
+			{
+				"id": "0d857364-638c-4f2a-a741-cfdd5c2d747b",
+				"method": "GET"
+			},
+			{
+				"id": "f5104d8e-8d01-4e18-aae9-bbcbbca8dbeb",
+				"method": "GET"
+			},
+			{
+				"id": "e0bc98f3-727a-4ded-9006-493ee22fd9a8",
+				"method": "GET"
+			},
+			{
+				"id": "07f0a1a7-d5d3-4247-ad44-e02e7e902f28",
+				"method": "POST"
+			},
+			{
+				"id": "e272a9c4-ed55-4295-9ce7-258ef26d3e66",
+				"method": "GET"
+			},
+			{
+				"id": "35abd912-a13a-44c7-9458-010ecbfd20dc",
+				"method": "PUT"
+			},
+			{
+				"id": "48618a18-70b7-4dfa-87f8-f29bd02cfaaf",
+				"method": "DELETE"
+			},
+			{
+				"id": "77b356f4-06b3-4b99-8a58-6af7443cd3d5",
+				"method": "GET"
+			},
+			{
+				"id": "e8012f96-bcad-42d6-a1fa-e8986bcedb36",
+				"method": "POST"
+			},
+			{
+				"id": "bec1153e-92b6-402a-9716-76cdc3196aeb",
+				"method": "GET"
+			},
+			{
+				"id": "49fd4545-5245-49e8-b619-70d6818f7046",
+				"method": "PUT"
+			},
+			{
+				"id": "4dae2634-22fa-4ec1-a9c9-af69ff0e5e88",
+				"method": "DELETE"
+			},
+			{
+				"id": "956459cd-61a0-4cb0-982b-bcaf651c5876",
+				"method": "GET"
+			},
+			{
+				"id": "78a4ab03-ddd4-45b0-bd6c-3b3e8d739b60",
+				"method": "POST"
+			},
+			{
+				"id": "6fe01f46-00c1-40c1-a64d-012d80c4e767",
+				"method": "GET"
+			},
+			{
+				"id": "655ed289-c2ee-444b-aaa0-ae60cfeda469",
+				"method": "PUT"
+			},
+			{
+				"id": "faa8e54a-b903-4e35-9917-058e9419c47a",
+				"method": "PUT"
+			},
+			{
+				"id": "e9c0c717-a9de-4739-a615-fca27f057367",
+				"method": "DELETE"
+			},
+			{
+				"id": "8b05f9cc-055e-4877-8710-aef039973aaa",
+				"method": "GET"
+			},
+			{
+				"id": "7ba61b28-3120-4e0f-b5d3-9d21ceeca39d",
+				"method": "GET"
+			},
+			{
+				"id": "625b5791-4a32-48c3-b0ce-45fc0072d6ee",
+				"method": "GET"
+			},
+			{
+				"id": "b64ab9eb-bedb-4ca3-8ddd-e049b2a5db24",
+				"method": "GET"
+			},
+			{
+				"id": "0aa678d0-9e7b-4374-8d04-77147c28e453",
+				"method": "POST"
+			},
+			{
+				"id": "5e945115-9f95-4f29-b294-dd70949031ba",
+				"method": "POST"
+			},
+			{
+				"id": "4e8f7c86-02d2-4230-8c11-ec91f3ce0664",
+				"method": "GET"
+			},
+			{
+				"id": "b026424d-9619-4178-96a1-b9773a0ba4a9",
+				"method": "POST"
+			},
+			{
+				"id": "8bbbf73b-017b-41db-b47f-1e43e9ef7acb",
+				"method": "GET"
+			},
+			{
+				"id": "9d428e6f-8960-4c97-97e5-9a4410ba1e62",
+				"method": "PUT"
+			},
+			{
+				"id": "f3fb90e8-34df-4cf3-9999-a14383b9b430",
+				"method": "DELETE"
+			},
+			{
+				"id": "f04513f0-a350-4052-9c0b-3a2bc3982df7",
+				"method": "GET"
+			}
+		]
+	}
+}
